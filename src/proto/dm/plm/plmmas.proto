@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package proto.dm.plm;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/plm";
+
+
+message PlmmasRequest{
+    int32  no        = 1;   //流水號
+    string prjno     = 2;   //專案代號
+    string prjseq    = 3;   //專案項次
+    int32  plmmenuno = 4;   //對應的目錄流水號
+    string kind      = 5;   //專案類型
+    int32  seq       = 6;   //專案序號
+    string admin     = 7;   //專案負責人
+    string reladmin  = 8;   //專案協辦人
+    string prestart  = 9;   //預定起始日
+    string preend    = 10;  //預定完成日
+    string actstart  = 11;  //實際起始日
+    string actend    = 12;  //實際完成日
+    int32  schedule  = 13;  //進度
+    string taskname  = 14;  //任務名稱
+    string memo      = 15;  //內容描述
+    string status    = 16;  //專案狀態
+    string indat     = 17;  //鍵入日期
+    string intime    = 18;  //鍵入時間
+    string usrno     = 19;  //鍵入人員
+}
+
+message PlmmasReply{
+    int64 rows_affect = 1;  //受影響的資料筆數
+}

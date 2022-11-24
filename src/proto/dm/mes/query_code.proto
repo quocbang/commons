@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message Code {
+  string code_value = 1;
+  string code_name  = 2;
+  string code_desc  = 3;
+  string sub_value  = 4;
+  string sub_name   = 5;
+  string sub_desc   = 6;
+}
+
+message GetCodeRequest {
+  string code_cate  = 1;
+  string code_value = 2;
+  string code_name  = 3;
+  string sub_cate   = 4;
+}
+
+message GetCodeReply {
+  repeated Code code_list = 1;
+}

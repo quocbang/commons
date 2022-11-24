@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/recipe.proto";
+import "proto/dm/rs/enums.proto";
+
+message GetTrimSpecMaterialsRequest {
+  string recipe_id = 1;
+}
+
+message GetTrimSpecMaterialsReply {
+  GetDataErrorCode       err      = 1;
+  message material_info {
+    string name  = 1;
+    string level = 2;
+    float  value = 3;
+  }
+  repeated material_info material = 2;
+}
+
+message GetRecipeIdRequest {
+  repeated FactoryID factory = 1; //對應發布廠別
+  string product_type    = 2;
+  string product_id      = 3;
+  int32 stage_status     = 4;
+}
+
+message GetRecipeIdReply {
+  GetDataErrorCode err       = 1;
+  string           recipe_id = 2;
+}
+
+message InsertOrUpdateTrimspecRequest {
+  repeated FactoryID factory        = 1;
+  string id                     = 2;
+  string product_id             = 3;
+  string product_type           = 4;
+  Version ref_spec_version      = 5;
+  repeated Material materials   = 6;
+}
+
+message InsertOrUpdateTrimspecReply {
+  GetDataErrorCode err = 1;
+}

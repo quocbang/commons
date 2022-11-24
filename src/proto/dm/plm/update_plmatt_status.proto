@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto.dm.plm;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/plm";
+
+message UpdatePlmattStatusRequest{
+    int32 no = 1;               //流水號
+    int32 seq = 2;              //項次
+    string status = 3;          //狀態
+}
+
+message UpdatePlmattStatusReply{
+    int64 rows_affect = 1;
+}

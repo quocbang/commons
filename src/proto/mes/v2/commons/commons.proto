@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto.mes.v2.commons;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/commons";
+
+message Decimal {  // E.g., -3.142 -> value = -3142, scale = -3
+    int64 value = 1;
+    int32 exp   = 2;
+}
+
+message Time {  // timestamp/duration in nanosecond
+    // now.UnixNano()
+    int64 nano = 1;
+}

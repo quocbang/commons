@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message EqptMtrl {
+  string container_id    = 1;
+  int32  container_type  = 2;
+  string mtrl_lot_id     = 3;
+  string mtrl_product_id = 4;
+  string mtrl_level      = 5;
+  float  stock_qty       = 6;
+}
+
+message GetEqptMaterialListRequest {
+  string eqpt_id         = 1;
+  string mtrl_product_id = 2;
+  string mtrl_lot_id     = 3;
+  string action_order    = 4;
+}
+
+message GetEqptMaterialListReply {
+  repeated EqptMtrl mtrl_list = 1;
+}

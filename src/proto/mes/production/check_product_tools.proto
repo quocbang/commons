@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+
+//檢核製工具請求
+message CheckProductToolsRequest {
+    // 工單號
+    string lot_id        = 1;
+    // 途程名稱
+    string process_name  = 2;
+    // 設備ID
+    string equipment_id  = 3;
+    // 是否為檢核全部, 為true時會檢查是否有漏掃
+    bool   all_check     = 4;
+    // 工具ID清單
+    repeated string tool_ids = 5;
+} 
+
+//檢核製工具回應
+message CheckProductToolsReply {
+    // 錯誤代碼    
+    code.error.CheckProdTools err = 1;
+}
+

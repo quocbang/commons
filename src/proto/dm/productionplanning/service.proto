@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.dm.productionplanning;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/productionplanning";
+
+import "proto/dm/productionplanning/equipment.proto";
+
+import "google/api/annotations.proto";
+
+service ProductionPlanning {
+  rpc GetEquipment(EquipmentRequest) returns (MultiEquipment) {
+    option (google.api.http) = {
+      post : "/productionPlanning/equipment/get"
+      body : "*"
+    };
+  }
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+message ListCodesRequest {
+  string code_category  = 1;
+  string code_value     = 2;
+  string code_name      = 3;
+  string sub_category   = 4;
+}
+
+message ListCodesReply {
+  message Code {
+    string code_value        = 1;
+    string code_name         = 2;
+    string code_description  = 3;
+    string sub_value         = 4;
+    string sub_name          = 5;
+    string sub_description   = 6;
+  }
+  repeated Code codes = 1;
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/error/enums.proto";
+
+// 檢查標示卡請求
+message CheckMaterialLotIDRequest {
+    // 標示卡條碼
+    string material_lot_id  = 1;
+    // 收料設備ID
+    string equipment_id     = 2;
+    // 工單號
+    string lot_id           = 3;
+    // 途程名稱 -- 建議要給, 此處取工單未指定投料或收料工單, 當不指定時會抓優先序最高的工單
+    string process_name     = 4;
+    // 操作者
+    string update_by        = 5;
+}
+
+// 檢查收料標示卡回應
+message CheckMaterialLotIDReply {
+    // 錯誤代碼
+    code.error.CheckMaterialLotID err = 1;
+}

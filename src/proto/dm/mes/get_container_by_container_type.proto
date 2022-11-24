@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message GetContainerByContypeRequest {
+  string eqpt_id        = 1;
+  string con_mtrl_type  = 2;
+  string con_mtrl_level = 3;
+}
+
+message GetContainerByContypeReply {
+  repeated List cotainers = 1;
+
+  message List {
+    string container_id = 1;
+  }
+}

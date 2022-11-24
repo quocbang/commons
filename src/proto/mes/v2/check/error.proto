@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package proto.mes.v2.check;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/check";
+
+message Error {
+    enum Code {
+        ERROR_NONE                   = 0;
+
+        // code value < 10000 reserved for plant side application, you should use gRPC error instead
+        // DO NOT USE IT AS MES API ERROR.
+        ERROR_INTERNAL               = 1;
+        ERROR_BAD_REQUEST            = 2;
+        reserved 3 to 9999;
+
+        ERROR_USER_NOT_FOUND_OR_BAD_PASSWORD = 10000;
+        ERROR_USER_NO_PERMISSION             = 10100;
+        ERROR_USER_MISSING_TOKEN             = 10200;
+        ERROR_USER_UNKNOWN_TOKEN             = 10300;
+
+        ERROR_STATION_NOT_FOUND = 20000;
+        // e.g., maintenance.
+        ERROR_STATION_ON_HOLD = 20100;
+
+        ERROR_RESOURCE_NOT_FOUND = 30000;
+        ERROR_RESOURCE_EXPIRED   = 30100;
+        ERROR_RESOURCE_ON_HOLD   = 30200;
+        // resource id has been used and thus not valid for new resource from Collect
+        ERROR_RESOURCE_EXISTED = 30300;
+        ERROR_RESOURCE_CONTROL_ABOVE_EXTENDED_COUNT = 30401;
+
+        ERROR_WORKORDER_NOT_FOUND = 40000;
+        // the batch is not allowed to be operated. e.g. CLOSED batch can not be closed.
+        ERROR_WORKORDER_BAD_BATCH = 40100;
+        // work order unexpected status, e.g: load feed work order only allowed ACTIVE status, load collect work order only allowed ACTIVE or CLOSING status.
+        ERROR_WORKORDER_BAD_STATUS = 40300;
+        // work order unexpected results, e.g: requested todo work order for feeding but return zero-length todo reply.
+        ERROR_WORKORDER_UNEXPECTED_RESULTS = 40400;
+
+        ERROR_CARRIER_NOT_FOUND = 50000;
+        // carrier in use and cannot be shared
+        ERROR_CARRIER_IN_USE = 50100;
+        // carrier can be shared but it's full
+        ERROR_CARRIER_FULL = 50200;
+
+        ERROR_BATCH_NOT_FOUND = 60000;
+        // not enough fed batch to collect
+        ERROR_BATCH_NOT_READY = 60100;
+
+        // not found query record.
+        ERROR_RECORD_NOT_FOUND = 70000;
+        // record has been collected.
+        ERROR_RECORD_EXISTED = 70100;
+
+        // other errors
+
+        ERROR_RECIPE_NOT_FOUND = 90000;
+
+        // User-Station errors
+
+        // the user is not the station/site operator.
+        ERROR_US_MISMATCH = 120100;
+        // e.g., not qualified/registered to operate the station.
+        ERROR_US_SIGN_ON_FORBIDDEN = 120300;
+
+        // Station-Resource errors
+
+        // the resource is bound to another station/site provided in details.
+        ERROR_SR_RESOURCE_IN_USE       = 230100;
+        ERROR_SR_SITE_NOT_FOUND        = 230200;
+        ERROR_SR_TOOL_MISSING          = 230300;
+        ERROR_SR_TOOL_MISMATCH         = 230400;
+        ERROR_SR_TOOL_HAS_BEEN_BOUND   = 230500;
+
+        // Station-WorkOrder errors
+
+        // the work order is not being executed the station
+        ERROR_SW_MISMATCH = 240100;
+
+        // Resource-WorkOrder errors
+
+        // details: "required_preprocess_name", e.g., "cutting"
+        ERROR_RW_RESOURCE_NOT_READY = 340100;
+        // the used quantity is less than the minimum quantity in the recipe.
+        ERROR_RW_QUANTITY_BELOW_MIN = 340201;
+        // the used quantity is greater than the maximum quantity in the recipe.
+        ERROR_RW_QUANTITY_ABOVE_MAX = 340202;
+        // the used quantity is less than the dosage.
+        ERROR_RW_QUANTITY_LOW_DOSAGE = 340203;
+        // the quantity of the stock is less than the specified quantity(e.g. used quantity, the minimum quantity in the recipe).
+        ERROR_RW_QUANTITY_SHORTAGE = 340204;
+        // details: "required_resource_grade", e.g., "AA"
+        ERROR_RW_BAD_GRADE = 340301;
+        // the resource is not in the work order recipe
+        ERROR_RW_RESOURCE_UNEXPECTED = 340400;
+        // the resource is required but missing
+        ERROR_RW_RESOURCE_MISSING = 340500;
+    }
+    Code   code    = 1;
+    string details = 2;
+}

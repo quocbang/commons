@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/enums.proto";
+
+message GetFreshnessRequest{
+    // 集團碼
+    string subCompany                    = 1;
+    // 產品/材料類別
+    proto.dm.rs.ProductType product_type = 2;
+    // resource name: could be process name or part of material ID. e.g., 10, 79700-9
+    string Resource                      = 3;
+    // 配方ID
+    string recipeID                      = 4;
+}

@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+package proto.mes.code;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/code";
+
+//資料操作定義
+enum FunctionModel {
+    //資料操作未定義(
+    FUNCTION_MODEL_UNSPECIFIED = 0;
+    //新增(Create)
+    CREATE                     = 1;
+    //讀取(Read)
+    READ                       = 2;
+    //更新(Update)
+    UPDATE                     = 3;
+    //刪除(Delete)
+    DELETE                     = 4;
+}
+
+//進出站flag
+enum Mode {
+    //進出站未定義
+    MODE_UNSPECIFIED = 0;
+    //進站
+    IN               = 1;
+    //出站
+    OUT              = 2;
+    //跳站
+    SKIP             = 3;
+}
+
+// 載具狀態
+enum CarrierStatus {
+    //載具狀態未定義
+    CARRIER_STATUS_UNSPECIFIED = 0;
+    //空載具
+    CARRIER_EMPTY = 1;
+    //使用中
+    CARRIER_REAL  = 2;
+}
+
+//桶槽狀態
+enum ContainerStatus {
+    //桶槽狀態未定義
+    CONTAINER_STATUS_UNSPECIFIED = 0;
+    //空載具
+    CONTAINER_EMPTY = 1;
+    //使用中
+    CONTAINER_REAL  = 2;
+}
+
+//工單狀態定義
+enum LotStatus {
+    LOT_STATUS_UNSPECIFIED = 0;
+    // for work order
+    //已排產尚未投料
+    RESERVED               = 1;
+    //已投料尚未投完
+    INPUT                  = 2;
+    //已投完尚未收完
+    PROCESSING             = 3;
+    //完成生產
+    COMPLETED              = 4;
+    //for work sheet
+    //準備投料
+    WAIT                   = 5;
+    //已入料
+    IN_PROGRESS            = 6;
+}
+
+//材料狀態定義
+enum MaterialStatus {
+    // 未定義
+    MATERIAL_STATUS_UNSPECIFIED = 0;
+    //可用
+    AVAILABLE                   = 1;
+    //管制
+    HOLD                        = 2;
+    //快檢中
+    INSPECTION                  = 3;
+    //掛載
+    MOUNTED                     = 4;
+    //不可用
+    UNAVAILABLE                 = 5;
+}
+
+//轉移明細移轉原因
+enum TransactionType {
+    //無定義
+    TRANSACTION_TYPE_UNSPECIFIED     = 0;
+    //生產
+    PRODUCTION                       = 1;
+    //調撥
+    TRANSFER_BETWEEN_FACTORY         = 2;
+    //代工
+    ORIGINAL_EQUIPMENT_MANUFACTURER  = 3;
+    //報廢
+    SCRAPPED                         = 4;
+    //買賣
+    BUYING_AND_SELLING               = 5;
+    //研發
+    RESEARCH_AND_DEVELOPMENT         = 6;
+}
+
+// 轉移明細移轉狀態 : 未確認, 接受, 拒絕
+enum TransactionStatus{
+    //無定義
+    TRANSACTION_STATUS_UNSPECIFIED  = 0;
+    //未確認
+    UNCONFIRMED                     = 1;
+    //確認中
+    CONFIRMING                      = 2;
+    //接受
+    ACCEPTED                        = 3;
+    //拒絕
+    DECLINED                        = 4;
+}
+
+// 出貨狀態
+enum ShippingStatus{
+    //無定義
+    SHIPPING_STATUS_UNSPECIFIED  = 0;
+    //已出貨
+    SHIPPED                      = 1;
+    //已收貨
+    RECEIVED                     = 2;
+}

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package proto.dm.per;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/per";
+
+message FlexibleWorkHourRequest {
+  string subno    = 1;
+  string empno    = 2;
+  string fromdate = 3;
+  string enddate  = 4;
+}
+
+message FlexibleWorkHour {
+  string subno    = 1;
+  string empno    = 2;
+  string fromdate = 3;
+  string enddate  = 4;
+  string indat    = 5;
+  string usrno    = 6;
+  string name     = 7;
+  string depno    = 8;
+  string depnodsc = 9;
+}
+
+message MultiFlexibleWorkHour {
+  repeated FlexibleWorkHour dataset = 1;
+}

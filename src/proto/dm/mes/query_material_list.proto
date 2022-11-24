@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message GetMaterialListRequest {
+  string mtrl_product_id = 1;
+  string mtrl_level      = 2;
+  string product_type    = 3;
+  string mtrl_lot_id     = 4;
+  string status          = 5;
+  int32  owned_fty_id    = 6;
+  string owned_dept_id   = 7;
+  string carrier_id      = 8;
+  string start_date      = 9;
+  string end_date        = 10;
+}
+
+message GetMaterialListReply {
+
+  repeated MaterialList materials = 1;
+
+  message MaterialList {
+    string lot_id              = 1;
+    string product_type        = 2;
+    string product_id          = 3;
+    string level               = 4;
+    int32  owned_factory_id    = 5;
+    string owned_department_id = 6;
+    string storage_id          = 7;
+    string carrier_id          = 8;
+    float  stock_qty           = 9;
+    float  min_use_qty         = 10;
+    string unit                = 11;
+    string expire_at           = 12;
+    string status              = 13;
+    string comments            = 14;
+    string update_at           = 15;
+    string update_by           = 16;
+    string insert_at           = 17;
+    string insert_by           = 18;
+  }
+
+  bool hasMMMaterial = 2; // true: has MMTRLST material data; otherwise no data in MMTRLST.
+}

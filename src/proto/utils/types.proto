@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package proto.utils;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/utils";
+
+// Decimal is a substitution of the numeric, including float, double, int32, int64.
+message Decimal {
+    string value = 1;
+}

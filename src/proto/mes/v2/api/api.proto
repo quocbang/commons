@@ -1,0 +1,356 @@
+syntax = "proto3";
+
+package proto.mes.v2.api;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/api";
+
+import "google/protobuf/timestamp.proto";
+
+import "proto/mes/v2/commons/commons.proto";
+import "proto/mes/v2/check/check.proto";
+import "proto/mes/v2/check/error.proto";
+import "proto/mes/v2/recipe/recipe.proto";
+import "proto/mes/v2/resource/resource.proto";
+import "proto/mes/v2/workorder/workorder.proto";
+
+message Context {
+    string user    = 1;
+    string station = 2;
+}
+
+//---------------------------------------------------------------------------//
+// Operator Sign-In and Sign-Out
+//---------------------------------------------------------------------------//
+
+message OperatorRequest {
+    bool         in        = 1;  // true for signing-in; false for signing-out
+    int32        group     = 2;  // group of operator
+    commons.Time workDate  = 3;
+    int32        shift     = 4;  // optional shift info
+
+    bool onlyValidation = 5;
+}
+
+message OperatorReply {
+    check.Error error   = 1;  // expecting 1xxxxx, 2xxxxx, 12xxxxx errors
+}
+
+//---------------------------------------------------------------------------//
+// Resource lookup, bind, and feed
+//---------------------------------------------------------------------------//
+
+
+// Common result structure for resource actions including binding & feeding
+message ResourceResult {
+    check.Error     error    = 1;
+
+    // involved resource lot/serial ID and info
+    resource.ID     id       = 2;  // can be NULL, e.g., we don't have an ID for ERROR_RW_RESOURCE_MISSING since it's missing from the action
+    resource.Info   info     = 3;  // can be NULL, e.g., we won't have resource info for ERROR_RESOURCE_NOT_FOUND
+
+    // used quantity and resource site
+    commons.Decimal quantity = 4;  // quantity used; may be NULL for ActionMode=ACTION_PRECHECK and errors
+    string          site     = 5;  // site used for the action; empty if not applicable.
+
+    // corresponding recipe resource group and requirement
+    string                     group       = 6;
+    recipe.ResourceRequirement requirement = 7;  // can be NULL, e.g., ERROR_RW_RESOURCE_UNEXPECTED
+}
+
+// Bind resource to station site
+// type: 決定resource以哪種型式進行掛載
+// site.selector     : 預設site為唯一的, 能指定將resource bind到指定的工位
+// site.queueLocation: 決定材料堆疊的地方
+// 材料沒有指定重量則將所有材料庫存綁定(同時材料庫存會扣除)
+message ResourceBind {
+    enum BindType {
+        RESOURCE_BINDING_NONE = 0;  // not binding any resource
+
+        // add to a non-discrete resource site, e.g., oil tank
+        RESOURCE_BINDING_CONTAINER_BIND   = 1001;  // bind or replace existing
+        RESOURCE_BINDING_CONTAINER_ADD    = 1002;
+        RESOURCE_BINDING_CONTAINER_CLEAR  = 1010;
+
+        // bind to a 1-1 resource site
+        RESOURCE_BINDING_SLOT_BIND        = 1101;  // bind or replace existing
+        RESOURCE_BINDING_SLOT_CLEAR       = 1110;
+
+        // insert into or remove from a resource collection site
+        RESOURCE_BINDING_COLLECTION_BIND  = 1201;  // bind or replace existing
+        RESOURCE_BINDING_COLLECTION_ADD   = 1202;
+        RESOURCE_BINDING_COLLECTION_CLEAR = 1210;
+
+        // queue for a one-at-a-time resource site
+        RESOURCE_BINDING_QUEUE_BIND       = 2101;  // bind or replace an element of the queue
+        RESOURCE_BINDING_QUEUE_CLEAR      = 2110;  // clear the resources bound to an element of the queue
+        RESOURCE_BINDING_QUEUE_PUSH       = 2121;  // add new member to the tail of the queue
+        RESOURCE_BINDING_QUEUE_PUSHPOP    = 2122;  // add new memeber to the tail while removing the head member
+        RESOURCE_BINDING_QUEUE_POP        = 2123;  // remove the head member of the queue
+        RESOURCE_BINDING_QUEUE_REMOVE     = 2124;  // remove a member of the queue
+
+        // collection pipeline
+        RESOURCE_BINDING_COLQUEUE_BIND    = 2201;  // bind or replace an element of the queue
+        RESOURCE_BINDING_COLQUEUE_ADD     = 2202;  // add to an element of the queue
+        RESOURCE_BINDING_COLQUEUE_CLEAR   = 2210;  // clear the resources bound to an element of the queue
+        RESOURCE_BINDING_COLQUEUE_PUSH    = 2221;  // add new member to the tail of the queue
+        RESOURCE_BINDING_COLQUEUE_PUSHPOP = 2222;  // add new memeber to the tail while removing the head member
+        RESOURCE_BINDING_COLQUEUE_POP     = 2223;  // remove the head member of the queue
+        RESOURCE_BINDING_COLQUEUE_REMOVE  = 2224;  // remove a member of the queue
+    }
+    BindType type = 1;
+
+    message Site {
+        string name = 1;
+        oneof selector {
+            bool   unique = 2;
+            uint32 index  = 3;  // i-th site with the name; 1-indexed
+        }
+        oneof queueLocation {  // optional queue location for queue bind, add, clear, and remove
+            bool   head       = 4;
+            bool   tail       = 5;
+            uint32 queueIndex = 6;  // 1-indexed
+        }
+    }
+    Site site = 2;
+
+    message Resource {
+        resource.ID     id       = 1;
+        commons.Decimal quantity = 2;  // use all if NULL
+    }
+    repeated Resource resources  = 3;  // may be empty, e.g., POP, CLEAR
+
+    reserved 4; // workOrder
+    reserved 5; // batch
+
+    string group           = 6;  // optional: non-empty if it's for a particular resource group
+    bool   quantityGrouped = 7;  // true if needs to be calculated bind quantity with same materials
+}
+
+message ResourceBindRequest {
+    repeated ResourceBind binds = 1;
+    check.ResourceAction  check = 2;
+
+    bool doNotPrepareBatch = 3;  // By default, the first successful resource action of a batch attempts to create the batch and mark it as BATCH_PRAPARING.
+}
+
+message ResourceBindReply {
+    repeated ResourceResult results  = 1;
+}
+
+message ResourceFeed {
+    message SiteReference {
+        string station = 5;
+        string name    = 1;
+        oneof selector {
+            bool   unique   = 2;  // use the one and only site with the name
+            uint32 index    = 3;  // use site name#index
+            string resource = 4;  // use site with the specified name and resource
+        }
+    }
+    message Resource {
+        string id          = 1;
+        string productType = 2;
+    }
+
+    SiteReference   site       = 1;
+    Resource        resource   = 4;
+    commons.Decimal quantity   = 2;  // NULL for using all remaining quantity
+    bool            cumulative = 3;  // true if the above quantity is the cumulative value (including this action) for the work order batch
+}
+
+message ResourceFeedRequest {
+    repeated ResourceFeed feeds = 1;
+    check.ResourceAction  check = 2;
+
+    bool            doNotStartBatch = 3; // By default, the first successful resource feed of a batch attempts to create (if not yet) and start a batch.
+    bool            closeBatch      = 4; // true if this is the last resource feed -> CLOSING
+    bool            accordingRecipe = 5; // true if the quantity of `feeds` is according to the recipe
+}
+
+message ResourceFeedReply {
+    repeated ResourceResult results  = 1;
+
+    bool enforceable = 2; // 是否可強制執行
+    bool enforceDone = 3; // 是否強制執行完成
+}
+
+//---------------------------------------------------------------------------//
+// Collect
+//---------------------------------------------------------------------------//
+
+message CollectRequest {
+    check.ActionMode actionMode      = 1;  // collect mode: AUTO/FORCE
+    string           workOrder       = 2;
+    int32            collectBatch    = 3;  // Note: collect batch may not be the same as work order batch
+    string           collector       = 4;  // optional collector site name (in case there are more than one)
+    commons.Decimal  quantity        = 5;
+    resource.ID      resource        = 6;  // optional resource ID, if proposed by the station
+    string           carrier         = 7;  // optional container/vehicle ID for holding the collected
+    repeated string  labelFields     = 8;  // collected resource's specific label fields data
+    int32            sequence        = 9;  // collect sequence
+    bool             onlyQueryLabels = 10; // only do query collected label fields data; requires: workOrder, sequence. labelFields.
+
+    message Feed {
+        repeated ResourceFeed feeds           = 1;
+        bool                  accordingRecipe = 2; // true if the quantity of `feeds` is according to the recipe
+    }
+    Feed feed = 11;
+
+    message Product {
+        string id   = 1;
+        string unit = 2;
+    }
+    Product product = 12;
+}
+
+message CollectReply {
+    check.Error   error         = 1;
+    resource.ID   resource      = 2;  // collected resource ID assigned either by the station or server
+
+    message labelField {
+        oneof value {
+            commons.Time    time    = 1; // manufacture_date, expiry
+            commons.Decimal decimal = 2; // collect_quantity,
+            string          string  = 3; // product_type, process_name, station, operator, batch, lot, lot_number
+        }
+    }
+    // more collected resource info for display and printing.
+    // string表示標示卡欄位說明,labelField 為value
+    map<string,labelField> labelFields = 3;
+
+    bool enforceable = 4; // 是否可強制執行
+    bool enforceDone = 5; // 是否強制執行完成
+}
+
+//---------------------------------------------------------------------------//
+// WorkOrder life cycle
+//---------------------------------------------------------------------------//
+
+message WorkOrderRequest {
+    repeated string skipWorkOrders = 1;  // PENDING -> SKIPPED
+    string          closeWorkOrder = 2;  // ACTIVE  -> CLOSING (close feed operation)
+    string          startWorkOrder = 3;  // PENDING -> ACTIVE
+
+    message LoadWorkOrders {
+        uint32 past = 1;  // loads the last N past (CLOSING, CLOSED, and SKIPPED if requested below) work orders
+        uint32 todo = 2;  // loads the next N ACTIVE (inclusive) and PENDING work orders
+
+        bool   pastIncludesSkipped = 3; // included SKIPPED work orders
+        bool   pastIncludesClosed  = 4; // included CLOSED work orders
+        uint32 todosWithDetails    = 5; // loads the first N TODOs with recipe details
+    }
+    LoadWorkOrders loadWorkOrders = 4;
+    string         note           = 5;  // e.g., reason to skip
+
+    // Manual change to batch status
+    message BatchAction {
+        string                workOrder = 1;
+        uint32                batch     = 2;
+        workorder.BatchStatus status    = 3;
+        string                note      = 4;
+    }
+    BatchAction batchAction = 6;
+
+    check.ActionMode closeMode = 7;  // closeWorkOrder mode: AUTO/FORCE
+
+    string finishWorkOrder = 8; // CLOSING -> CLOSED (finish collect operation)
+}
+
+message WorkOrderReply {
+    check.Error error = 1;
+
+    message WorkOrders {
+        repeated workorder.Info past = 1;
+        repeated workorder.Info todo = 2;
+    }
+    WorkOrders workOrders = 2;
+}
+
+message RecipeRequest {
+    message Packing {
+        string packingNumber = 1;
+
+        message BoxNumber {
+            int32 number = 1;
+        }
+        BoxNumber box = 2;
+    }
+    message Resource {
+        string id          = 1;
+        string productType = 2;
+    }
+
+    oneof idType {
+        Packing  packing  = 1;
+        Resource resource = 2;
+        string   recipeID = 3;
+    }
+
+    bool withoutRecipeDetails = 4;
+}
+
+message RecipeReply {
+    check.Error error = 1;
+
+    string        product  = 2;
+    recipe.Recipe recipe   = 3;
+
+    message Packing {
+        string          specification = 1;
+        commons.Decimal quantity      = 2;
+    }
+    Packing packing = 4;
+}
+
+message RecordPackingRequest {
+    message Record {
+        google.protobuf.Timestamp timestamp     = 1;
+        string                    packingNumber = 2;
+        int32                     boxNumber     = 3;
+        commons.Decimal           quantity      = 4;
+        commons.Decimal           totalWeight   = 5;
+    }
+    repeated Record records = 1;
+}
+
+message RecordPackingReply {
+    check.Error error = 1;
+}
+
+message ListResourcesRequest {
+    repeated resource.ID ids = 1;
+}
+
+message ListResourcesReply {
+    message ResourceResult {
+        check.Error error = 1;
+
+        resource.ID   id   = 2;
+        resource.Info info = 3;
+    }
+
+    repeated ResourceResult results = 1;
+}
+
+message UploadProductionParametersRequest {
+    string station = 1;
+    int32  batch   = 2;
+
+    repeated string resources = 3;
+
+    message Params {
+        message Parameters {
+            message Value {
+                oneof value {
+                    commons.Decimal decimal = 1;
+                    string          string  = 2;
+                }
+            }
+            google.protobuf.Timestamp dateTime = 1;
+            repeated Value            values   = 2;
+        }
+
+        repeated string     headers = 1;
+        repeated Parameters params  = 2;
+    }
+    Params params = 4;
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message AddMeqptRequest {
+  string eqpt_id       = 1;
+  int32  owned_fty_id  = 2;
+  string owned_dept_id = 3;
+  string bay_id        = 4;
+  string eqpt_dsc      = 5;
+  string volume        = 6;
+  string prod_types    = 7;
+  string update_by     = 8;
+}
+
+message AddMeqptReply {}

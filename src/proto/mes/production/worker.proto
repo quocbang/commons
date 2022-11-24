@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/error/enums.proto";
+
+//登入/登出請求
+message LoginAndLogoutRequest{
+    // 類別 I = login , O = logout
+    enum Mode {
+        // 登入
+        LOGIN  = 0;
+        // 登出
+        LOGOUT = 1;
+    }
+    Mode action_mode        = 1;
+    //作業機台號
+    string equipment_id     = 2;
+    //操作者
+    string update_by        = 3;
+    //工作日
+    string work_date        = 4;
+    //班別
+    string shift            = 5;
+    //廠別
+    string sub_company      = 6;
+    //員工工號
+    string employee_number  = 7;
+}
+
+// 登入登出回應
+message LoginAndLogoutReply{
+    // 錯誤代碼
+    code.error.LoginAndLogout err = 1;
+    //職稱 for permission control
+    //     select jobtit from permas
+    //     this column values is mapping by seccod.codekind = 'KE'
+    string job_title              = 2;
+    // 員工姓名
+    string employee_name          = 3;
+    // 部門代號
+    string department_id          = 4;
+}

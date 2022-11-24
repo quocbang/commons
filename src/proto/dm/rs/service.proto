@@ -1,0 +1,287 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "proto/dm/rs/material.proto";
+import "proto/dm/rs/process.proto";
+import "proto/dm/rs/property.proto";
+import "proto/dm/rs/recipe.proto";
+import "proto/dm/rs/recipe_dump.proto";
+import "proto/dm/rs/recipe_info.proto";
+import "proto/dm/rs/spec_info.proto";
+import "proto/dm/rs/trimspec_info.proto";
+import "proto/dm/rs/freshness.proto";
+import "proto/mes/v2/recipe/recipe.proto";
+
+//RS recipe and spec service.
+service RS {
+  // ～*～*～*～*～*～　Recipe 配合表　～*～*～*～*～*～　//
+  // CheckProcessExists 確認產品代號是否存在.
+  rpc CheckProcessExists(CheckProcExistsRequest) returns (CheckProcExistsReply) {
+    option (google.api.http) = {
+      post : "/recipe/processExists/get"
+      body : "*"
+    };
+  }
+  // GetRecipeMaterials 取得指定配合表使用材料(指定階段).
+  rpc GetRecipeMaterials(GetRecipeMaterialsRequest) returns (GetRecipeMaterialsReply) {
+    option (google.api.http) = {
+      post : "/recipe/process/materials/get"
+      body : "*"
+    };
+  }
+  // GetRecipeAllMaterials 取得指定配合表所有使用材料(計算重量用).
+  rpc GetRecipeAllMaterials(GetRecipeAllMaterialsRequest) returns (GetRecipeAllMaterialsReply) {
+    option (google.api.http) = {
+      post : "/recipe/processes/materials/get"
+      body : "*"
+    };
+  }
+  // GetCtrlParams 取得指定配合表之指定控制參數.
+  rpc GetCtrlParams(GetCtrlParamsRequest) returns (GetCtrlParamsReply) {
+    option (google.api.http) = {
+      post : "/recipe/ctrlParams/get"
+      body : "*"
+    };
+  }
+  // GetMeasParams 取得指定配合表之指定量測參數.
+  rpc GetMeasParams(GetMeasParamsRequest) returns (Step) {
+    option (google.api.http) = {
+      post : "/recipe/measParams/get"
+      body : "*"
+    };
+  }
+  // GetProdType 取得該廠的產品類別.
+  rpc GetProdType(GetProdTypeRequest) returns (GetProdTypeReply) {
+    option (google.api.http) = {
+      post : "/recipe/prodType/get"
+      body : "*"
+    };
+  }
+  // GetProdID 取得該類別的產品ID(最新版).
+  rpc GetProdID(GetProdIDRequest) returns (GetProdIDReply) {
+    option (google.api.http) = {
+      post : "/recipe/prodID/get"
+      body : "*"
+    };
+  }
+  // GetAllVersionProdID 取得該類別的產品ID(全部版本).
+  rpc GetAllVersionProdID(GetProdIDRequest) returns (GetProdIDReply) {
+    option (google.api.http) = {
+      post : "/recipe/allVersionProdID/get"
+      body : "*"
+    };
+  }
+  // GetMtrlProdID 取得該類別的產品ID(材料庫清單).
+  rpc GetMtrlProdID(GetMtrlProdIDRequest) returns (GetMtrlProdIDReply) {
+    option (google.api.http) = {
+      post : "/recipe/mtrlProdID/get"
+      body : "*"
+    };
+  }
+  // GetProcNames 取得該製程所有的Process name(生產站).
+  rpc GetProcNames(GetProcNamesRequest) returns (GetProcNamesReply) {
+    option (google.api.http) = {
+      post : "/recipe/procNames/get"
+      body : "*"
+    };
+  }
+  // GetProcName 取得該Process name關聯的Process(取得上一筆或下一筆).
+  rpc GetProcName(GetProcNameRequest) returns (GetProcNameReply) {
+    option (google.api.http) = {
+      post : "/recipe/procName/get"
+      body : "*"
+    };
+  }
+  // GetRecipeAllProcesses 取得該製程所有的Process name(全部).
+  rpc GetRecipeAllProcesses(GetRecipeAllProcessesRequest) returns (GetRecipeAllProcessesReply) {
+    option (google.api.http) = {
+      post : "/recipe/processes/get"
+      body : "*"
+    };
+  }
+  // GetEqptProduct 取得機台對應的所有ProcessName集合.
+  rpc GetEqptProduct(GetEqptProductRequest) returns (GetEqptProductReply) {
+    option (google.api.http) = {
+      post : "/recipe/products/get"
+      body : "*"
+    };
+  }
+  // GetProcEqpt 取得ProcessName對應的所有機台集合.
+  rpc GetProcEqpt(GetProcEqptRequest) returns (GetProcEqptReply) {
+    option (google.api.http) = {
+      post : "/recipe/procEqpt/get"
+      body : "*"
+    };
+  }
+
+  // GetRecipeProdType 取得該產品的生產類別.
+  rpc GetRecipeProdType(GetRecipeProdTypeRequest) returns (GetRecipeProdTypeReply) {
+    option (google.api.http) = {
+      post : "/recipe/recipeProdType/get"
+      body : "*"
+    };
+  }
+  //取得階段Steps
+  rpc GetProcessSteps(GetProcessStepsRequest) returns (GetProcessStepsReply) {
+    option (google.api.http) = {
+      post: "/recipe/process/steps/get"
+      body: "*"
+    };
+  }
+  //取得階段Tools
+  rpc GetProcessTools(GetProcessToolsRequest) returns (GetProcessToolsReply) {
+    option (google.api.http) = {
+      post: "/recipe/process/tools/get"
+      body: "*"
+    };
+  }
+  //取得recipe資料表的所有資料
+  rpc GetRecipeAllDetails(GetRecipeAllDetailsRequest) returns (GetRecipeAllDetailsReply) {
+    option (google.api.http) = {
+      post: "/recipe/all/details/get"
+      body: "*"
+    };
+  }
+  //新增配合表資料
+  rpc InsertOrUpdateRecipe(InsertOrUpdateRecipeRequest) returns (InsertOrUpdateRecipeReply) {
+    option (google.api.http) = {
+      post: "/recipe/insertOrUpdate/add"
+      body: "*"
+    };
+  }
+
+  // ～*～*～*～*～*～　ArouteActive 配合表最新版/月結版紀錄檔　～*～*～*～*～*～　//
+  // UpdateActiveVersion 更新發行版本.
+  rpc UpdateActiveVersion(UpdateActiveVersionRequest) returns (UpdateActiveVersionReply) {
+    option (google.api.http) = {
+      post : "/recipe/activeVersion/update"
+      body : "*"
+    };
+  }
+
+  // ～*～*～*～*～*～　Spec　～*～*～*～*～*～　//
+  //取得配方表的材料明細
+  rpc GetSpecMaterials(GetSpecMaterialsRequest) returns (GetSpecMaterialsReply) {
+    option (google.api.http) = {
+      post : "/spec/materials/get"
+      body : "*"
+    };
+  }
+  //取得來源spec ID
+  rpc GetParentSpecId(GetParentSpecIdRequest) returns (GetParentSpecIdReply) {
+    option (google.api.http) = {
+      post : "/spec/id/get"
+      body : "*"
+    };
+  }
+  //取得配方表的產品清單(對應發布廠)
+  rpc GetSpecProdList(GetSpecProdListRequest) returns (GetSpecProdListReply) {
+    option (google.api.http) = {
+      post: "/spec/products/get"
+      body: "*"
+    };
+  }
+  //取得配方表的物性
+  rpc GetSpecProperty(GetSpecPropertyRequest) returns (GetSpecPropertyReply) {
+    option (google.api.http) = {
+      post: "/spec/properties/get"
+      body: "*"
+    };
+  }
+
+  // ～*～*～*～*～*～　TrimSpec　微調配方表～*～*～*～*～*～　//
+  //取得微調配方表的材料明細
+  rpc GetTrimSpecMaterials(GetTrimSpecMaterialsRequest) returns (GetTrimSpecMaterialsReply) {
+    option (google.api.http) = {
+      post : "/trimspec/materials/get"
+      body : "*"
+    };
+  }
+  //取得新增微調配方表的RecipeId (由程式依照固定格式產生)
+  rpc GetRecipeId(GetRecipeIdRequest) returns (GetRecipeIdReply) {
+    option (google.api.http) = {
+      post: "/trimspec/recipeId/get"
+      body: "*"
+    };
+  }
+  //新增微調配方表
+  rpc InsertOrUpdateTrimspec(InsertOrUpdateTrimspecRequest) returns (InsertOrUpdateTrimspecReply) {
+    option (google.api.http) = {
+      post: "/trimspec/insertOrUpdate/add"
+      body: "*"
+    };
+  }
+  // GetFreshness get freshness info since resource creation
+  rpc GetFreshness(GetFreshnessRequest) returns (proto.mes.v2.recipe.Freshness) {
+    option (google.api.http) = {
+      post : "/recipe/freshness/get"
+      body : "*"
+    };
+  }
+  // 以下excel import/export用
+  // ListRecipe get recipe by ID
+  rpc ListRecipe(ListRecipeRequest) returns (ListRecipeReply) {
+    option (google.api.http) = {
+      get : "/recipe/id/{ID}"
+      additional_bindings: {
+        get : "/recipe/spec/{specID}",
+      }
+      additional_bindings: {
+        get : "/recipe/factory/{factory}",
+      }
+      additional_bindings: {
+        get : "/recipe/factory/{factory}/type/{productType}",
+      }
+      additional_bindings: {
+        get : "/recipe/factory/{factory}/type/{productType}/product/{productID}",
+      }
+      additional_bindings: {
+        get : "/recipe/factory/{factory}/type/{productType}/product/{productID}/stage/{stageStatus}",
+      }
+    };
+  }
+  // PutRecipe insert or replace recipe
+  rpc PutRecipe(Recipe) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/recipe"
+      body : "*"
+    };
+  }
+  // GenerateRecipeID generate recipe ID
+  rpc GenerateRecipeID(GenerateRecipeIDRequest) returns (GenerateRecipeIDReply) {
+    option (google.api.http) = {
+      post: "/recipe/id/generate"
+      body: "*"
+    };
+  }
+  // ListSpec get spec by ID
+  rpc ListSpec(ListSpecRequest) returns (ListSpecReply) {
+    option (google.api.http) = {
+      get : "/spec/id/{ID}"
+      additional_bindings: {
+        get : "/spec/factory/{factory}",
+      }
+      additional_bindings: {
+        get : "/spec/factory/{factory}/type/{productType}",
+      }
+      additional_bindings: {
+        get : "/spec/factory/{factory}/type/{productType}/product/{productID}",
+      }
+      additional_bindings: {
+        get : "/spec/factory/{factory}/type/{productType}/product/{productID}/stage/{stageStatus}",
+      }
+    };
+  }
+  // PutSpec insert or replace spec
+  rpc PutSpec(Spec) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/spec"
+      body : "*"
+    };
+  }
+}

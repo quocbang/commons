@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message UpdatePrepareOrderInfoRequest {
+  string   user              = 1;
+  repeated UpdatePreps preps = 2;
+}
+
+message UpdatePreps {
+  //廠別
+  int32  fty_id = 1;
+  //工單號
+  string lot_id = 2;
+  //中間製品識別碼
+  string product_id = 3;
+  //製程類別 R「暫定」、N「正式」、P「試產」、T「試做」
+  int32  stage_status = 4;
+  //中間製品生產版本
+  string major_version = 5;
+  //備料成品代號
+  string cr_process_name = 6;
+  //備料成品代號
+  string nx_process_name = 7;
+  //排程機台
+  string resv_eqpt_id = 8;
+  //排程日期
+  string resv_date = 9;
+  //排程班別
+  string resv_shift = 10;
+  //排程序號
+  string shift_seq = 11;
+  //備料狀態
+  string prep_stat = 12;
+  //備料日期
+  string prep_date = 13;
+  //備料序號
+  string prep_seq_no = 14;
+  //須備料數量
+  float  plan_opt_qty = 15;
+  //已備料數量
+  float  comp_qty = 16;
+  //須備料首數
+  int32  plan_sht_cnt = 17;
+  //已備料首數
+  int32  comp_sht_cnt = 18;
+  //更改日期
+  string update_at = 19;
+  //更改者
+  string update_by = 20;
+  //建立日期
+  string insert_at = 21;
+  //建立者
+  string insert_by = 22;
+  //備料類型
+  string preprae_type = 23;
+}
+
+message UpdatePrepareOrderInfoReply {}

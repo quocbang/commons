@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package proto.dm.plm;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/plm";
+
+import "google/api/annotations.proto";
+
+import "proto/dm/plm/update_plmatt_status.proto";
+import "proto/dm/plm/get_plmatt_max_seq.proto";
+import "proto/dm/plm/list_plmmas.proto";
+import "proto/dm/plm/list_plmmas_tree.proto";
+import "proto/dm/plm/list_plmatt.proto";
+import "proto/dm/plm/plmmas.proto";
+import "proto/dm/plm/plmatt.proto";
+
+//PLM PLM service.
+service PLM {
+  //取得PLM專案項次資料
+  rpc ListPlmmas(ListPlmmasRequest) returns(ListPlmmasReply){
+    option (google.api.http) = {
+      post : "/plm/listPlmmas"
+      body : "*"
+    };
+  }
+
+  //取得PLM專案項次資料
+  rpc ListPlmmasTree(ListPlmmasTreeRequest) returns(ListPlmmasTreeReply){
+    option (google.api.http) = {
+      post : "/plm/listPlmmasTree"
+      body : "*"
+    };
+  }
+
+  //新增PLM專案資料
+  rpc CreatePlmmas(PlmmasRequest) returns (PlmmasReply){
+    option(google.api.http)={
+      post: "/plm/createPlmmas"
+      body: "*"
+    };
+  }
+
+   //更新PLM專案資料
+   rpc UpdatePlmmas(PlmmasRequest) returns (PlmmasReply){
+     option(google.api.http)={
+       post: "/plm/updatePlmmas"
+       body: "*"
+     };
+   }
+
+   //新增附件
+   rpc CreatePlmatt(PlmattRequest) returns (PlmattReply){
+     option(google.api.http)={
+       post: "/plm/fileupload/create"
+       body: "*"
+     };
+   }
+
+   //修改附件
+   rpc UpdatePlmatt(PlmattRequest) returns (PlmattReply){
+      option(google.api.http)={
+        post: "/plm/fileupload/update"
+        body: "*"
+      };
+   }
+
+   //查詢附件列表
+   rpc ListPlmatt(ListPlmattRequest) returns (ListPlmattReply){
+     option(google.api.http)={
+       post: "/plm/fileupload/list"
+       body: "*"
+     };
+   }
+
+   //更新附件狀態
+   rpc UpdatePlmattStatus(UpdatePlmattStatusRequest) returns (UpdatePlmattStatusReply){
+     option(google.api.http)={
+       post: "/plm/fileupload/updatePlmattStatus"
+       body: "*"
+     };
+   }
+
+   //取得最大SEQ
+   rpc GetPlmattMaxSeq(GetPlmattMaxSeqRequest) returns (GetPlmattMaxSeqReply){
+     option(google.api.http)={
+       post: "/plm/fileupload/getPlmattMaxSeq"
+       body: "*"
+     };
+   }
+
+}

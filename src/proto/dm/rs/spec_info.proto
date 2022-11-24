@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/recipe.proto";
+
+message GetSpecMaterialsRequest {
+  string recipe_id      = 1;
+  string parent_spec_id = 2;
+}
+
+message GetSpecMaterialsReply {
+  GetDataErrorCode       err            = 1;
+  string                 parent_spec_id = 2;
+  message material_info {
+    string name  = 1;
+    float  value = 2;
+  }
+  repeated material_info material       = 3;
+}
+
+message GetParentSpecIdRequest {
+  FactoryID       factory      = 1;
+  string      product_type = 2;
+  string      product_id   = 3;
+  StageStatus stage_status = 4;
+}
+
+message GetParentSpecIdReply {
+  GetDataErrorCode err = 1;
+  repeated string  id  = 2;
+}
+
+message GetSpecProdListRequest {
+  FactoryID factory       = 1; //對應發布廠別
+  string product_type = 2;
+}
+
+message GetSpecProdListReply {
+  GetDataErrorCode err      = 1;
+  repeated string  prodList = 2;
+}
+
+message GetSpecPropertyRequest {
+  FactoryID factory       = 1; //開放的廠別
+  string spec_id = 2;
+}
+
+message GetSpecPropertyReply {
+  GetDataErrorCode  err        = 1;
+  repeated Property properties = 2; //物性
+}

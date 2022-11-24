@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message AddPrepareOrderRequest {
+  int32    fty_id         = 1;
+  string   lot_id         = 2;
+  string   product_id     = 3;
+  string   major_version  = 4;
+  string   stage_status   = 5;
+  string   resv_eqpt_id   = 6;
+  string   resv_date      = 7;
+  string   resv_shift     = 8;
+  string   shift_seq      = 9;
+  float    plan_opt_qty   = 10;
+  float    total_qty      = 11;
+  string   user           = 12;
+  repeated PreBom preboms = 13;
+}
+
+message PreBom {
+  string type          = 1;
+  string name          = 2;
+  string level         = 3;
+  float  value         = 4;
+  string mtrl_type     = 5;
+  float  error_margin  = 6;
+  string req_recipe_id = 7;
+}
+
+message AddPrepareOrderReply {}

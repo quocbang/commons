@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto.dm.dui;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/dui";
+
+import "google/api/annotations.proto";
+import "proto/dm/dui/query.proto";
+
+// DUI system
+service DUI {
+  // Query gets data from table or view via query conditions
+  rpc Query(QueryRequest) returns (QueryReply) {
+    option (google.api.http) = {
+      post : "/dui/query"
+      body : "*"
+    };
+  }
+}
+

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+message ListDepartmentsRequest {
+    enum Action {
+        UNSPECIFIED = 0 ;
+        DEPARTMENT  = 1;
+        CLASS       = 2;
+        GROUP       = 3;
+    }
+    Action action_type    = 1; //0= all department, 1 = Department, 2 = Class, 3 = Group
+    string sub_company    = 2;
+    string serial_no      = 3;
+    string department_id  = 4;
+}
+
+message ListDepartmentsReply {
+    repeated Department departments = 1;
+    message Department {
+        string id = 1;
+        string description = 2;
+    }
+}

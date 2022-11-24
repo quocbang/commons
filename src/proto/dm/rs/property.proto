@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/recipe.proto";
+
+message GetCtrlParamsRequest {
+  string recipe_id           = 1;
+  string station             = 2;
+  string process_name        = 3;
+}
+
+message GetMeasParamsRequest {
+  string recipe_id           = 1;
+  string station             = 2;
+  string process_name        = 3;
+}
+
+message GetCtrlParamsReply {
+  GetDataErrorCode err = 1;
+  repeated Step steps  = 2;
+}
+
+message Step {
+  GetDataErrorCode  err        = 1;
+  int32 id                     = 2; //操作順序
+  repeated Property properties = 3;
+}

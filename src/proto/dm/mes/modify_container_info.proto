@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+// Modify Container Info
+message UpdateContainerRequest {
+  string container_id   = 1;
+  int32  owned_fty_id   = 2;
+  string owned_dept_id  = 3;
+  string con_stat       = 4;
+  string con_mtrl       = 5;
+  string con_mtrl_level = 6;
+  string update_by      = 7;
+}
+
+message UpdateContainerReply {}

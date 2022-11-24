@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/recipe.proto";
+
+message ListRecipeRequest {
+    string      ID          = 1;
+    FactoryID   factory     = 2;
+    ProductType productType = 3;
+    string      productID   = 4;
+    StageStatus stageStatus = 5;
+    string      specID      = 6;
+}
+
+message ListRecipeReply {
+    repeated Recipe recipes = 1;
+}
+
+message ListSpecRequest {
+    string      ID          = 1;
+    FactoryID   factory     = 2;
+    ProductType productType = 3;
+    string      productID   = 4;
+    StageStatus stageStatus = 5;
+}
+
+message ListSpecReply {
+    repeated Spec specs = 1;
+}
+
+message GenerateRecipeIDRequest {
+    repeated FactoryID  factories   = 1;
+    ProductType         productType = 2;
+    string              productID   = 3; 
+    StageStatus         stageStatus = 4;
+    string              major       = 5;
+    string              minor       = 6;
+}
+
+message GenerateRecipeIDReply {
+    string  ID      = 1;
+    Version version = 2;
+
+    message Version {
+        string major = 1;
+        string minor = 2;
+    }
+}

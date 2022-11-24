@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto.dm.per;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/per";
+
+message Permas{
+    string subno            = 1;       //廠別代號
+    string subna            = 2;       //廠別名稱
+    string depno            = 3;       //部門代號
+    string depna            = 4;       //部門名稱
+    string empno            = 5;       //員工工號
+    string usrno2           = 6;       //員工代號
+    string name             = 7;       //員工姓名
+}

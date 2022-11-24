@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message MTxListRequest {
+  string tx_id           = 1;  //轉移編號 (廠+移出部門+單據日期+三碼流水號)
+  string tx_type         = 2;  //1->生產 (same factory) 2->調撥 (diff factory) 3->代工 4->報廢 5->買賣 6->研發
+  string item_id         = 3;  //項次編號
+  string mtrl_lot_id     = 4;  //材料 Lot ID, 標示卡編號
+  string product_type    = 5;  //材料類別
+  string mtrl_product_id = 6;  //材料 ID ,材料,半製品,成品編號
+  string mtrl_level      = 7;  //材料等級
+  int32  cr_fty_id       = 8;  //移出廠
+  string cr_dept_id      = 9;  //移出單位代號
+  int32  nx_fty_id       = 10; //移入廠
+  string nx_dept_id      = 11; //移入單位代號
+  string codd            = 12; //內外購
+  float  qty             = 13; //移轉數量
+  string unit            = 14; //計量單位
+  string confirm_by      = 15; //確認人
+  string update_by       = 16; //確認人
+  string status          = 17; //移轉狀態
+  string comments        = 18; //註解
+  string mtrl_comments   = 19; //註解
+  string insert_by       = 20; //建檔人
+  bool   only_today      = 21; //Compare Date
+}
+
+message MaterialTransaction {
+  string tx_id               =  1;  //轉移編號 (廠+移出部門+單據日期+三碼流水號)
+  string item_id             =  2;  //項次編號
+  string tx_type             =  3;  //1->生產 (same factory) 2->調撥 (diff factory) 3->代工 4->報廢 5->買賣 6->研發
+  string product_type        =  5;  //材料類別
+  string material_Lot_id     =  6;
+  string material_product_id =  7;  //材料 ID ,材料,半製品,成品編號
+  string material_level      =  8;  //材料等級
+  int32  cr_fty_id           =  9;  //移出廠
+  string cr_dept_id          = 10;  //移出單位代號
+  int32  nx_fty_id           = 11;  //移入廠
+  string nx_dept_id          = 12;  //移入單位代號
+  string codd                = 13;  //內外購
+  float  qty                 = 14;  //移轉數量
+  string unit                = 15;  //計量單位
+  string confirm_at          = 16;  //確認日期
+  string confirm_by          = 17;  //確認人
+  string status              = 18;  //移轉狀態
+  string comments            = 19;  //註解
+  string mtrl_comments       = 20;  //註解
+  string update_at           = 21;  //更新日期
+  string update_by           = 22;  //更新人
+  string insert_at           = 23;  //建檔日期
+  string insert_by           = 24;  //建檔人
+}

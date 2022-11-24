@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package proto.mes.v2.resource;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/resource";
+
+import "proto/mes/v2/commons/commons.proto";
+
+enum Type {
+    MATERIAL = 0;
+    TOOL     = 1;
+}
+
+message ID {
+    Type   type        = 1;
+    string id          = 2;  // material lot/serial number, tool serial number
+    string productType = 3;  // material product type
+}
+
+message Info {
+    string part  = 1;  // part number or name
+    string grade = 2;  // e.g., "A"
+
+    commons.Time    creation   = 3;  // epoch time
+    commons.Time    expiration = 4;  // epoch time
+    commons.Decimal quantity   = 5;
+
+    int32 status = 9;
+
+    message Location {  // optional resource location if the resource is exclusively in use
+        string station = 1;
+        string site    = 2;
+    }
+    Location location = 6;
+
+    repeated string notes = 7;  // further info, e.g., resource history
+
+    bool major = 8; // false if current resource is same/substitute with previous else true
+}

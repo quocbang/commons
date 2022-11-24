@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto.dm.inventory;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/inventory";
+
+import "google/protobuf/timestamp.proto";
+
+import "proto/dm/inventory/inventory.proto";
+
+enum BarcodeStatus {
+  BARCODE_STATUS_UNSPECIFIED = 0;
+  UNDECIDED                  = 1;
+  AVAILABLE                  = 2;
+  PROHIBITED                 = 3;
+}
+
+message BarcodeInfo {
+  string                    factory_id  = 1;
+  string                    id          = 2;
+  BarcodeStatus             status      = 3;
+  Type                      itnbr_type  = 4;
+  Info                      inventory   = 5;
+  google.protobuf.Timestamp key_in_time = 6;
+  string                    user_id     = 7;
+}

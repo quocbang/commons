@@ -1,0 +1,250 @@
+syntax = "proto3";
+
+package proto.mes.code.error;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/code/error";
+
+// 登出/登入錯誤代碼
+enum LoginAndLogout {
+    // 登入成功
+    LOGIN_AND_LOGOUT_SUCCESS = 0 ;
+    // 登入失敗
+    LOGIN_AND_LOGOUT_FAIL    = 1 ;
+}
+
+// 載入工單錯誤代碼
+enum LoadRecipe{
+    // 配方載入成功
+    LOAD_RECIPE_SUCCESS             = 0 ;
+    // 配方載入失敗
+    LOAD_RECIPE_FAILED              = 1 ;
+    // 查無此工單
+    LOAD_RECIPE_NOT_FOUND_LOT_ID    = 2 ;
+    // 查無此配方
+    LOAD_RECIPE_NOT_FOUND_RECIPE_ID = 4 ;
+}
+
+//材料檢核錯誤代碼
+enum Material{
+    // 材料檢核成功
+    CHECK_MATERIAL_SUCCESS = 0 ;
+    // 檢核材料失敗
+    CHECK_MATERIAL_FAILED = 1 ;
+    // 找不到工單
+    CHECK_MATERIAL_NOT_FOUND_LOT_ID = 2 ;
+    // 投料重複
+    BARCODE_DUPLICATE = 4 ;
+    // 材料不可使用
+    MATERIAL_UNAVAILABLE = 8 ;
+    // 材料過期
+    MATERIAL_EXPIRED = 16 ;
+    // 無此材料條碼
+    NOT_FOUND_BARCODE = 32 ;
+    // 材料不足
+    MATERIAL_NOT_ENOUGH = 64 ;
+    // 材料不符
+    MATERIAL_NOT_MATCH = 128 ;
+    // 中央供應材料不足
+    CENTRAL_SUPPLY_MATERIAL_NOT_ENOUGH = 256 ;
+    // 查無產品類別代號 (X)
+    NOT_FOUND_PRODUCT_TYPE = 512 ;
+    // 材料重量小於最小單位使用量
+    INVENTORY_IS_LESS_THAN_MIN_DOSAGE = 1024 ;
+    // 材料需要切膠
+    THIS_MATERIAL_NEED_TO_CUT = 2048 ;
+    // 中央供應不須掃描
+    CENTRAL_SUPPLY_MATERIAL_DOES_NOT_NEED_TO_SCANNED = 4096;
+}
+
+//投料錯誤代碼
+enum MoveIn{
+    // 投料成功
+    MOVE_IN_SUCCESS = 0 ;
+    // 投料失敗
+    MOVE_IN_FAILED = 1 ;
+    // 查無此工單
+    MOVE_IN_NOT_FOUND_LOT_ID = 2 ;
+    // 查無首數
+    MOVE_IN_NOT_FOUND_SHEET_ID = 4 ;
+    // 該首數狀態不可投料
+    MOVE_IN_WRONG_SHEET_STATUS = 8 ;
+}
+
+//收料錯誤代碼
+enum MoveOut{
+    // 收料成功   
+    MOVE_OUT_SUCCESS = 0 ;
+    // 收料失敗
+    MOVE_OUT_FAILED = 1 ;
+    // 查無此工單
+    MOVE_OUT_NOT_FOUND_LOT_ID = 2 ;
+    // 查無首數
+    MOVE_OUT_NOT_FOUND_SHEET_ID = 4 ;
+    // 查無階段
+    MOVE_OUT_NOT_FOUND_NEXT_PROCESS_NAME = 8 ;
+    // 該條碼不可使用
+    THIS_MATERIAL_LOT_ID_HAS_BEEN_USED = 16 ;
+    // 該首數狀態不可投料
+    MOVE_OUT_WRONG_SHEET_STATUS = 32 ;
+    // 無效標示卡條碼
+    MOVE_OUT_INVALID_MATERIAL_LOT_ID = 64 ;
+    // 查無鐵架(載具)ID
+    MOVE_OUT_NOT_FOUND_CARRIER_ID = 128 ;
+}
+
+// 投料/收膠結束錯誤代碼
+enum MoveEnd{
+    //投料或收料成功
+    MOVE_END_SUCCESS = 0 ;
+    //投料或收料失敗
+    MOVE_END_FAILED = 1 ;
+    //查無此工單
+    MOVE_END_NOT_FOUND_LOT_ID = 2;
+    //尚未投料不可結束投料
+    NO_SHEET_MOVE_IN_CAN_NOT_END = 4 ;
+    //投料尚未完成，不可結束收料
+    CANT_MOVE_OUT_END_BEFORE_MOVE_IN_FINISH = 8;
+    //收料未完成,不可結束收料
+    HAVE_SHEET_MOVE_OUT_NOT_YET_CAN_NOT_END = 16;
+}
+
+//工單操作錯誤代碼
+enum WorkOrderOperating{
+    // 工單操作成功
+    WORK_ORDER_OPERATING_SUCCESS = 0 ;
+    // 工單操作條件失敗
+    WORK_ORDER_OPERATING_FAILED = 1 ;
+    // 查無工單
+    NOT_FOUND_LOT_ID = 2 ;
+}
+
+
+//初始作業階段錯誤代碼
+enum SetInitialProcess{
+    // 初始作業階段成功
+    SET_INITIAL_PROCESS_SUCCESS = 0 ;
+    // 缺少初始作業階段request
+    SET_INITIAL_PROCESS_MISSING_REQUEST = 1 ;
+}
+
+enum MaterialOperating {
+    // 材料操作成功
+    MATERIAL_OPERATING_SUCCESS = 0 ;
+    // 標示卡重複
+    MATERIAL_LOT_ID_REPEAT = 1 ;
+    // 無此條碼
+    NOT_FOUND_MATERIAL_LOT_ID = 2;
+    // 資訊不足錯誤
+    MATERIAL_OPERATING_INSUFFICIENT_INFO = 3;
+    // 產品類別未定義
+    MATERIAL_OPERATING_PRODUCT_TYPE_IS_NOT_DEFINED = 4;
+    // 材料單位未定義
+    MATERIAL_OPERATING_MATERIAL_UNIT_IS_NOT_DEFINED = 5;
+    // 材料不得重複展延
+    THIS_MATERIAL_CAN_NOT_POSTPONE_AGAIN = 6;
+}
+
+enum RapidCheckOperating {
+    // 快檢操作成功
+    RAPID_CHECK_OPERATING_SUCCESS                     = 0 ;
+    RAPID_CHECK_OPERATING_NOT_FOUND_SHEET_ID          = 1 ;
+    RAPID_CHECK_OPERATING_WRONG_STATUS                = 2 ;
+    RAPID_CHECK_OPERATING_NOT_FOUND_MATERIAL_BY_SHEET = 3 ;
+    RAPID_CHECK_OPERATING_NOT_FOUND_LOT_ID            = 4 ;
+}
+
+enum ContainerIdOperating {
+    CONTAINER_OPERATING_SUCCESS    = 0;
+    CONTAINER_OPERATING_FAILED     = 1;
+}
+
+enum EquipmentOperating {
+    EQUIPMENT_OPERATING_SUCCESS   = 0;
+    EQUIPMENT_OPERATING_FAILED    = 1;
+}
+
+enum EquipmentContainerOperating {
+    EQUIPMENT_CONTAINER_OPERATING_SUCCESS   = 0;
+    EQUIPMENT_CONTAINER_OPERATING_FAILED    = 1;
+}
+
+enum ContainerMaterialOperating {
+    CONTAINER_MATERIAL_OPERATING_SUCCESS   = 0;
+    CONTAINER_MATERIAL_OPERATING_FAILED    = 1;
+}
+
+enum CarrierOperating {
+    CARRIER_OPERATING_SUCCESS               = 0;
+    CARRIER_OPERATING_UNDEFINED_ACTION_TYPE = 1;
+    CARRIER_OPERATING_CARRIER_ID_REPEAT     = 2;
+    CARRIER_OPERATING_NOT_FOUND_CARRIER_ID  = 3;
+}
+
+enum MaterialTransactionOperating {
+    MATERIAL_TRANSACTION_OPERATING_SUCCESS          = 0;
+    MATERIAL_TRANSACTION_OPERATING_TX_NOT_FOUND     = 1;
+}
+
+enum TransactionOperating {
+    TRANSACTION_OPERATING_SUCCESS                   = 0;
+    TRANSACTION_OPERATING_TX_NOT_FOUND              = 1;
+    TRANSACTION_OPERATING_TX_CANNOT_DELETE          = 2;
+    TRANSACTION_OPERATING_INSUFFICIENT_REQUEST      = 3;
+}
+
+enum MtxShipListOperating {
+    MTXSHIPLIST_OPERATING_SUCCESS                   = 0;
+    MTXSHIPLIST_OPERATING_TX_NOT_FOUND              = 1;
+    MTXSHIPLIST_OPERATING_MATERIAL_LOT_ID_NOT_FOUND = 2;
+    MTXSHIPLIST_OPERATING_MATERIAL_EXCEEDED         = 3;
+    MTXSHIPLIST_OPERATING_MATERIAL_LOT_ID_NOT_IN_TX = 4;
+    MTXSHIPLIST_OPERATING_ALREADY_BEEN_RECEIVED     = 5;
+    MTXSHIPLIST_OPERATING_INSUFFICIENT_INFO         = 6;
+    MTXSHIPLIST_OPERATING_MATERIAL_NOT_MATCH        = 7;
+    MTXSHIPLIST_OPERATING_SCAN_MULTIPLE_TIMES       = 8;
+}
+
+enum MtxPda {
+    MTXPDA_OPERATING_SUCCESS                           = 0;
+    MTXPDA_OPERATING_MATERIAL_LOT_ID_NOT_IN_ANY_TX     = 1;
+    MTXPDA_OPERATING_MATERIAL_LOT_ID_NOT_FOUND         = 2;
+    MTXPDA_OPERATING_ALREADY_BEEN_RECEIVED             = 3;
+    MTXPDA_OPERATING_MATERIAL_EXCEED_REQUIREMENT       = 4;
+    MTXPDA_OPERATING_MATERIAL_NOT_MATCH                = 5;
+    MTXPDA_OPERATING_SCAN_MULTIPLE_TIMES               = 6;
+    MTXPDA_OPERATING_ACTION_TYPE                       = 7;
+    MTXPDA_OPERATING_MATERIAL_LOT_ID_NOT_MATCH_ANY_TX  = 8;
+    MTXPDA_OPERATING_MATERIAL_LOT_ID_NOT_BEEN_USED     = 9;
+    MTXPDA_OPERATING_INSUFFICIENT_REQUEST              = 10;
+}
+
+enum CheckMaterialLotID {
+    CHECK_MATERIAL_LOT_ID_SUCCESS                          = 0;
+    CHECK_MATERIAL_LOT_ID_MATERIAL_LOT_ID_DOES_NOT_EXIST   = 1;
+    CHECK_MATERIAL_LOT_ID_INSUFFICIENT_INFO                = 2;
+    CHECK_MATERIAL_LOT_ID_MATERIAL_LOT_IO_ALREADY_EXISTED  = 3;
+    CHECK_MATERIAL_LOT_ID_EXPIRED                          = 4;
+}
+
+enum EquipmentMaterialOperating {
+    EQUIPMENT_MATERIAL_OPERATING_SUCCESS           = 0;
+    EQUIPMENT_MATERIAL_OPERATING_NOT_FOUND_LOT_ID  = 1;
+}
+
+enum CheckProdTools {
+    CHECK_PRODUCT_TOOLS_SUCCESS           = 0;
+    CHECK_PRODUCT_TOOLS_NOT_MATCH         = 1;
+    CHECK_PRODUCT_TOOLS_NOT_ENOUGH        = 2;
+    CHECK_PRODUCT_TOOLS_NOT_FOUND_LOT_ID  = 3;
+    CHECK_PRODUCT_TOOLS_REPEAT            = 5;
+    CHECK_PRODUCT_TOOLS_NOT_NEED_TO_CHECK = 6;
+}
+
+enum MaterialInventoryTalking{
+    MATERIAL_INVENTORY_SUCCESS                 = 0;
+    MATERIAL_INVENTORY_NOT_FOUND_BARCODE       = 1;
+}
+
+enum GetMaterialInventoryList{
+    GET_MATERIAL_INVENTORY_LIST_SUCCESS        = 0;
+    GET_MATERIAL_INVENTORY_LIST_NOT_FOUND_DATA = 1;
+}

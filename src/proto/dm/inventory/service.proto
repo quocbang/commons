@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package proto.dm.inventory;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/inventory";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+import "proto/dm/inventory/inventory.proto";
+
+service Inventory {
+  // AddWarehouseBarcode 依標示卡入庫.
+  // Required field: Barcode, FactoryId, WarehouseId, StorageNo.
+  rpc AddWarehouseBarcode(Mutation) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/inventory/warehouses/barcodes"
+      body : "*"
+    };
+  }
+  // DeleteWarehouseBarcode 依標示卡出庫, 系統將依據標示卡號碼, 將此標示卡從開倉庫出庫.
+  // Required field: Barcode.
+  rpc DeleteWarehouseBarcode(Mutation) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/inventory/warehouses/barcodes/{factory_id}/{warehouse_id}/{storage_no}/{barcode}"
+    };
+  }
+}

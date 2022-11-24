@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+import "proto/dm/rs/enums.proto";
+
+//卡匣操作
+message CarrierOperatingRequest {
+    code.FunctionModel action_type           = 1;
+    // add & query 條件
+    string carrier_id                        = 2;
+    proto.dm.rs.FactoryID  owned_factory_id  = 3;
+    string owned_department_id               = 4;
+    code.CarrierStatus status                = 5;
+    string material                          = 6;
+    int32  create_count                      = 7;
+    string user                              = 8;
+    // update & delete
+    repeated Carrier carriers                = 9;
+}
+
+message CarrierOperatingReply {
+    // 錯誤代碼
+    code.error.CarrierOperating  err = 1;
+    // 卡匣明細
+    repeated Carrier carriers        = 2;
+}
+
+// 載具
+message Carrier {
+    // ID
+    string id                                   = 1;
+    // 管理廠
+    proto.dm.rs.FactoryID  owned_factory_id     = 2;
+    // 管理部門
+    string owned_department_id                  = 3;
+    // 載具狀態
+    code.CarrierStatus  status                  = 4;
+    // 可掛載材料 (目前未用)
+    string material                             = 5;
+    // 更新日
+    string update_at                            = 6;
+    // 操作者
+    string update_by                            = 7;
+}

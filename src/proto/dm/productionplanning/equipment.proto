@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package proto.dm.productionplanning;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/productionplanning";
+
+//查詢條件
+message EquipmentRequest {
+  string sub_no = 1;
+  string id     = 2;
+}
+
+message SingleEquipment {
+  string sub_no                 = 1;
+  string id                     = 2;
+  string majoreq_id             = 3;
+  string name                   = 4;
+  string description            = 5;
+  string location               = 6;
+  string physical_location      = 7;
+  string calendar_id            = 8;
+  float  efficiency             = 9;
+  float  property               = 10;
+  string start_effect_datetime  = 11;
+  string end_effect_datetime    = 12;
+  float  trans_qty              = 13;
+  float  is_trans_qty_by_pcs    = 14;
+  float  check_maintain_no      = 15;
+  string last_maintain_user     = 16;
+  string last_maintain_datetime = 17;
+  float  max_run                = 18;
+  float  acc_run                = 19;
+}
+
+message MultiEquipment {
+  repeated SingleEquipment dataset = 1;
+}

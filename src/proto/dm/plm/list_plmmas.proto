@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package proto.dm.plm;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/plm";
+
+message ListPlmmasRequest{
+    string prjno                        = 1;        //專案代號
+    string admin                        = 2;        //負責人
+    string kind                         = 3;        //專案狀態
+    string preend                       = 4;        //預計完成日
+    string prjtype                      = 5;        //類別1
+    string prjtypek                     = 6;        //類別2
+    string spdsc                        = 7;        //規格
+    string patt                         = 8;        //花紋
+    string testfac                      = 9;        //試廠
+    string manfac                       = 10;       //產廠
+    string itnsch_indat                 = 11;       //申請日期
+    string state                        = 12;       //專案狀態
+    string itnbr                        = 13;       //成代
+    string extestdat                    = 14;       //預定試作完成
+    string testdat                      = 15;       //試作完成
+    string dfindat                      = 16;       //預定完成
+    string mandat                       = 17;       //試產完成
+    string fmoddat                      = 18;       //模具完成
+    string picchkdat                    = 19;       //圖面確認日
+    string okdat                        = 20;       //結案日期
+}
+
+message ListPlmmasReply{
+    repeated Plmmas records = 1;
+}
+
+message Plmmas{
+    int32 no                		    = 1;    //OID
+    string prjno            		    = 2;    //專案代號
+    string prjseq           		    = 3;    //專案項次
+    string kind             		    = 4;    //類別(M:主檔 P:任務)
+    int32 seq               		    = 5;    //序號
+    string admin            		    = 6;    //專案負責人
+    string reladmin         		    = 7;    //專案協辦人員
+    string prestart         		    = 8;    //預計起始日
+    string preend           		    = 9;    //預計完成日
+    string actstart         		    = 10;   //實際起始日
+    string actend           		    = 11;   //實際完成日
+    string prjtype          		    = 12;   //專案類別1
+    string prjtypek         		    = 13;   //專案類別2
+    string spdsc            		    = 14;   //規格
+    string patt             		    = 15;   //花紋
+    string feat             		    = 16;   //特性
+    string logo             		    = 17;   //標籤
+    string valve            		    = 18;   //是否彎嘴
+    string testfac                      = 19;   //試廠
+    string manfac                       = 20;   //產廠
+    string modcod           		    = 21;   //生產狀態
+    string itnsch_indat     		    = 22;   //申請日期
+    string state            		    = 23;   //開發狀態
+    string qty              		    = 24;   //試作數
+    string itnbr            		    = 25;   //成品代號
+    string modno            		    = 26;   //模具申請單
+    string spec             		    = 27;   //SPEC
+    string slipno           		    = 28;   //申請單編號
+    string buyok            		    = 29;   //請購完成
+    string extestdat                    = 30;   //預定試作
+    string testdat                      = 31;   //試作完成
+    string testday              		= 32;   //試作天數
+    string dfindat                      = 33;   //預定完成
+    string mandat                       = 34;   //試產完成
+    string manday               		= 35;   //試產天數
+    string fmoddat                      = 36;   //模具完成
+    string sposnd           		    = 37;   //樣品送樣日1
+    string spocfm           		    = 38;   //樣品確認日1
+    string sposnd2          		    = 39;   //樣品送樣日2
+    string spocfm2          		    = 40;   //樣品確認日2
+    string sposnd3          		    = 41;   //樣品送樣日3
+    string spocfm3          		    = 42;   //樣品確認日3
+    string moddat                       = 43;   //模具預計
+    string precreddat       		    = 44;   //預定認證完成日
+    string fincreddat       		    = 45;   //認證完成日
+    string begincreddat     		    = 46;   //認證起始日
+    string tpsdat           		    = 47;   //是產出貨日
+    string picchkdat                    = 48;   //圖面確認日
+    string okdat                        = 49;   //結案日期
+}

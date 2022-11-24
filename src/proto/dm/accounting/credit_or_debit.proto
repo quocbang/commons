@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package proto.dm.accounting;
+
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/accounting";
+
+//借貸別Cod
+enum CreditOrDebit {
+  CREDIT_OR_DEBIT_UNSPECIFIED = 0;
+  
+  //借方-Debit
+  DEBIT  = 1;                 
+  //貸方-Credit    
+  CREDIT = 2;                 
+}

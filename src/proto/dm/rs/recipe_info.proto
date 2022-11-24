@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/recipe.proto";
+
+message GetProdTypeRequest {
+  FactoryID factory = 1;
+}
+message GetProdTypeReply {
+  GetDataErrorCode  err   = 1;
+  repeated string   types = 2;
+}
+
+message GetProdIDRequest {
+  FactoryID   factory       = 1;
+  string      product_type  = 2;
+  string      process_name  = 3; //Optional
+  StageStatus stage_status  = 4; //Optional
+}
+message GetProdIDReply {
+  GetDataErrorCode err   = 1;
+  message Arr {
+    string      recipe_id  = 1;
+    string      product_id = 2;
+    StageStatus state      = 3;
+    string      major      = 4;
+    string      minor      = 5;
+  }
+  repeated Arr    arrs   = 2;
+}
+
+message GetMtrlProdIDRequest {
+  FactoryID  factory      = 1;
+  string product_type = 2;
+  bool   show_product = 3; // true時只顯示膠料名稱
+}
+message GetMtrlProdIDReply {
+  GetDataErrorCode err       = 1;
+  repeated string  mtrl_list = 2;
+}
+
+message GetRecipeProdTypeRequest {
+  string recipe_id = 1;
+}
+message GetRecipeProdTypeReply {
+  GetDataErrorCode err          = 1;
+  string           type         = 2;
+  string           product_id   = 3;
+  StageStatus      stage_status = 4;
+  string           major        = 5;
+  string           minor        = 6;
+}
+
+message UpdateActiveVersionRequest {
+  string recipe_id = 1;
+  string update_by = 2;
+}
+
+message UpdateActiveVersionReply {
+  GetDataErrorCode err         = 1;
+  int64            rows_affect = 2;
+}
+
+message GetRecipeAllDetailsRequest {
+  string recipe_id = 1;
+}
+
+message GetRecipeAllDetailsReply {
+  GetDataErrorCode             err            = 1;
+  string                       id             = 2;
+  string                       product_type   = 3;
+  string                       product_id     = 4;
+  repeated FactoryID           factory        = 5;
+  Version                      version        = 6;
+  string                       parent_spec_id = 7;
+  repeated Process             processes      = 8;
+  repeated Recipe.OptionalFlow optional_flows = 9;
+}
+
+message InsertOrUpdateRecipeRequest {
+  string   id                                 = 1;
+  string   product_type                       = 2;
+  string   product_id                         = 3;
+  repeated FactoryID           factory        = 4;
+  Version                      version        = 5;
+  string parent_spec_id                       = 6;
+  repeated Process             processes      = 7;
+  repeated Recipe.OptionalFlow optional_flows = 8;
+}
+
+message InsertOrUpdateRecipeReply {
+  GetDataErrorCode err = 1;
+}

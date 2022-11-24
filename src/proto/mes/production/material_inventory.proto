@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/error/enums.proto";
+import "proto/dm/rs/enums.proto";
+
+// 線邊料盤點請求
+message MaterialInventoryTakingRequest {
+    // TODO: this should be a enum
+    // 子公司
+    string  sub_company                = 1;
+    // 廠別
+    proto.dm.rs.FactoryID factory_id  = 2;
+    // 材料標示卡條碼
+    string material_lot_id            = 3;
+    // 設備ID
+    string equipment_id               = 4;
+    // TODO : @wjy check why need this ? maybe rename it as update_at
+    // 盤點日
+    string production_date            = 5;
+    // 操作者
+    string update_by                  = 7;
+}
+
+// 線邊料盤點回應
+message MaterialInventoryTakingReply {
+    // 錯誤代碼
+    code.error.MaterialInventoryTalking err = 1;
+}
+
+// 取得盤點清單請求
+message GetMaterialInventoryListRequest {
+    // TODO : @wjy check why need this ? maybe rename it as update_at
+    // 盤點日
+    string production_date             = 1;
+    // TODO : this should be a enum
+    // 公司別
+    string  sub_company                = 2;
+    // 廠別
+    proto.dm.rs.FactoryID  factory_id  = 3;
+}
+
+// 取得盤點清單回應
+message GetMaterialInventoryListReply {
+    // 錯誤代碼
+    code.error.GetMaterialInventoryList err = 1;
+}

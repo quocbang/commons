@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/recipe.proto";
+
+message CheckProcExistsRequest {
+  FactoryID  factory      = 1;
+  string product_type = 2;
+  string process_name = 3;
+}
+message CheckProcExistsReply {
+  bool exist_code = 1;
+}
+
+message GetProcNamesRequest {
+  string recipe_id             = 1;
+  string optional_process_name = 2; //指定階段名稱(重工才需要)
+  int32  optional_process_type = 3; //指定階段類別(重工才需要)
+}
+message GetProcNamesReply {
+  GetDataErrorCode err = 1;
+  message Arr {
+    string cr_process_name = 1;
+    string pv_process_name = 2;
+    string nx_process_name = 3;
+    float  plan_qty        = 4;
+    string unit            = 5;
+  }
+  string   route_ver    = 2;
+  float    total        = 3;
+  repeated Arr proc     = 4;
+  string       rwk_name = 5;
+}
+
+message GetProcNameRequest {
+  string recipe_id    = 1;
+  string process_name = 2;
+  int32  process_type = 3;
+}
+message GetProcNameReply {
+  GetDataErrorCode err        = 1;
+  ProcessType nx_process_type = 2;
+  string      cr_process_name = 3;
+  string      pv_process_name = 4;
+  string      nx_process_name = 5;
+}
+
+message GetRecipeAllProcessesRequest {
+  string recipe_id = 1;
+}
+message GetRecipeAllProcessesReply {
+  GetDataErrorCode err = 1;
+  message Proc {
+    ProcessType process_type = 1;
+    // 途程名稱
+    string      process_name = 2;
+  }
+  repeated Proc procs = 2;
+}
+
+message GetEqptProductRequest {
+  FactoryID  factory = 1;
+  string station     = 2;
+  string recipe_id   = 3;
+}
+message GetEqptProductReply {
+  GetDataErrorCode err      = 1;
+  repeated product products = 2;
+  message product {
+    string recipe_id = 1;
+    string product   = 2;
+  }
+}
+
+message GetProcEqptRequest {
+  string      recipe_id      = 1;
+  // 途程名稱
+  string      process_name   = 2;
+  ProcessType process_type   = 3;
+}
+message GetProcEqptReply {
+  GetDataErrorCode err                 = 1;
+  repeated string product_station_list = 2;
+  repeated string setting_station_list = 3;
+}
+
+message GetProcessStepsRequest{
+  string recipe_id = 1;
+  // 途程名稱
+  string process_name = 2;
+  ProcessType process_type = 3;
+  string eqpt_id = 4;
+}
+message GetProcessStepsReply {
+  GetDataErrorCode             err   = 1;
+  repeated Process.Config.Step steps = 2;
+}
+
+message GetProcessToolsRequest{
+  string recipe_id = 1;
+  // 途程名稱
+  string process_name = 2;
+  ProcessType process_type = 3;
+  string eqpt_id = 4;
+}
+message GetProcessToolsReply {
+  GetDataErrorCode  err     = 1;
+  repeated Tool     tools   = 2;
+}

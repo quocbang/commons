@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package proto.dm.act;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/act";
+
+import "proto/dm/act/actsli.proto";
+import "proto/dm/act/acticm.proto";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// ACT system
+service ACT {
+  // 空方法
+  rpc Example(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/act/example"
+      body : "*"
+    };
+  }
+  //AddIncome 損益表計算 actsli -> acticm
+  rpc AddIncome(IncomeRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/act/income"
+      body : "*"
+    };
+  }
+  //GetIncome 取得損益表資料acticm，依廠別、年月、結帳碼
+  rpc GetIncome(GetIncomeRequest) returns (MultiIncome) {
+    option (google.api.http) = {
+      post : "/act/income/get"
+      body : "*"
+    };
+  }
+  // 取得記帳內容資料
+  rpc GetKeepAccountPost(KeepAccountRequest) returns (MultiKeepAccount) {
+    option (google.api.http) = {
+      post : "/act/keepAccount/get"
+      body : "*"
+    };
+  }
+  //新增記帳內容
+  rpc AddKeepAccount(MultiKeepAccount) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/act/keepAccount"
+      body : "*"
+    };
+  }
+  //修改記帳內容
+  rpc UpdateKeepAccount(MultiKeepAccount) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/act/keepAccount"
+      body : "*"
+    };
+  }
+  //刪除記帳內容
+  rpc DeleteKeepAccount(SingleKeepAccount) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/act/keepAccount/{subno}/{acctno}/{accdat}/{curr}"
+    };
+  }
+  //取得記帳內容並 lock
+  rpc GetKeepAccountAndLock(KeepAccountRequest) returns (MultiKeepAccount) {
+    option (google.api.http) = {
+      post : "/act/keepAccount/lock/get"
+      body : "*"
+    };
+  }
+
+  //unlock 記帳內容
+  rpc UnlockKeepAccount(MultiKeepAccount) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/act/keepAccount/unlock"
+      body : "*"
+    };
+  }
+}
+
+//異動資料數量
+message AffectedReply {
+  int64 rows_affected = 1;
+}

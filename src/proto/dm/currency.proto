@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package proto.dm; 
+
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm";
+
+//幣別Currency
+enum Currency {
+  CURRENCY_UNSPECIFIED = 0;
+  
+  //台幣      
+  NTD = 1;               
+  //人民幣    
+  RMB = 2;      
+  //美元          
+  USD = 3;        
+  //印尼幣             
+  IDR = 4;               
+  //越南盾       
+  VND = 5;               
+  //荷蘭幣 
+  NLG = 6;                 
+  //奧地利幣   
+  ATS = 7;               
+  //澳元
+  AUD = 8;               
+  //歐元            
+  EUR = 9;             
+  //紐元  
+  NZD = 10;              
+  //比利時法郎      
+  BEF = 11;              
+  //義里拉    
+  ITL = 12;              
+  //星幣
+  SGD = 13;              
+  //瑞士法郎        
+  CHF = 14;              
+  //馬克 
+  DEM = 15;              
+  //瑞典克郎      
+  SEK = 16;              
+  //馬幣      
+  MYR = 17;              
+  //加元      
+  CAD = 18;              
+  //西班牙幣  
+  ESP = 19;              
+  //港幣      
+  HKD = 20;              
+  //法國法郎  
+  FRF = 21;              
+  //英鎊      
+  GBP = 22;              
+  //日圓
+  JPY = 23;              
+}

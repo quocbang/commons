@@ -1,0 +1,32 @@
+syntax = "proto3";
+package proto.dm.prd;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/prd";
+
+message AddPcrSecondMoveInMaterialRecordRequest {
+    string subno	   =  1;
+    string factory     =  2;
+    string pday        =  3;
+    string class	   =  4;
+    string empno	   =  5;
+    string stype   	   =  6;
+    string ptype	   =  7;
+    string machnd	   =  8;
+    string barcode	   =  9;
+    string belt1slip   = 10;
+    string belt1pn     = 11;
+    string belt2slip   = 12;
+    string belt2pn     = 13;
+    string belt3slip   = 14;
+    string belt3pn	   = 15;
+    string neb1slip    = 16;
+    string neb1pn	   = 17;
+    string neb2slip    = 18;
+    string neb2pn	   = 19;
+    string threadslip  = 20;
+    string threadpn	   = 21;
+    string stacode     = 22;
+    string indat	   = 23;
+    string intime	   = 24;
+    string usrno	   = 25;
+}
+  

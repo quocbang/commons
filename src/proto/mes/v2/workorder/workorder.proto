@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package proto.mes.v2.workorder;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/workorder";
+
+import "proto/mes/v2/commons/commons.proto";
+import "proto/mes/v2/recipe/recipe.proto";
+
+// WIP
+
+enum Status {
+    PENDING = 0;
+    ACTIVE  = 1;
+    CLOSING = 2;  // all batches in pipeline, pending collection
+    CLOSED  = 3;
+
+    SKIPPED = 4;
+}
+
+message Batches {
+    int32 count = 1;  // number of batches.
+
+    // Three possible ways to specify batch sizes:
+    //  1. all single-unit batches : set unitQuantity=true
+    //  2. all same size batches   : specify the size in fixedQuantity
+    //  3. different size batches  : specify batch sizes in perBatchQuantities
+    //  4. plan quantity : specify quantity(plan), batch sizes and batchCount in PlanQuantity
+    message PerBatch {
+        repeated commons.Decimal quantities = 1;
+    }
+    message PlanQuantity {
+        commons.Decimal quantity   = 1;
+        commons.Decimal batchSize  = 2;
+    }
+    oneof size {
+        bool            unitQuantity       = 2;
+        commons.Decimal fixedQuantity      = 3;
+        PerBatch        perBatchQuantities = 4;
+        PlanQuantity    planQuantity       = 5;
+    }
+}
+
+message Info {
+    string        id             = 1;
+    string        process        = 2; // process_name
+    Batches       batches        = 3;
+    recipe.Recipe recipe         = 4;
+    Status        status         = 5;
+    int32         fedBatch       = 6;
+    int32         collectedBatch = 7;
+}
+
+enum BatchStatus {
+    BATCH_PREPARING = 0;
+    BATCH_STARTED   = 1;  // some resources fed
+    BATCH_CLOSING   = 2;  // all resources fed and available to collect
+    BATCH_CLOSED    = 3;
+
+    BATCH_CANCELLED = 4;
+}

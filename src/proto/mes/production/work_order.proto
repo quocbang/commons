@@ -1,0 +1,353 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/production/common.proto";
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/recipe.proto";
+import "proto/mes/testing/get_material_weight.proto";
+import "proto/mes/v2/workorder/workorder.proto";
+
+// 工單操作請求 : 目前只有查詢功能
+message WorkOrderOperatingPlcRequest{
+    //操作類別「R」搜尋工單
+    code.FunctionModel action_type = 1;
+    // 請求類別
+    // I = 投料 , O = 收料
+    code.Mode action_mode          = 2;
+    //機台號
+    string equipment_id            = 3;
+    // 需求筆數
+    int32 count                    = 4;
+}
+
+//工單操作回應 (for PLC/MHI)
+message WorkOrderOperatingPlcReply{
+    //工單明細
+    message WorkOrder {
+        //工單號
+        string lot_id                     = 1;
+        //配方ID
+        string recipe_id                  = 2;
+        //中間製品目前階段
+        string current_process_name       = 3;
+        //中間製品排程階段
+        string next_process_name          = 4;
+        //狀態
+        proto.mes.code.LotStatus status   = 5;
+        //排程序號
+        string shift_sequence             = 6;
+        //計畫產量
+        float  plan_qty                   = 7;
+        //已投料數量
+        float  move_in_qty                = 8;
+        //已收料數量
+        float  move_out_qty               = 9;
+        //總首數
+        int32  plan_sheet_count           =10;
+        //已投料首數
+        int32  in_sheet_count             =11;
+        //已收料首數       
+        int32  out_sheet_count            =12;
+        // 材料清單
+        repeated GetMaterialWeightReply.Material materials       =13;
+        // 設備設定 (分步驟)
+        repeated Step steps               =14;
+        // 檢核工具
+        repeated proto.dm.rs.Tool tools   =15;
+    }
+
+    //錯誤代碼
+    code.error.WorkOrderOperating err = 1;
+    //工單明細
+    repeated WorkOrder orders         = 2;
+}
+
+//工單操作請求 for UI
+message WorkOrderOperatingRequest{
+    code.FunctionModel action_type          =  1;
+    //工單號
+    string lot_id                           =  2;
+    //機台號
+    string equipment_id                     =  3;
+    //工作日
+    string work_date                        =  4;
+    //班別
+    string shift                            =  5;
+    //作業組別
+    string department_id                    =  6;
+    //是否只查詢已排程工單
+    string reserved_flag                    =  7;
+    //產品代號-用於建立工單畫面，使用產品代號做條件搜尋
+    string product_id                       =  8;
+    //起始日期-用於建立工單畫面，使用產品代號做條件搜尋
+    string start_date                       =  9;
+    //結束日期-用於建立工單畫面，使用產品代號做條件搜尋
+    string end_date                         = 10;
+    //操作者
+    string update_by                        = 11;
+    //產品類型
+    proto.dm.rs.ProductType product_type    = 12;
+    //廠別
+    proto.dm.rs.FactoryID factory_id        = 13;
+    //工單陣列-工單操作條件
+    repeated WorkOrder orders               = 14;
+    //備料條件
+    GetPrepOrders get_prep                  = 15;
+
+    message GetPrepOrders{
+        string prep_start  = 1;
+        string prep_end    = 2;
+        string prep_type   = 3;
+    }
+}
+
+//工單操作回應 for UI
+message WorkOrderOperatingReply{
+    //錯誤代碼
+    code.error.WorkOrderOperating err = 1;
+    //已排產工單明細
+    repeated WorkOrder reserved_orders   = 2;
+    //未排產工單明細
+    repeated WorkOrder unreserved_orders = 3;
+}
+
+//工單明細
+message WorkOrder{
+    //廠別
+    proto.dm.rs.FactoryID factory_id         = 1;
+    //工單號
+    string lot_id                            = 2;
+    //配方識別碼
+    string recipe_id                         = 3;
+    //排程機台
+    string reserved_equipment_id             = 4;
+    //中間製品識別碼
+    string product_id                        = 5;
+    //配方生產別
+    proto.dm.rs.StageStatus  stage_status    = 6;
+    //中間製品生產版本
+    string major_version                     = 7;
+    //中間製品目前階段
+    string current_process_name              = 8;
+    //中間製品排程階段
+    string next_process_name                 = 9;
+    //工單狀態
+    proto.mes.code.LotStatus status          =10;
+    //排程日期
+    string reserved_date                     =11;
+    //排程班別
+    string reserved_shift                    =12;
+    //作業組別
+    string department_id                     =13;
+    //排程序號
+    string shift_seq                         =14;
+    //已投料數量
+    float  move_in_qty                       =15;
+    //已收料數量
+    float  move_out_qty                      =16;
+    //計畫產量
+    float  plan_opt_qty                      =17;
+    //總首數
+    int32  plan_sheet_count                  =18;
+    //已投料首數
+    int32  in_sheet_count                    =19;
+    //已收料首數
+    int32  out_sheet_count                   =20;
+    //修改日期
+    string update_at                         =21;
+    //操作者
+    string update_by                         =22;
+    //建立日期
+    string insert_at                         =23;
+    //建立者
+    string insert_by                         =24;
+    //工單是否須作業「Y」可排程，「N」不作業
+    string run_flag                          =25;
+    //產品類別
+    proto.dm.rs.ProductType product_type     =26;
+    //下站機台ID
+    string recipe_equipment_id               =27;
+}
+
+// 建立工單請求
+message CreateWorkOrderRequest {
+    //廠別
+    proto.dm.rs.FactoryID  factory_id      =  1;
+    //配方號
+    string recipe_id                       =  2;
+    //產品ID
+    string product_id                      =  3;
+    //產品類別
+    proto.dm.rs.ProductType product_type   =  4;
+    //配方生產別
+    proto.dm.rs.StageStatus  stage_status  =  5;
+    //主版本序號
+    string major_version                   =  6;
+    //計畫數量
+    float  plan_qty                        =  7;
+    //操作者
+    string claim_by                        =  8;
+    //部門代號
+    string department_id                   =  9;
+
+    //以下以後可能重工會用到
+    //途程名稱
+    string rework_process_name = 10;
+    //途程類型
+    proto.dm.rs.ProcessType rework_process_type = 11;
+    // string rwk_route_ver   = 12;
+    // string material_product_id = 13;
+    // string material_lot_id	   = 14;
+    // string sales_order	   = 15;
+}
+
+// 建立工單回應
+message CreateWorkOrderReply {
+    //途程
+    message Process {
+        //當前站名
+        string current_process_name = 1;
+        //下站名
+        string next_process_name    = 2;
+        //計畫量
+        float  plan_qty             = 3;
+    }
+    //工單編號
+    string lot_id                            = 1;
+    //產品編號
+    string product_id                        = 2;
+    //配方生產別
+    proto.dm.rs.StageStatus stage_status     = 3;
+    //配方版本
+    string major_version                     = 4;
+    //途程清單
+    repeated Process processes               = 5;
+}
+
+// 建立工單請求
+message CreateWorkOrderNewRequest {
+    // 廠別
+    proto.dm.rs.FactoryID   factoryId    = 1;
+    // 部門代號
+    string                  departmentId = 2;
+    // 產品類別
+    proto.dm.rs.ProductType productType  = 3;
+    // 配方號
+    string                  recipeId     = 4;
+    // 計畫數量
+    string                  planQty      = 5;
+
+    // 以下以後可能重工會用到
+    // 途程名稱
+    string                  reworkName = 6;
+    // 途程類別
+    proto.dm.rs.ProductType reworkType = 7;
+}
+
+// 建立工單回應
+message CreateWorkOrderNewReply {
+    // 錯誤訊息
+    code.error.WorkOrderOperating error = 1;
+    // 新增工單清單
+    repeated WorkOrderInfo list         = 2;
+}
+
+// 更新工單請求
+message UpdateWorkOrderNewRequest {
+    // 是否派工
+    bool                   addToReserved = 1;
+    // 工單資訊
+    repeated WorkOrderInfo workOrders    = 2;
+}
+
+// 更新工單回應
+message UpdateWorkOrderNewReply {
+    // 錯誤訊息
+    code.error.WorkOrderOperating error = 1;
+}
+
+// 查詢工單請求
+message QueryWorkOrderNewRequest {
+    // 廠別
+    proto.dm.rs.FactoryID     factoryId        = 1;
+    // 部門代號
+    string                    departmentId     = 2;
+    // 配方號
+    string                    recipeId         = 3;
+    // 主機台
+    string                    mainStation      = 4;
+    // 副機台
+    string                    associateStation = 5;
+    // 派工日期
+    string                    reservedWorkDate = 6;
+    // 派工班別
+    int32                     reservedShift    = 7;
+}
+
+// 查詢工單回應
+message QueryWorkOrderNewReply {
+    // 錯誤訊息
+    code.error.WorkOrderOperating error   = 1;
+    // 未派工/工單清單
+    repeated WorkOrderInfo unreservedList = 2;
+    // 已派工工單清單
+    repeated WorkOrderInfo reservedList   = 3;
+}
+
+// 工單資訊
+message WorkOrderInfo {
+    // 工單編號
+    string                        workOrder             = 1;
+    // 工單狀態
+    proto.mes.v2.workorder.Status status                = 2;
+    // 廠別
+    proto.dm.rs.FactoryID         factoryId             = 3;
+    // 怒門代號
+    string                        departmentId          = 4;
+    // 產品類別
+    proto.dm.rs.ProductType       productType           = 5;
+    // 配方編號
+    string                        recipeId              = 6;
+    // 站名
+    string                        processName           = 7;
+    // 重工
+    string                        reworkName            = 8;
+    // 派工日期
+    string                        reservedWorkDate      = 9;
+    // 派工班別
+    int32                         reservedShift         = 10;
+    // 工單序號
+    int32                         reservedShiftSequence = 11;
+    // 主機台
+    string                        mainStation           = 12;
+    // 副機台
+    string                        associateStation      = 13;
+    // 計畫量
+    string                        planQty               = 14;
+    // 計畫首
+    int32                         planBatch             = 15;
+    // 計畫量
+    string                        inQty                 = 16;
+    // 計畫首
+    int32                         inBatch               = 17;
+    // 計畫量
+    string                        outQty                = 18;
+    // 計畫首
+    int32                         outBatch              = 19;
+    // 計量單位
+    string                        unit                  = 20;
+    // 建立日期
+    string                        insertedAt            = 21;
+    // 建立人員
+    string                        insertedBy            = 22;
+    // 更新日期
+    string                        updatedAt             = 23;
+    // 更新人員
+    string                        updatedBy             = 24;
+    // 備註
+    string                        note                  = 25;
+}

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+// 查詢
+message GetCarrierDetailRequest {
+  string crr_id        = 1;
+  int32  owned_fty_id  = 2;
+  string owned_dept_id = 3;
+  string crr_stat      = 4;
+}
+message GetCarrierDetailReply {
+  repeated CrrInfo carrierss = 1;
+}
+
+// 新增
+message AddCarrierDetailRequest {
+  string crr_id        = 1;
+  int32  owned_fty_id  = 2;
+  string owned_dept_id = 3;
+  string crr_stat      = 4;
+  string crr_mtrl      = 5;
+  string user          = 6;
+}
+message AddCarrierDetailReply {}
+
+// 修改
+message UpdateCarrierDetailRequest {
+  repeated CrrInfo carrierss = 1;
+  string           user      = 2;
+}
+message UpdateCarrierDetailReply {}
+
+// 刪除
+message DeleteCarrierDetailRequest {
+  repeated CrrInfo carrierss = 1;
+  string           user      = 2;
+}
+message DeleteCarrierDetailReply {}
+
+message CrrInfo {
+  string crr_id        = 1;
+  int32  owned_fty_id  = 2;
+  string owned_dept_id = 3;
+  string crr_stat      = 4;
+  string crr_mtrl      = 5;
+  string update_at     = 6;
+  string update_by     = 7;
+}

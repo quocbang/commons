@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package proto.dm.prd;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/prd";
+
+import "proto/dm/rs/enums.proto";
+import "proto/mes/v2/commons/commons.proto";
+
+message LabelRequest {
+    message Wheres {
+        //集團碼
+        string subCompany    = 1;
+        //廠別
+        string factory       = 2;
+        //標示卡條碼
+        string barcode       = 3;
+        //條碼前墜字串
+        string prefix        = 4;
+        //部門代號
+        string department    = 5;
+        //生產日期
+        string productionDay = 6;
+    }
+    message Sets {
+        //更新剩餘量
+        string remainingQty  = 1;
+        string productionQty = 5;
+        //檢查狀態
+        string qc           = 2;
+        string updatedAt    = 3;
+        string updatedBy    = 4;
+    }
+    message Create {
+        // 集團碼
+        string subCompany                               = 1;
+        // 廠別
+        string factory                                  = 2;
+        // 部門代號
+        string department                               = 3;
+        // 使用者工號
+        string operator                                 = 4;
+        // 中間製品代號
+        string processName                              = 5;
+        // 配方ID
+        string recipeID                                 = 6;
+        // 單位
+        string unit                                     = 7;
+        // 生產日期
+        proto.mes.v2.commons.Time productionTime        = 8;
+        // 生產量
+        proto.mes.v2.commons.Decimal productionQuantity = 9;
+        // 材料類別
+        proto.dm.rs.ProductType productType             = 10;
+        // 生產批號
+        string                  lotNumber               = 11;
+    }
+
+    Wheres wheres = 1;
+    Sets   set    = 2;
+    Create create = 3;
+}
+
+message LabelReply {
+    repeated Label Labels = 1;
+}
+
+message Label {
+    //條碼
+    string barcode         = 1;
+    //廠別
+    string factory         = 2;
+    //部門代號
+    string department      = 3;
+    //生產日期
+    string productionDay   = 4;
+    //過期日期
+    string expireDate      = 5;
+    //生產量
+    string productionQty   = 6;
+    //剩餘量
+    string remainingQty    = 7;
+    //使用者工號
+    string operator        = 8;
+    //中間製品代號
+    string processName     = 9;
+    //中間製品代號(新版)
+    string newProcessName  = 10;
+    //生產批號
+    string lotNumber       = 11;
+}

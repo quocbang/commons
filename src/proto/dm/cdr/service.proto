@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package proto.dm.cdr;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/cdr";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// CDR CDR service.
+service CDR {
+  // cdrpdc.4gl 範例
+  rpc CdrpdcExample(google.protobuf.Empty) returns (CustomReports) {
+    option (google.api.http) = {
+      post : "/cdr/cdrpdcExample"
+      body : "*"
+    };
+  }
+  // cdrcrs.4gl 範例
+  rpc CdrcrsExample(Cusno) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/cdr/cdrcrsExample"
+      body : "*"
+    };
+  }
+  //廢胎費用
+  rpc GetScrappingTireFee(Product) returns (ScrappingTireFee) {
+    option (google.api.http) = {
+      post : "/cdr/scrappingTireFee/get"
+      body : "*"
+    };
+  }
+  // 查詢包裝成代
+  //
+  // 依據 packing 編號和箱號起訖, 查詢對應成代與數量.
+  rpc ListPackingItnbr(ListPackingItnbrRequest) returns (ListPackingItnbrReply) {
+    option (google.api.http) = {
+      post : "/cdr/packingItnbr/list"
+      body : "*"
+    };
+  }
+}
+
+message Product {
+  string subno = 1;
+  string itnbr = 2;
+}
+
+message ScrappingTireFee {
+  float fee = 1;
+}
+
+message Cusno {
+  string cusno = 1;
+}
+
+message CustomReport {
+  string CustomName      = 1;
+  int64  Stdqty          = 2;
+  int64  Stdbqty         = 3;
+  int64  Cdrqty          = 4;
+  int64  Shpqty          = 5;
+  int64  Amount          = 6;
+  int64  LtAmount        = 7;
+  int64  Qty1            = 8;
+  float  ResponseRate    = 9;
+  float  SixteenInchRate = 10;
+}
+
+message CustomReports {
+  repeated CustomReport dataset = 1;
+}
+
+//數量
+message CountReply {
+  int64 count = 1;
+}
+
+message ListPackingItnbrRequest {
+  string subno      = 1;
+  string packing_no = 2;
+  int32  box_number = 3;
+}
+
+message ListPackingItnbrReply {
+  message Itnbr {
+    string itnbr    = 1;
+    int64  quantity = 2;
+  }
+  repeated Itnbr itnbrs = 1;
+}

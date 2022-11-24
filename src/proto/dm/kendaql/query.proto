@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package proto.dm.kendaql;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/kendaql";
+
+import "proto/dm/kendaql/data_type.proto";
+import "proto/dm/kendaql/field.proto";
+import "proto/dm/kendaql/db.proto";
+import "proto/dm/kendaql/table.proto";
+
+message QueryRequest {
+  Database db  = 1;
+  Query    sql = 2;
+}
+
+message Query {
+  repeated Col selects       = 1;
+  Table        from          = 2;
+  repeated Join joins        = 3;
+  LogicalGroup  where        = 4;
+  repeated Column group_bys  = 5;
+  LogicalGroup    having     = 6;
+  repeated OrderBy order_bys = 7;
+}
+
+message Join {
+  JoinType type       = 1;
+  Table    table      = 2;
+  repeated JoinOn ons = 3;
+}
+
+enum JoinType {
+  JOIN        = 0;
+  LEFT        = 1;
+  RIGHT       = 2;
+  INNER       = 3;
+  LEFT_OUTER  = 4;
+  RIGHT_OUTER = 5;
+  FULL_OUTER  = 6;
+  CROSS       = 7;
+}
+
+message JoinOn {
+  Column from = 1;
+  Column to   = 2;
+}
+
+message OrderBy {
+  Order  type   = 1;
+  Column column = 2;
+}
+
+enum Order {
+  ASCENDING  = 0;
+  DESCENDING = 1;
+}
+
+message QueryReply {
+  repeated ColumnProperty headers = 1;
+  repeated Row rows               = 2;
+}
+
+message ColumnProperty {
+  DataType data_type = 1;
+}
+
+message Row {
+  repeated bytes values = 1;
+}

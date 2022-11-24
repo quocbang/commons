@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto.dm.per;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/per";
+
+import "proto/dm/per/permas.proto";
+
+message ListPermasRequest{
+    string subno            = 1;        //廠別代號
+    string depno            = 2;        //部門代號
+    string empno            = 3;        //員工工號
+    string usrno2           = 4;        //員工代號
+    string name             = 5;        //員工姓名
+}
+
+message ListPermasReply{
+    repeated proto.dm.per.Permas datas   = 1;
+}

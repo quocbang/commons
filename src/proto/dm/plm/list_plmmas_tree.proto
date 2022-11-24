@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package proto.dm.plm;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/plm";
+
+message ListPlmmasTreeRequest{
+    string prjno    = 1;
+    string prjseq   = 2;    
+}
+
+message ListPlmmasTreeReply{
+    repeated PlmmasTree datas = 1;
+}
+
+//任務資料
+message PlmmasTree{
+    int32  no            = 1;    //PK
+    string prjno         = 2;    //專案代號
+    string prjseq        = 3;    //專案項次
+    int32  plmmenuno     = 4;    //對應的plmmenu oid
+    string kind          = 5;    //資料類型
+    int32  seq           = 6;    //順序
+    string admin         = 7;    //負責人
+    string reladmin      = 8;    //協辦人員
+    string prestart      = 9;    //預定開始日
+    string preend        = 10;   //預定結束日
+    string actstart      = 11;   //實際開始日
+    string actend        = 12;   //實際結束日
+    int32  schedule      = 13;   //進度
+    string taskname      = 14;   //名稱
+    string memo          = 15;   //備註
+    string status        = 16;   //狀態
+    string indat         = 17;   //鍵入日期
+    string intime        = 18;   //鍵入時間
+    string usrno         = 19;   //鍵入人員
+    int32  menu_levels   = 20;   //階層數
+    string menu_name     = 21;   //項目名稱
+    int32  menu_seq      = 22;   //該層
+    int32  menu_kind     = 23;   //類別(2^n)
+    float  menu_workdays = 24;   //天數
+    string menu_sortcol  = 25;   //階層
+    int32  menu_groupseq = 26;   //群組順序
+    string addtask       = 27;   //是否可以增加任務
+}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package proto.dm.plm;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/plm";
+
+message GetPlmattMaxSeqRequest{
+    int32 plmmasno = 1;     //對應Plmmas.no欄位
+}
+
+message GetPlmattMaxSeqReply{
+    int32 seq = 1;          
+}

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package proto.mes.v2.recipe;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/recipe";
+
+import "proto/mes/v2/commons/commons.proto";
+
+message DecimalParam {
+    commons.Decimal value = 1;
+    commons.Decimal min   = 2;
+    commons.Decimal max   = 3;
+    string          unit  = 4;
+}
+
+message Freshness {
+    commons.Time    resting           = 1; // 靜置期間
+    commons.Time    expiry            = 2; // 有效期間
+    commons.Decimal extension         = 3; // 最小展延期間 e.g., 0.5 (expiry * 0.5)
+    uint32          maxExtensionTimes = 4; // 最大展延次數 e.g., 2
+}
+
+message ResourceRequirement {
+    string       name      = 1;
+    DecimalParam quantity  = 2;  // default 1-unit if NULL
+    string       grade     = 3;  // optional: resource grade, e.g., "A", "B"
+    Freshness    freshness = 4;  // optional: expire duration since resource creation
+
+    message SiteRequirement {  // optional site requirement
+        string name  = 1;
+        oneof requirement {
+            bool   unique = 2;  // must be the unique site with the name
+            bool   any    = 3;  // can be any site with the name
+            uint32 index  = 4;  // must be the i-th site with the name, 1-indexed, e.g., OilContainer#3
+        }
+    }
+    SiteRequirement site = 5;
+}
+
+message ResourceRequirements {
+    repeated ResourceRequirement requirements = 1;
+}
+
+message Params {
+    message Param {
+        string       name         = 1;
+        DecimalParam decimalValue = 2;
+        string       stringValue  = 3;
+    }
+    repeated Param params = 1;
+}
+
+message RecipeDetails {
+    map<string, ResourceRequirements> groupedResources = 1;  // materials and tools
+    map<string, Params>               groupedParams    = 2;  // control and measurements parameters
+}
+
+message Recipe {
+    string          name       = 1;
+    string          version    = 2;
+    commons.Decimal batchSize  = 5;
+    commons.Time    releasedAt = 4;
+
+    RecipeDetails details = 3;
+}

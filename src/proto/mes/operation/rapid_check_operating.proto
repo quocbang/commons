@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+import "proto/dm/rs/enums.proto";
+
+message RapidCheckOperatingRequest{
+    // 請求類別
+    code.FunctionModel action_type             = 1;
+    // I = 進站 , O = 出站
+    code.Mode action_mode                      = 2;
+    // 搜尋用
+    string lot_id                              = 3;
+    repeated string sheet_ids                  = 4;
+    string update_by                           = 5;
+    repeated measurementItem measurement_items = 6;
+    message measurementItem {
+        string equipment_id = 1;
+        string recipe_id    = 2;
+        string sheet_id     = 3;
+        // TODO this should be a enum
+        string item_name    = 4;
+        string sequence_no  = 5;
+        string value        = 6;
+        // TODO this should be a enum
+        string unit         = 7;
+        bool  conformity    = 8;
+    }
+}
+
+message RapidCheckOperatingReply{
+    // 錯誤代碼
+    code.error.RapidCheckOperating err = 1 ;
+    repeated Sheet sheets =2;
+    message Sheet {
+        string id                                      = 1;
+        string lot_id                                  = 2;
+        proto.mes.code.LotStatus status                = 3;
+        // 途程名稱
+        string current_process_name                    = 4;
+        proto.dm.rs.ProcessType current_process_type   = 5;
+        // 途程名稱
+        string next_process_name                       = 6;
+        proto.dm.rs.FactoryID factory_id               = 7;
+        string product_id                              = 8;
+        proto.dm.rs.StageStatus stage_status           = 9;
+        string major_version                           =10;
+        string update_by                               =11;
+        string update_at                               =12;
+    }    
+}
+
+

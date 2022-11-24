@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package proto.mes.v2.api;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/api";
+
+import "google/protobuf/timestamp.proto";
+
+import "proto/utils/types.proto";
+import "proto/mes/v2/inspection/inspection.proto";
+import "proto/mes/v2/check/error.proto";
+
+message RecordInspectResultsRequest {
+    string id = 11;
+
+    message Resource {
+        enum Type {
+            TYPE_UNSPECIFIED = 0;
+            WORK_ORDER       = 1; // 更新該工單產出的所有材料標示卡的狀態
+        }
+        Type   type = 1;
+        string id   = 2;
+    }
+    // 若需要依據各項檢驗資料判定結果變更條碼狀態(可否使用),
+    // 則需要指定此一欄位.
+    Resource resource = 12;
+
+    // 檢驗開始時間
+    google.protobuf.Timestamp timestamp = 1;
+    // 檢驗結束時間
+    google.protobuf.Timestamp timestampEnd = 13;
+    // 試驗目的
+    string purpose = 2;
+    // 試驗標準
+    string recipeID = 3;
+    // 當前設備狀況
+    map<string, utils.Decimal> properties = 4;
+    // 各項檢驗資料
+    repeated inspection.Batch batches = 5;
+    map<string, string> additions = 6;
+
+    message Proposal {
+        string department = 1;
+        string user       = 2;
+        // 電子表單序號
+        string formSerialNumber = 3;
+    }
+    Proposal proposal = 7;
+
+    string tireType = 8; // 胎別
+    string scanType = 9; // 掃描類型
+
+    string remark = 10;
+}
+
+message RecordInspectResultsReply {
+    check.Error error = 1;
+}

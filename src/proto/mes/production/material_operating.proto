@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/production/common.proto";
+import "proto/mes/code/error/enums.proto";
+import "proto/mes/code/enums.proto";
+import "proto/dm/rs/enums.proto";
+
+//材料操作請求 (for OPI)
+message MaterialOperatingRequest{
+    // 操作類別
+    code.FunctionModel action_type          = 1;
+    // query 條件
+    proto.dm.rs.ProductType product_type    = 2;
+    // 材料條碼
+    string material_lot_id                  = 3;
+    // 材料ID
+    string material_product_id              = 4;
+    // 材料等級
+    string material_level                   = 5;
+    // 材料狀態
+    code.MaterialStatus status              = 6;
+    // 管理廠
+    proto.dm.rs.FactoryID owned_factory_id  = 7;
+    // 管理部門
+    string owned_department_id              = 8;
+    // 起始日
+    string start_date                       = 9;
+    // 終止日
+    string end_date                         = 10;
+    // 材料清單
+    repeated MaterialList materials         = 12;
+}
+
+//材料操作回應 (for OPI)
+message MaterialOperatingReply{
+    //錯誤代碼
+    code.error.MaterialOperating err = 1;
+    //材料清單
+    repeated MaterialList materials    = 2;
+}

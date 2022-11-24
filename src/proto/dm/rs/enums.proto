@@ -1,0 +1,660 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+//工序類別
+enum ProcessType {
+    PROCESS_TYPE_UNSPECIFIED = 0;
+    PROCESS                  = 1; // IN Process , 生產站皆屬此類
+    MEASUREMENT              = 2; // 品管
+    INSPECTION               = 3; // 快檢
+}
+
+// 工廠列舉。
+enum FactoryID {
+    FACTORY_UNSPECIFIED = 0;
+    KY                  = 1;
+    KU                  = 2;
+    KS                  = 3;
+    KC                  = 4;
+    KT                  = 5;
+    KJ                  = 6;
+    KV                  = 7;
+    KV2                 = 8;
+    KI                  = 9;
+}
+
+enum StageStatus {
+    STAGE_STATUS_UNSPECIFIED = 0;
+    TEMPORARY                 = 1; // 暫定
+    PRODUCTION                = 2; // 正式生產
+    TRIAL_RUN                 = 3; // 試產
+    EXPERIMENTAL              = 4; // 試作
+    DEPRECATED                = 5; // 鎖定
+}
+
+// 製程類別
+enum ProductType{
+    PRODUCT_TYPE_UNSPECIFIED = 0;
+// 原材料大類
+    //天然橡膠
+    NATURAL_RUBBER = 10;
+    //合成橡膠
+    SYNTHETIC_RUBBER = 20;
+    //PU FOAM
+    PU_FOAM = 22;
+    //丁基橡膠
+    BUTYL_RUBBER = 25;
+    //再生膠
+    RECLAIMED_RUBBER = 28;
+    //老防劑
+    ANTIOXIDANT = 30;
+    //活性劑
+    ACTIVATOR = 40;
+    //增粘劑
+    TACKIFIER = 41;
+    //接著劑
+    ADHESIVE = 42;
+    //加工助劑
+    PROCESSING_AID = 43;
+    //顏料
+    PIGMENT = 44;
+    //香料
+    PERFUME = 45;
+    //硫化劑
+    VULCANIZING_AGENT = 50;
+    //促進劑
+    ACCELERATOR = 51;
+    //遲延劑
+    RETARDER = 52;
+    //發泡劑
+    FOAMING_AGENT = 53;
+    //補強劑
+    REINFORCING_AGENT = 60;
+    //填充劑
+    FILLER = 65;
+    //橡膠油
+    RUBBER_PROCESS_OIL = 68;
+    //簾布
+    MATERIAL_PLY = 70;
+    //KV纖維
+    KEVLAR_FIBRE = 71;
+    //KEE工程膠
+    KEVLAR_BRAND_ENGINEERED_ELASTOMER = 72;
+    //KV RING
+    KEVLAR_BEAD_RING = 73;
+    //鋼絲圈
+    MATERIAL_BEAD  = 74;
+    //鋼絲
+    BEAD_WIRE = 75;
+    //鋼絲簾線
+    STEEL_CORD = 76;
+    //反光帶
+    REFLECTIVE_TAPE = 77;
+    //防漏液
+    TUBE_SEALANT = 78;
+    //防擦布
+    MATERIAL_CHAFER = 80;
+    //細布
+    FINE_CLOTH = 81;
+    //管胎用線布
+    CLOTH_OF_TUBELAR = 82;
+    //離型劑
+    RELEASE_AGENT = 83;
+    //標色糊
+    MARKING_COLOR_INK = 84;
+    //溶劑
+    SOLVENT = 85;
+    //潤滑油
+    LUBE_OIL = 86;
+    //化學藥劑與溶劑
+    CHEMICAL_REAGENT_OR_SOLVENT = 87;
+    //LOGO標籤
+    LOGO_TAG = 88;
+    //胎管
+    GREEN_TUBE = 89;
+    //平車嘴
+    BC_TUBE_VALVE = 90;
+    //機車嘴
+    MC_TUBE_VALVE = 91;
+    //汽胎嘴
+    AIR_BAG_VALVE = 92;
+    //零配件
+    PARTS = 93;
+    //裁斷簾布
+    CUTED_PLY = 95;
+    //蓋膠簾布
+    CALENDERED_PLY = 96;
+    //其他
+    OTHER_MATERIAL = 99;
+
+// 半製品, 成品
+    //膠料
+    RUBBER = 201;
+    //藥包(配合劑)
+    COMPOUNDING_INGREDIENT = 202;
+    //藥包(促進劑)
+    ACCELERATOR_INGREDIENT = 203;
+    //三角膠
+    BEAD_FILLER = 204;
+    //鋼絲圈
+    BEAD = 205;
+    //胎圈(鋼絲圈+三角膠)
+    BEAD_AND_BEAD_FILLER_PREASSEMBLY = 206;
+    //環帶
+    STEEL_BELT = 207;
+    //環帶邊膠
+    EDGE_GUM = 208;
+    //環帶+邊膠
+    BELT_AND_EDGE_GUM_PREASSEMBLY = 209;
+    //簾布
+    PLY = 210;
+    //防擦布
+    CHAFER = 211;
+    //胎唇護布
+    FLIPPER = 212;
+    //鋼絲包布
+    WRAPPING = 213;
+    //裁斷簾布
+    CARCASS_PLY = 214;
+    //尼龍束帶
+    CAP_PLY = 215;
+    //胎面膠
+    TREAD = 216;
+    //內面膠
+    INNER_LINER = 217;
+    //胎邊膠
+    SIDEWALL = 218;
+    //中心膠
+    SQUEEZE = 219;
+    //生胎
+    GREEN_TIRE = 220;
+    //成品
+    TIRE = 221;
+    //氣囊
+    CURING_BLADDER = 226;
+    //氣袋
+    TURN_UP_BLADDER = 227;
+    //管胎胎體
+    TUBULAR_CASING = 228;
+    //管胎硫化胎面膠
+    CURED_TUBULAR_TREAD = 229;
+    //回收膠料
+    RETURN_COMPOUND = 230;
+}
+
+// 重錘位置
+enum RamPosition {
+    RAM_POSITION_UNSPECIFIED = 0;
+    // 上
+    UP = 1;
+    // 下
+    DOWN = 2;
+}
+
+// 入料門狀態
+enum GateStatus {
+    GATE_STATUS_UNSPECIFIED = 0;
+    // 開啟
+    OPEN = 1;
+    // 關閉
+    CLOSE = 2;
+}
+
+// 動作類別
+enum ActionType {
+    ACTION_TYPE_UNSPECIFIED = 0;
+    // 投料
+    FEEDING = 1;
+    // 打膠(混煉)
+    MIXING = 2;
+    // 透氣
+    BREATH = 3;   
+    // 清掃
+    SWEEPING = 4;
+    // 卸料(排料)
+    DROPPING = 5;
+    // 浮動
+    FLOATING = 6;
+}
+
+
+
+// 排料邏輯
+enum DroppingLogic {
+    DROPPING_LOGIC_UNSPECIFIED = 0;
+    // 混煉時間
+    TIME_ONLY = 1 ;
+    // 機內溫度
+    TEMP_ONLY = 2 ;
+    // 混練功率
+    POWER_ONLY = 3 ;
+    // 混煉時間 及 機內溫度
+    TIME_AND_TEMP = 4;
+    // 混煉時間 或 機內溫度
+    TIME_OR_TEMP = 5;
+    // 機內溫度 及 混煉功率
+    TEMP_AND_POWER = 6;
+    // 機內溫度 或 混煉功率
+    TEMP_OR_POWER = 7;
+    // 混煉時間 及 混煉功率
+    TIME_AND_POWER = 8;
+    // 混煉時間 或 混煉功率
+    TIME_OR_POWER = 9;
+    // 混煉時間 及 機內溫度 及 混煉功率
+    TIME_AND_TEMP_AND_POWER = 10;
+    // 混煉時間 及 機內溫度 或 混煉功率
+    TIME_AND_TEMP_OR_POWER = 11;
+    // 混煉時間 或 機內溫度 及 混煉功率
+    TIME_OR_TEMP_AND_POWER = 12;
+    // 混煉時間 或 機內溫度 或 混煉功率
+    TIME_OR_TEMP_OR_POWER = 13;
+}
+
+//胎面膠色線代號
+enum ColorCode {
+    COLOR_CODE_UNSPECIFIED = 0;
+    //紅(R)
+    RED                    = 1;
+    //橙(O)
+    ORANGE                 = 2;
+    //黃(Y)
+    YELLOW                 = 3;
+    //綠(G)
+    GREEN                  = 4;
+    //青(C)
+    CYAN                   = 5;
+    //藍(B)
+    BLUE                   = 6;
+    //白(W)
+    WHITE                  = 7;
+    //粉紅(P)
+    PINK                   = 8;
+    //桃紅(F)
+    FUCHSIA                = 9;
+    //灰(L)
+    LIGHT_GRAY             = 10;
+    //紫(V)
+    VIOLET                 = 11;
+    //棕(T)
+    TAN                    = 12;
+}
+
+//成型方式 U = UP,D = Down,F = Floating
+enum BuildingMethod {
+    BUILDING_METHOD_UNSPECIFIED                         = 0;
+    // TOS
+    TREAD_OVER_SIDEWALL                                 = 1;
+    // SOT
+    SIDEWALL_OVER_TREAD                                 = 2;
+}
+
+//成型方式 U = UP,D = Down,F = Floating
+enum FirstBuildingMethod {
+    FIRST_BUILDING_METHOD_UNSPECIFIED = 0;
+    //1P-UP (1U)
+    FIRST_CARCASS_PLY_UP                                                   = 1;
+    //1P-UP-2P-DOWN (1U+1D)
+    FIRST_CARCASS_PLY_UP_SECOND_CARCASS_PLY_DOWN                           = 2;
+    //1P-UP-2P-FLOATING (1U+1F)
+    FIRST_CARCASS_PLY_UP_SECOND_CARCASS_PLY_FLOATING                       = 3;
+    //1P-UP-2P-UP (2U)
+    FIRST_CARCASS_PLY_UP_SECOND_CARCASS_PLY_UP                             = 4;
+    //1P-UP-2P-UP-3P-DOWN (2U+1D)
+    FIRST_CARCASS_PLY_UP_SECOND_CARCASS_PLY_UP_THIRD_CARCASS_PLY_DOWN      = 5;
+    //1P-UP-2P-UP-3P-FLOATING (2U+1F)
+    FIRST_CARCASS_PLY_UP_SECOND_CARCASS_PLY_UP_THIRD_CARCASS_PLY_FLOATING  = 6;
+    //1P-UP-2P-UP-3P-UP (3U)
+    FIRST_CARCASS_PLY_UP_SECOND_CARCASS_PLY_UP_THIRD_CARCASS_PLY_UP        = 7;
+}
+
+//尼龍束帶捲繞構成 C = CapPly ,E = EdgePly
+enum CapPlyStructure {
+    CAP_PLY_UNSPECIFIED = 0;
+    //1C  1層CAP纏繞
+    ONE_LAYER_CAP_PLY   = 1;
+    //1E  1層EDGE纏繞
+    ONE_LAYER_EDGE_PLY  = 2;
+    //2C  2層CAP纏繞
+    TWO_LAYER_CAP_PLY   = 3;
+    //2E  2層EDGE纏繞
+    TWO_LAYER_EDGE_PLY  = 4;
+}
+
+//邊膠貼附位置
+enum EdgeGumPosition {
+    EDGE_GUM_POSITION_UNSPECIFIED = 0;
+    //上貼
+    UPPER = 1;
+    //下貼
+    BOTTOM = 2;
+    //上下貼
+    UPPER_AND_BOTTOM = 3;
+    //U包
+    U_SHPAE = 4;
+}
+
+// 屬性、參數、機台設定
+enum PropertyName {
+//配合表(密煉)用
+    PROPERTY_NAME_UNSPECIFIED       = 0;
+    //填充率
+    FILL_FACTOR = 1;
+    //功率(排料功率)
+    DROPPING_POWER = 2;
+    //混煉時間
+    MIXING_TIME = 3;
+    //作動時間
+    ACTUATION_TIME = 4;
+    //入料門狀態
+    FEED_GATE_STATUS = 5;
+    //加工油延時
+    PROCESS_OIL_DELAY = 6;
+    //動作類別
+    ACTION_TYPE = 7;
+    //強制排料時間
+    ENFORCE_DROPPING_TIME = 8;
+    //排料邏輯
+    DROPPING_LOGIC = 9;
+    //生膠延時
+    RUBBER_DELAY = 10;
+    //碳黑延時
+    CARBON_BLACK_DELAY = 11;
+    //轉速
+    ROTOR_SPEED = 12;
+    //重錘位置
+    RAM_POSITION  = 13;
+    //重錘壓力
+    RAM_PRESSURE = 14;
+    //排料溫度
+    DROPPING_TEMPERATURE = 15;
+    //密度
+    DENSITY = 16;
+    //Cure time
+    CURE_TIME = 17;
+    //Mooney
+    MOONEY = 18;
+    //TC90
+    CURE_TIME_NINETY_PERCENT = 19;
+    //TS2
+    SCORCH_TIME = 20;
+    //gravity(AC),gravity(act)
+    GRAVITY_CURING = 21;
+    //gravity(BC),gravity(std)
+    GRAVITY_THEORETICAL_VALUE = 22;
+    //DIN
+    DIN = 23;
+    //HD
+    HARDNESS = 24;
+    //寫入機台溫度
+    REQUEST_TEMPERATURE = 25;
+    //寫入機台時間
+    REQUEST_TIME = 26;
+    //第一類溫度警報
+    TEMPERATURE_ALARM_FIRST_LEVEL = 27;
+    //第二類溫度警報
+    TEMPERATURE_ALARM_SECOND_LEVEL = 28;
+    //第三類溫度警報
+    TEMPERATURE_ALARM_THIRD_LEVEL = 29;
+    //集塵設定
+    DUST_COLLECTOR_SETTING = 30;
+    //有效期限
+    EXPIRY = 31;
+    //投料上限
+    FEEDING_UPPER_LIMIT = 32;
+    
+//成型用
+    //內面膠長度
+    INNER_LINER_LENGTH = 40;
+    //內面膠組合總寬
+    INNER_LINER_TOTAL_WIDTH = 41;
+    //胎邊膠長度
+    SIDEWALL_LENGTH = 42;
+    //胎邊膠距中心寬度
+    SIDEWALL_DISTANCE_FROM_CENTER_WIDTH = 43;
+    //1P寬度
+    FIRST_CARCASS_PLY_WIDTH = 44;
+    //1P長度
+    FIRST_CARCASS_PLY_LENGTH = 45;
+    //2P寬度
+    SECOND_CARCASS_PLY_WIDTH = 46;
+    //2P長度
+    SECOND_CARCASS_PLY_LENGTH = 47;
+    //3P寬度
+    THIRD_CARCASS_PLY_WIDTH = 48;
+    //3P長度
+    THIRD_CARCASS_PLY_LENGTH = 49;
+    //1B寬度
+    FIRST_STEEL_BELT_WIDTH = 50;
+    //1B長度
+    FIRST_STEEL_BELT_LENGTH = 51;
+    //2B寬度
+    SECOND_STEEL_BELT_WIDTH = 52;
+    //2B長度
+    SECOND_STEEL_BELT_LENGTH = 53;
+    //3B寬度
+    THIRD_STEEL_BELT_WIDTH = 54;
+    //3B長度
+    THIRD_STEEL_BELT_LENGTH = 55;
+    //4B寬度
+    FOURTH_STEEL_BELT_WIDTH = 56;
+    //4B長度
+    FOURTH_STEEL_BELT_LENGTH = 57;
+    //尼龍束帶1捲繞構成
+    FIRST_CAP_PLY_WINDING_STRUCTURE = 58;
+    //尼龍束帶2捲繞構成
+    SECOND_CAP_PLY_WINDING_STRUCTURE = 59;
+    //尼龍束帶寬度
+    CAP_PLY_WIDTH = 60;
+    //胎面膠總寬
+    TREAD_TOTAL_WIDTH = 61;
+    //胎面膠長度
+    TREAD_LENGTH = 62;
+    //BASE膠長度
+    BASE_LENGTH = 63;
+    //BASE總寬
+    BASE_TOTAL_WIDTH = 64;
+    //一次成型方式
+    FIRST_BUILDING_METHOD = 65;
+    //成型筒寬度
+    DRUM_WIDTH = 66;
+    //成型筒周長
+    DRUM_PERIMETER = 67;
+    //成型方式(二次成型)
+    BUILDING_METHOD = 68;
+    //一次法PA
+    ONE_STAGE_BUILDING_PA = 69;
+    //充氣環設定寬度1
+    FIRST_FORMER_RING_SETTING_WIDTH = 70;
+    //充氣環設定寬度3
+    THIRD_FORMER_RING_SETTING_WIDTH = 71;
+    //B&T周長
+    BELT_DRUM_PERIMETER = 72;
+
+//押出用
+    //膠料1氣泡率
+    FIRST_LAYER_RUBBER_VOID_RATE = 80;
+    //膠料2氣泡率
+    SECOND_LAYER_RUBBER_VOID_RATE = 81;
+    //膠料3氣泡率
+    THIRD_LAYER_RUBBER_VOID_RATE = 82;
+    //膠料4氣泡率
+    FOURTH_LAYER_RUBBER_VOID_RATE = 83;
+
+    //色線 左3
+    THIRD_LEFT_COLOR_LINE = 84;
+    //色線 左2
+    SECOND_LEFT_COLOR_LINE = 85;
+    //色線 左1
+    FIRST_LEFT_COLOR_LINE = 86;
+    //色線 中心
+    CENTER_COLOR_LINE = 87;
+    //色線 右1
+    FIRST_RIGHT_COLOR_LINE = 88;
+    //色線 右2
+    SECOND_RIGHT_COLOR_LINE = 89;
+    //色線 右3
+    THIRD_RIGHT_COLOR_LINE = 90;
+    //色線 右4
+    FOURTH_RIGHT_COLOR_LINE = 91;
+
+    //左色線1中心距
+    DISTANCE_BETWEEN_CENTER_AND_FIRST_LEFT_COLOR_LINE = 92;
+    //左色線2中心距
+    DISTANCE_BETWEEN_CENTER_AND_SECOND_LEFT_COLOR_LINE_= 93;
+    //左色線3中心距
+    DISTANCE_BETWEEN_CENTER_AND_THIRD_LEFT_COLOR_LINE = 94;
+    //右色線1中心距
+    DISTANCE_BETWEEN_CENTER_AND_FIRST_RIGHT_COLOR_LINE = 95;
+    //右色線2中心距
+    DISTANCE_BETWEEN_CENTER_AND_SECOND_RIGHT_COLOR_LINE = 96;
+    //右色線3中心距
+    DISTANCE_BETWEEN_CENTER_AND_THIRD_RIGHT_COLOR_LINE = 97;
+    //右色線4中心距
+    DISTANCE_BETWEEN_CENTER_AND_FOURTH_RIGHT_COLOR_LINE = 98;
+
+    //上流道螺杆轉速
+    TOP_SCREW_RPM = 99;
+    //中流道螺杆轉速
+    MIDDLE_SCREW_RPM = 100;
+    //下流道螺杆轉速
+    BOTTOM_SCREW_RPM = 101;
+    //外接流道螺桿轉速
+    ADDITION_SCREW_RPM = 102;
+    //拉出速度
+    CONVEYOR_SPEED = 103;
+    //連續稱重,單位重量
+    UNIT_WEIGHT = 104;
+    //頂寬面積
+    SHOULDER_WIDTH_AREA = 105;
+    //總面積
+    TOTAL_AREA = 106;
+    //總厚
+    TOTAL_GAUGE = 107;
+    //肩厚
+    SHOULDER_GAUGE = 108;
+    //頂寬
+    SHOULDER_WIDTH = 109;
+    // 總寬
+    TOTAL_WIDTH = 110;
+
+    //內面膠膠料1(BOTTOM_LAYER)寬度
+    FIRST_WIDTH = 111;
+    //內面膠膠料2(TOP_LAYER)寬度
+    SECOND_WIDTH = 112;
+    //內面膠膠料3(ADDITION_LAYER)寬度
+    THIRD_WIDTH = 113;
+    //內面膠膠料1(BOTTOM_LAYER)厚度
+    FIRST_GAUGE = 114;
+    //內面膠膠料2(TOP_LAYER)厚度
+    SECOND_GAUGE = 115;
+    //內面膠膠料3(ADDITION_LAYER)厚度
+    THIRD_GAUGE = 116;
+
+    //裁紗角度
+    CUTTING_ANGLE = 117;
+    //裁紗寬度
+    CUTTING_WIDTH = 118;
+
+    //環帶邊膠貼附模式
+    EDGE_GUM_POSITION = 119;
+
+    //內面周長
+    PERIMETER = 120;
+    //高度
+    HEIGHT = 121;
+
+//配方表用
+    //MST
+    MOONEY_SCORCH_TIME = 201;
+    //Tmax
+    MAXIMUM_TORQUE = 202;
+    //Tmin
+    MINIM_TORQUE = 203;
+    //Tc60
+    CURE_TIME_SIXTY_PERCENT = 204;
+    //分散性
+    DISPERSION_RATIO = 205;
+    //M100
+    ONE_HUNDRED_PERCENT_ELONGATION_MODULUS = 206;
+    //M300
+    THREE_HUNDRED_PERCENT_ELONGATION_MODULUS = 207;
+    //抗拉強度
+    TENSILE_STRENGTH = 208;
+    //拉伸率
+    ELONGATION = 209;
+    //引裂強度
+    TEAR_STRENGTH = 210;
+    //耐磨性
+    ABRASION = 211;
+    //永久伸長率
+    PERMANENT_ELONGATION = 212;
+    //壓縮歪
+    COMPRESSION_SET = 213;
+    //耐屈曲性
+    ELEX_FATIGUE = 214;
+    //發熱性
+    HEAT_BUILDUP = 215;
+    //抗臭氧(靜)
+    STATIC_ANTI_OZONE = 216;
+    //抗臭氧(動)
+    DYNAMIC_ANTI_OZONE = 217;
+    //固形份
+    SOLID_CONTENT = 219;
+    //黏度(岩田2號杯)
+    VISCOSITY_IWATA_NUMEER_TWO_CUP = 220;
+    //橡膠含量
+    RUBBER_CONTENT = 221;
+    //萃取份含量
+    EXTRACT_CONTENT = 222;
+    //碳黑含量
+    CARBON_BLACK_CONTENT = 223;
+    //填充劑含量
+    FILLER_CONTENT = 224;
+    //硫變溫度
+    VULCANIZATION_TEMPERATURE = 225;
+    //LowPAHs(Low Polycyclic Aromatic Hydrocarbons)
+    LOW_PAHS = 226;
+    //ExtraLowPAHs(Extra Low Polycyclic Aromatic Hydrocarbons)
+    EXTRA_LOW_PAHS = 227;
+    //非汙染性
+    NON_STAINING = 228;
+
+
+}
+
+enum GetDataErrorCode {
+    GET_DATA_SUCCESS    = 0;
+    GET_DATA_NOT_FOUND  = 1;
+    INPUT_DATA_INSUFFICIENT = 2;
+}
+
+// 工具類型
+enum ToolRole {
+    TOOL_ROLE_UNSPECIFIED = 0;
+    // 模具,口金 ...
+    // 如：加硫用模具, 三角膠、胎面膠內外口金
+    MOLD                  = 1;
+    // 台車, 載具 ...
+    // 如：棧板、工字輪、生胎車
+    CART                  = 2;
+    // 環形工具
+    // 如：胎唇充氣環
+    RING                  = 3;
+    // 筒, 鼓工具
+    // 如: 成型桶
+    BUILDING_DRUM         = 4;
+    // 紙張
+    // 如： 基準、核對卡
+    PAPER          = 5;
+}
+
+// 密煉機集塵設定
+enum DustCollectorSetting {
+    DUST_COLLECTOR_SETTING_UNSPECIFIED = 0;
+    // 混煉作業集塵系統
+    DC_OF_MIXING                       = 1;
+    // 加促作業集塵系統
+    DC_OF_ACCELERATOR                  = 2;
+}

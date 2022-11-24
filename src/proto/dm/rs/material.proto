@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/container/enum_type.proto";
+
+message GetRecipeMaterialsRequest {
+  string recipe_id    = 1;
+  // 機台ID
+  string station      = 2;
+  // 途程名稱
+  string process_name = 3;
+  bool   show_own     = 4; //true=顯示本身的資料;false=顯示藥包對應的資料(給誰用的)
+}
+message GetRecipeMaterialsReply {
+  GetDataErrorCode err = 1;
+  float   total     = 2; // 指定階段的total
+  float   fill_rate = 3; // 有效容積 (機台容積 * 填充係數)
+  message Mtrl {
+    string type            = 1; //材料ProdutcType
+    string name            = 2; //材料名稱
+    string level           = 3; //材料等級
+    float value            = 4; //材料用量
+    string unit            = 5; //材料計量單位
+    string req_recipe_id   = 6; //參考配方
+    container.Type con_type = 7; //桶槽類型
+  }
+  repeated Mtrl mtrls   = 4;
+  repeated string procs = 5; //生產階段的所有Process Name(可能投入材料為上一階段產出-算重量用)
+}
+
+message GetRecipeAllMaterialsRequest {
+  string recipe_id = 1;
+}
+message GetRecipeAllMaterialsReply {
+  GetDataErrorCode err = 1;
+  message Mtrl {
+    string type          = 1;
+    string name          = 2;
+    string level         = 3;
+    float  value         = 4;
+    string req_recipe_id = 5;
+  }
+  repeated Mtrl mtrls = 2;
+}

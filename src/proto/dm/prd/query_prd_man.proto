@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto.dm.prd;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/prd";
+
+message PrdManRequest {
+  string subno   = 1;
+  string factory = 2;
+  string depno   = 3;
+  string pday    = 4;
+  string class   = 5;
+  string empno   = 6;
+  string code    = 7;
+  string codd    = 8;
+  string partno  = 9;
+}
+
+message PrdManReply {
+  repeated List lists = 1;
+
+  message List {
+    string subno   = 1;
+    string factory = 2;
+    string depno   = 3;
+    string pday    = 4;
+    string class   = 5;
+    string empno   = 6;
+    string code    = 7;
+    string codd    = 8;
+    string manuno  = 9;
+    string unit    = 10;
+    string mano    = 11;
+    string partno  = 12;
+    string stype   = 13;
+    string preanum = 14;
+    string actanum = 15;
+    string godanum = 16;
+    string disanum = 17;
+    string recanum = 18;
+    string cyctim  = 19;
+    string biotim  = 20;
+    string rttim   = 21;
+    string rate    = 22;
+    string ptype   = 23;
+    string machnd  = 24;
+    string indat   = 25;
+    string usrno   = 26;
+  }
+}

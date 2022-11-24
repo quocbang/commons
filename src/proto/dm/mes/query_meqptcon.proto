@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message GetMeqptconRequest {
+  string eqpt_id      = 1;
+  string container_id = 2;
+}
+
+message GetMeqptconReply {
+  repeated Meqptcon info = 1;
+
+  message Meqptcon {
+    string eqpt_id      = 1;
+    string container_id = 2;
+    string update_by    = 3;
+    string update_at    = 4;
+  }
+}

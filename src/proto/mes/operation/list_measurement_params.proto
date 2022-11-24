@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/dm/rs/enums.proto";
+
+message ListMeasurementParametersRequest {
+    proto.dm.rs.FactoryID factory_id       = 1;
+    string product_id                      = 2;
+    proto.dm.rs.StageStatus stage_status   = 3;
+    string major                           = 4;
+    string minor                           = 5;
+    string equipment                       = 6;
+    // 途程名稱
+    string process_name                    = 7;
+    string lot_id                          = 8;
+}
+
+message ListMeasurementParametersReply {
+    message Parameter {
+        string name         = 1;
+        string type         = 2;
+        string unit         = 3;
+        float  central      = 4;
+        float  min          = 5;
+        float  max          = 6;
+        float  error_margin = 7;
+        int32  enum         = 8;
+        string description  = 9;
+    }
+    repeated Parameter parameters = 1;
+}

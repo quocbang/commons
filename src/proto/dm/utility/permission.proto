@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package proto.dm.utility;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/utility";
+
+import "google/protobuf/timestamp.proto";
+
+enum Permission {
+  NO_PERMISSION               = 0;
+  FLEXIBLE_HOUR               = 1;
+  PCR_DEALER_PERFORMANCE_DATA = 2;
+  ACCOUNTING_ENTRY            = 3;
+  MES                         = 4;
+  PROJECT_WINDOW_OPEN         = 5;
+  PROJECT_QUERY               = 6;
+  PROJECT_FILE_UPLOAD         = 7;
+  PROJECT_DETAIL              = 8;
+}
+
+message Permissions {
+  repeated Permission dataset = 1;
+}
+
+message UserPermission {
+  string                    user_id       = 1;
+  Permission                permission_id = 2;
+  google.protobuf.Timestamp valid_time    = 3;
+}
+
+message MutationPermissionRequest {
+  message Mutation {
+    message Column {
+      repeated string names = 1;
+    }
+
+    map<string, Column> included_readable_columns = 1; // the key means the name of the table.
+    map<string, Column> excluded_readable_columns = 2; // the key means the name of the table.
+    map<string, Column> included_writable_columns = 3; // the key means the name of the table.
+    map<string, Column> excluded_writable_columns = 4; // the key means the name of the table.
+  }
+
+  Permission id       = 1;
+  Mutation   mutation = 2;
+}
+
+message PermissionRequest {
+  Permission id = 1;
+}
+
+message PermissionDetailReply {
+  message Table {
+    string   name                    = 1;
+    repeated string excluded_columns = 2;
+  }
+
+  Permission id                  = 1;
+  repeated Table readable_tables = 2;
+  repeated Table writable_tables = 3;
+}

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto.dm.inv;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/inv";
+
+import "google/api/annotations.proto";
+
+// INV INV service.
+service INV {
+  // GetInventory 查詢成代資訊.
+  rpc GetInventory(GetInventoryRequest) returns (GetInventoryReply) {
+    option (google.api.http) = {
+      get : "/inv/inventory/{id}"
+    };
+  }
+}
+
+message GetInventoryRequest {
+  string id = 1;
+}
+
+message GetInventoryReply {
+  string specification = 1;
+}

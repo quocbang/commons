@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package proto.dm.prd;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/prd";
+
+message MtrlCtrlRecordRequest {
+  string subno     = 1;
+  string slipno    = 2;
+  string stacode   = 3;
+  string stacodena = 4;
+  string mark      = 5;
+  string usrno     = 6;
+}
+
+message MtrlCtrlRecordReply {
+  repeated mtrlCtrlList lists = 1;
+}
+
+message mtrlCtrlList {
+  string subno     = 1;
+  string slipno    = 2;
+  string stacode   = 3;
+  string stacodena = 4;
+  string mark      = 5;
+  string indat     = 6;
+  string intime    = 7;
+  string usrno     = 8;
+}

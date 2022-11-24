@@ -1,0 +1,360 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "proto/mes/production/check_material_lot_id.proto";
+import "proto/mes/production/check_product_tools.proto";
+import "proto/mes/production/check_scan_material.proto";
+import "proto/mes/production/equipment_material_operating.proto";
+import "proto/mes/production/material_operating.proto";
+import "proto/mes/production/mp_service.proto";
+import "proto/mes/production/work.proto";
+import "proto/mes/production/work_order.proto";
+import "proto/mes/production/worker.proto";
+import "proto/mes/production/material_inventory.proto";
+
+import "proto/mes/operation/carrier_operating.proto";
+import "proto/mes/operation/container_material_operating.proto";
+import "proto/mes/operation/container_operating.proto";
+import "proto/mes/operation/equipment_container_operating.proto";
+import "proto/mes/operation/equipment_operating.proto";
+import "proto/mes/operation/get_bom_materials.proto";
+import "proto/mes/operation/list_recipe_all_process.proto";
+import "proto/mes/operation/list_codes.proto";
+import "proto/mes/operation/list_departments.proto";
+import "proto/mes/operation/list_equipment_ids.proto";
+import "proto/mes/operation/list_factory_ids.proto";
+import "proto/mes/operation/list_materials_categories_by_owned_department.proto";
+import "proto/mes/operation/list_measurement_params.proto";
+import "proto/mes/operation/list_process_equipments.proto";
+import "proto/mes/operation/list_product_id.proto";
+import "proto/mes/operation/list_product_types.proto";
+import "proto/mes/operation/list_product_ids.proto";
+import "proto/mes/operation/transaction_list_operating.proto";
+import "proto/mes/operation/transaction_operating.proto";
+import "proto/mes/operation/transaction_operating_pda.proto";
+import "proto/mes/operation/transaction_shipping_operating.proto";
+import "proto/mes/operation/rapid_check_operating.proto";
+import "proto/mes/operation/set_initial_process.proto";
+
+service API {
+    // 取得可投料/收料工單資訊 (包含BOM, Tool List, Configs)
+    rpc WorkOrderOperating_PLC (WorkOrderOperatingPlcRequest) returns (WorkOrderOperatingPlcReply) {
+        option (google.api.http) = {
+            post : "/mes/api/production/WorkOrderOperating_PLC"
+            body : "*"
+        };
+    };
+    //工單操作 for UI
+    rpc WorkOrderOperating (WorkOrderOperatingRequest) returns (WorkOrderOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/WorkOrderOperating"
+            body : "*"
+        };
+    };
+    // 建工單
+    rpc CreateWorkOrder_NEW (CreateWorkOrderNewRequest) returns (CreateWorkOrderNewReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/workorder/create"
+            body : "*"
+        };
+    };
+    // 更新工單
+    rpc UpdateWorkOrder_NEW (UpdateWorkOrderNewRequest) returns (UpdateWorkOrderNewReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/workorder/update"
+            body : "*"
+        };
+    };
+    // 查詢工單
+    rpc QueryWorkOrder_NEW (QueryWorkOrderNewRequest) returns (QueryWorkOrderNewReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/workorder/query"
+            body: "*"
+        };
+    };
+    //建立工單
+    rpc CreateWorkOrder (CreateWorkOrderRequest) returns (CreateWorkOrderReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/CreateWorkOrder"
+            body : "*"
+        };
+    };
+    //材料檢核
+    rpc CheckScanMaterial (CheckScanMaterialRequest) returns (CheckScanMaterialReply) {
+        option (google.api.http) = {
+            post : "/mes/api/production/CheckScanMaterial"
+            body : "*"
+        };
+    };
+    //投料 by Sheet
+    rpc MoveIn (MoveInRequest) returns (MoveInReply) {
+        option (google.api.http) = {
+            post : "/mes/api/production/MoveIn"
+            body : "*"
+        };
+    };
+    //收料 by Sheet
+    rpc MoveOut (MoveOutRequest) returns (MoveOutReply) {
+        option (google.api.http) = {
+            post : "/mes/api/production/MoveOut"
+            body : "*"
+        };
+    };
+    //登入登出驗證
+    rpc LoginNout (LoginAndLogoutRequest) returns (LoginAndLogoutReply){
+        option (google.api.http) = {
+            post : "/mes/api/production/LoginNout"
+            body : "*"
+        };
+    };
+    //投料,收料 結束
+    rpc MoveEnd (MoveEndRequest) returns (MoveEndReply) {
+        option (google.api.http) = {
+            post : "/mes/api/production/MoveEnd"
+            body : "*"
+        };
+    };
+    //載入廠別資訊
+    rpc ListFactoryIDs (google.protobuf.Empty) returns (ListFactoryIDsReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ListFactoryIDs"
+            body : "*"
+        };
+    };
+    //載入製程識別碼
+    rpc ListProductTypes (ListProductTypesRequest) returns (ListProductTypesReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ListProductTypes"
+            body : "*"
+        };
+    };
+    //載入機台資訊
+    rpc ListEquipmentIDs (ListEquipmentIDsRequest) returns (ListEquipmentIDsReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ListEquipmentIDs"
+            body : "*"
+        };
+    };
+
+    //載入生產製品識別碼
+    rpc ListProductIDs (ListProductIDsRequest) returns (ListProductIDsReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ListProductIDs"
+            body : "*"
+        };
+    };
+    //載入材料庫製品識別碼
+    rpc ListMaterialProductIDs (ListMaterialProductIDsRequest) returns (ListMaterialProductIDsReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ListMaterialProductIDs"
+            body : "*"
+        };
+    };
+
+    //材料操作
+    rpc MaterialOperating (MaterialOperatingRequest) returns (MaterialOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/production/MaterialOperating"
+            body : "*"
+        };
+    };
+
+    //取得部門資訊
+    rpc ListDepartments (ListDepartmentsRequest) returns (ListDepartmentsReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ListDepartments"
+            body : "*"
+        };
+    };
+
+    //取得代號資料
+    rpc ListCodes (ListCodesRequest) returns (ListCodesReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ListCodes"
+            body : "*"
+        };
+    };
+    //桶槽操作
+    rpc ContainerOperating (ContainerOperatingRequest) returns (ContainerOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ContainerOperating"
+            body : "*"
+        };
+    }
+    //桶槽材料操作
+    rpc ContainerMaterialOperating (ContainerMaterialOperatingRequest) returns (ContainerMaterialOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/ContainerMaterialOperating"
+            body : "*"
+        };
+    }
+    //設備桶槽操作
+    rpc EquipmentContainerOperating (EquipmentContainerOperatingRequest) returns (EquipmentContainerOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/EquipmentContainerOperating"
+            body : "*"
+        };
+    }
+    //設備操作
+    rpc EquipmentOperating (EquipmentOperatingRequest) returns (EquipmentOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/EquipmentOperating"
+            body : "*"
+        };
+    }
+    //設定工單初始階段
+    rpc SetInitialProcess (SetInitialProcessRequest) returns (SetInitialProcessReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/SetInitialProcess"
+            body : "*"
+        };
+    }
+    //快檢作業
+    rpc RapidCheckOperating (RapidCheckOperatingRequest) returns (RapidCheckOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/RapidCheckOperating"
+            body : "*"
+        };
+    }
+    //載具操作
+    rpc CarrierOperating (CarrierOperatingRequest) returns (CarrierOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/CarrierOperating"
+            body : "*"
+        };
+    }
+    //材料移轉作業
+    rpc MaterialTransactionOperating (MaterialTransactionListOperatingRequest) returns (MaterialTransactionListOperatingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/operation/MaterialTransactionListOperating"
+            body : "*"
+        };
+    }
+    //載入指定配合表之指定量測參數
+    rpc ListMeasurementParameters (ListMeasurementParametersRequest) returns (ListMeasurementParametersReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/ListMeasurementParameters"
+            body: "*"
+        };
+    }
+    // 取得配合表所有階段
+    rpc ListRecipeAllProcesses (ListRecipeAllProcessesRequest) returns (ListRecipeAllProcessesReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/ListRecipeAllProcesses"
+            body: "*"
+        };
+    }
+    // 依階段取得材料
+    rpc GetBom (GetBomRequest) returns (GetBomReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/GetBom"
+            body: "*"
+        };
+    }
+
+    // 移轉單操作
+    rpc MTxOperating (TransactionListOperatingRequest) returns (TransactionListOperatingReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/MTxOperating"
+            body: "*"
+        };
+    }
+
+    // 材料移轉作業 for UI
+    rpc MTxShipOperating (MTxShipListOperatingRequest) returns (MTxShipListOperatingReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/MTxShipOperating"
+            body: "*"
+        };
+    }
+
+    // 取得材料類別 (依所屬部門)
+    rpc ListMaterialCategoriesByOwnedDepartment (ListMaterialCategoriesByOwnedDepartmentRequest) returns (ListMaterialCategoriesByOwnedDepartmentReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/ListMaterialCategoriesByOwnedDepartment"
+            body: "*"
+        };
+    }
+
+    // 材料移轉作業 (for PDA)
+    rpc MtxShipOperatingPDA (MtxPdaRequest) returns (MtxPdaReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/MtxShipOperatingPDA"
+            body: "*"
+        };
+    }
+
+    // 檢查收料標示卡資訊 (check information form erp, only for pre-print process)
+    rpc CheckMaterialLotID (CheckMaterialLotIDRequest) returns (CheckMaterialLotIDReply) {
+        option (google.api.http) = {
+            post: "/mes/api/production/CheckMaterialLotID"
+            body: "*"
+        };
+    }
+
+    //設備材料操作
+    rpc EquipmentMaterialOperating (EquipmentMaterialOperatingRequest) returns (EquipmentMaterialOperatingReply) {
+        option (google.api.http) = {
+            post: "/mes/api/production/EquipmentMaterialOperating"
+            body: "*"
+        };
+    }
+
+    // 檢核工具
+    rpc CheckProductTools (CheckProductToolsRequest) returns (CheckProductToolsReply) {
+        option (google.api.http) = {
+            post: "/mes/api/production/CheckProductTools"
+            body: "*"
+        };
+    }
+
+    // 取得階段可生產設備清單
+    rpc ListProcessEquipments (ListProcessEquipmentsRequest) returns (ListProcessEquipmentsReply) {
+        option (google.api.http) = {
+            post: "/mes/api/operation/ListProcessEquipments"
+            body: "*"
+        };
+    }
+
+    // only for mp : 透過條碼取得配方號
+    rpc GetRecipeIdByBarcode (GetRecipeIDByBarcodeRequest) returns (GetRecipeIDByBarcodeReply) {
+        option (google.api.http) = {
+            post: "/mes/api/production/GetRecipeIDByBarcode"
+            body: "*"
+        };
+    }
+    // only for mp : 取得MP配方明細
+    rpc GetRecipeForMp (GetRecipeForMpRequest) returns (GetRecipeForMpReply) {
+        option (google.api.http) = {
+            post: "/mes/api/production/GetRecipeForMp"
+            body: "*"
+        };
+    }
+    // only for mp : 透過條碼確認是否為不良品
+    rpc IsRejects (IsRejectsRequest) returns (IsRejectsReply) {
+        option (google.api.http) = {
+            post: "/mes/api/production/isRejects"
+            body: "*"
+        };
+    }
+
+    // 材料盤點
+    rpc MaterialInventoryTaking (MaterialInventoryTakingRequest) returns (MaterialInventoryTakingReply) {
+        option (google.api.http) = {
+            post: "/mes/api/production/MaterialInventoryTaking"
+            body: "*"
+        };
+    }
+    // 取得材料庫存清單
+    rpc ListMaterialInventory (GetMaterialInventoryListRequest) returns (GetMaterialInventoryListReply) {
+        option (google.api.http) = {
+            post: "/mes/api/production/ListMaterialInventory"
+            body: "*"
+        };
+    }
+}

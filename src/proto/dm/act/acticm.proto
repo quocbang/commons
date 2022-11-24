@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package proto.dm.act;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/act";
+
+//損益表計算的傳入參數
+message IncomeRequest {
+  string subno = 1;
+  string code  = 2;
+}
+
+//損益表計算的傳入參數
+message GetIncomeRequest {
+  string subno = 1;
+  string yymm1 = 2;
+  string yymm2 = 3;
+  string code  = 4;
+}
+
+//單筆損益表資料
+message SingleIncome {
+  string subno   = 1;
+  string actyymm = 2;
+  string code    = 3;
+  string seqno   = 4;
+  string acctno  = 5;
+  string acctna  = 6;
+  float  peoamt  = 7;
+  string indat   = 8;
+  string usrno   = 9;
+}
+
+//多筆損益表資料
+message MultiIncome {
+  repeated SingleIncome dataset = 1;
+}

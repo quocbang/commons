@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang";
+
+//集團廠別子公司SubCompany
+enum SubCompany {
+  SUB_COMPANY_UNSPECIFIED = 0;
+                                    
+  //生產廠                  
+  //KD                                        
+  KD     = 100;             
+  //KS                                 
+  KS     = 101;             
+  //KC                                 
+  KC     = 102;             
+  //KV                                     
+  KV     = 103;             
+  //KT                                 
+  KT     = 104;             
+  //KI                                 
+  KI     = 105;             
+  //KH                                     
+  KH     = 106;             
+  //KZ                                     
+  KZ     = 107;             
+  //CKT                                
+  CKT    = 108;             
+  //KJ                                 
+  KJ     = 109;             
+  
+  //境外公司
+  //KIC                                
+  KIC    = 301;             
+  //KGH                                
+  KGH    = 302;             
+  //KGI                                
+  KGI    = 303;             
+  //KGCI                               
+  KGCI   = 304;             
+  //KHK                                
+  KHK    = 305;             
+  //KCE
+  KCE    = 306;             
+  //銷售公司
+  //KF                                 
+  KF     = 501;             
+  //KA                                     
+  KA     = 502;             
+  //ADI                                
+  ADI    = 503;             
+  //KE                                 
+  KE     = 504;             
+  //STARCO                                
+  STARCO = 505;             
+}

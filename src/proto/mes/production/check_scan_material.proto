@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+
+//檢核投入材料內容
+message CheckScanMaterialRequest{                    
+    // 配合表ID -- 取工單上的就好了
+    string recipe_id                       = 1;
+    //工單號
+    string lot_id                          = 2;
+    //途程名稱 -- 不給也沒差, 預設抓取可投料工單, 一台設備不可能同時跑兩個投料途程
+    string process_name                    = 3;
+    //作業機台號
+    string equipment_id                    = 5;
+    //首數-用於計算幾倍的基礎用量 (不給預設為1)
+    int32  sheet_count                     = 6;
+    //操作者
+    string update_by                       = 7;
+    //是否為檢核全部, 為true時會檢查是否有漏掃
+    bool   all_check                       = 8;
+    //材料條碼清單
+    repeated string material_lot_ids       =10;
+    //實際重量秤量之材料清單 (條碼+實重)
+    repeated ScaleMaterial scale_materials =11;
+    //材料清單 (測試中)
+    repeated Material materials            =12;
+
+    //掃描材料資訊
+    message ScaleMaterial{
+        //材料標示卡條碼
+        string lot_id    = 1;
+        //耗用量
+        float  qty       = 2;
+    }
+
+    //材料
+    message Material {
+        //標示卡條碼
+        string lot_id    = 1;
+        //實際耗用量
+        float  qty       = 2;
+        // 是否為掛載，當值為true是代表為中央供應。
+        bool isMounted    = 3;
+    }
+}
+
+//檢核材料回應
+message CheckScanMaterialReply{
+    // 錯誤代碼    
+    code.error.Material err = 1;
+    // 材料清單
+    repeated PreMoveInMaterial materials = 2;
+
+    //準備投入之材料
+    message PreMoveInMaterial{
+        //材料標示卡條碼
+        string lot_id       = 1;
+        //材料ID
+        string product_id   = 2;
+        //材料等級
+        string level        = 3;
+        //投入量 : 密煉製程計量單位為kg, 精度小數三位, 其他製程待訂定
+        float qty           = 4;
+        //此flag為true時代表重量來自PLC
+        bool  realWeight    = 5;
+    }
+}

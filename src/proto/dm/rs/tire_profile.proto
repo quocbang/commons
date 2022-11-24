@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "gogoproto/gogo.proto";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/recipe.proto";
+
+//胎邊,胎面profile
+message Profile {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  //胎別
+  enum TireType {
+    TIRE_TYPE_UNSPECIFIED = 0;
+    RADIAL                = 1; //輻射胎
+    BIAS                  = 2; //斜交胎
+    BICYCLE               = 3; //自行車胎
+  }
+
+  enum Rate {
+    RATE_UNSPECIFIED = 0;
+    FULL_PROFILE     = 1; //全剖面
+    HALF_PROFILE     = 2; //半剖面
+  }
+
+  enum ProfileType {
+    PROFILE_TYPE_UNSPECIFIED = 0;
+    //胎面膠
+    CAP_WING_N_UTC    = 1; //樣式A
+    CAP_WING_BASE_UTC = 2; //樣式B
+    CAP_N_N_UTC       = 3; //樣式C
+    BASE_N_N_N        = 4; //樣式D
+    //胎邊膠
+    SW_GC_N_N_N       = 11; //樣式A
+    SW_GC_BASE_N_N    = 12; //樣式B
+    SW_GC_BASE_N_CAP  = 13; //樣式C
+    SW_GC_WSW_N_COVER = 14; //樣式D
+    CAP_N_N_N_N       = 15; //樣式E
+  }
+
+  string      id                    = 1 [ (gogoproto.moretags) = 'bson:\"id\"' ];          // profileID:廠別-工程別+胎別-版規編號-版本
+  FactoryID   factory               = 2 [ (gogoproto.moretags) = 'bson:\"factory\"' ];     //廠別
+  TireType    tire_type             = 3 [ (gogoproto.moretags) = 'bson:\"tireType\"' ];    //胎別
+  string      product_type          = 4 [ (gogoproto.moretags) = 'bson:\"productType\"' ]; //胎面膠或胎邊膠
+  string      mold_type             = 5 [ (gogoproto.moretags) = 'bson:\"moldType\"' ];    //版規編號
+  Version     version               = 6 [ (gogoproto.moretags) = 'bson:\"version\"' ];     //版本
+  Rate        rate                  = 7 [ (gogoproto.moretags) = 'bson:\"rate\"' ];        //profile種類
+  ProfileType profile_type          = 8 [ (gogoproto.moretags) = 'bson:\"profileType\"' ]; //profile樣式
+  repeated RubberHeights rub_height = 9 [ (gogoproto.moretags) = 'bson:\"rubHeight\"' ];   //厚度
+  repeated Widths width             = 10 [ (gogoproto.moretags) = 'bson:\"width\"' ];      //寬度
+  repeated Property properties      = 11 [ (gogoproto.moretags) = 'bson:\"properties\"' ]; //profile總厚,肩厚,頂寬,總寬
+}
+
+//profile各點厚度
+message RubberHeights {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  repeated Points height_points = 1 [ (gogoproto.moretags) = 'bson:\"heightPoints\"' ]; //厚度 依樣式,目前最多使用4種膠
+  string          unit          = 2 [ (gogoproto.moretags) = 'bson:\"unit\"' ];         //mm
+}
+//profile各點寬度
+message Widths {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  repeated Points width_points = 1 [ (gogoproto.moretags) = 'bson:\"widthPoints\"' ]; //寬度
+  string          unit         = 2 [ (gogoproto.moretags) = 'bson:\"unit\"' ];        //mm
+}
+
+message Points {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  float value = 1 [ (gogoproto.moretags) = 'bson:\"value\"' ];
+}

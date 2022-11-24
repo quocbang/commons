@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package proto.dm.act;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/act";
+
+import "google/protobuf/timestamp.proto";
+
+//actsli
+message KeepAccountRequest {
+  string subno        = 1;
+  string acctno       = 2;
+  string start_accdat = 3;
+  string end_accdat   = 4;
+  string curr         = 5;
+}
+//單筆記帳內容
+message SingleKeepAccount {
+  string                    subno     = 1;
+  string                    acctno    = 2;
+  google.protobuf.Timestamp accdat    = 3;
+  string                    curr      = 4;
+  float                     rate      = 5;
+  float                     orgamt    = 6;
+  float                     peoamt    = 7;
+  string                    reference = 8;
+}
+//多筆記帳內容
+message MultiKeepAccount {
+  repeated SingleKeepAccount dataset = 1;
+}

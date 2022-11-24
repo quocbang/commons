@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto.dm.kendaql;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/kendaql";
+
+import "proto/dm/kendaql/table.proto";
+
+message LogicalGroup {
+  Logical  logical                 = 1;
+  repeated LogicalGroupNode fields = 2;
+}
+
+message LogicalGroupNode {
+  oneof field {
+    ConditionField condition = 1;
+    LogicalGroup   group     = 2;
+  }
+}
+
+enum Logical {
+  AND = 0;
+  OR  = 1;
+}
+
+message ConditionField {
+  Condition condition = 1;
+  Field     field     = 2;
+}
+
+enum Condition {
+  CONDITION_UNSPECIFIED = 0;
+  EQUAL                 = 1;
+  NOT_EQUAL             = 2;
+  LIKE                  = 3;
+  NOT_LIKE              = 4;
+  GREATER               = 5;
+  GREATER_EQUAL         = 6;
+  LESS                  = 7;
+  LESS_EQUAL            = 8;
+  BETWEEN               = 9;
+  NOT_BETWEEN           = 10;
+  IN                    = 11;
+  NOT_IN                = 12;
+}
+
+message Field {
+  Col      column       = 1;
+  repeated bytes values = 2;
+}

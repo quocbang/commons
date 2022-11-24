@@ -1,0 +1,202 @@
+syntax = "proto3";
+
+package proto.dm.prd;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/prd";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "proto/dm/prd/label.proto";
+import "proto/dm/prd/query_prd_man.proto";
+import "proto/dm/prd/mtrl_ctrl_record.proto";
+import "proto/dm/prd/mtrl_extended_record.proto";
+import "proto/dm/prd/query_batch_quantity.proto";
+import "proto/dm/prd/add_pcr_first_move_in_material_record.proto";
+import "proto/dm/prd/add_pcr_second_move_in_material_record.proto";
+
+// PRD PRD service.
+service PRD {
+  // AddProductionRecord 新增生產紀錄.
+  rpc AddProductionRecord(ProductionRecords) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/prd/productionRecord"
+      body : "*"
+    };
+  }
+
+  // ListLabels lists pre-printed labels
+  rpc ListLabels (LabelRequest) returns (LabelReply) {
+    option (google.api.http) = {
+      post : "/prd/label/list"
+      body : "*"
+    };
+  }
+  // UpdateLabels update pre-printerd labels (remaining quantity only)
+  rpc UpdateLabels (LabelRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/prd/label/update"
+      body : "*"
+    };
+  }
+  // CreateLabel : create new label
+  rpc CreateLabel (LabelRequest) returns (Label) {
+    option (google.api.http) = {
+      post : "/prd/label/create"
+      body : "*"
+    };
+  }
+  rpc GetPrdMan (PrdManRequest) returns (PrdManReply) {
+    option (google.api.http) = {
+      post : "/prd/prdMan/get"
+      body : "*"
+    };
+  }
+  rpc GetMtrlCtrlRecord (MtrlCtrlRecordRequest) returns (MtrlCtrlRecordReply) {
+    option (google.api.http) = {
+      post : "/prd/mtrlCtrlRecord/get"
+      body : "*"
+    };
+  }
+  rpc AddMtrlCtrlRecord(MtrlCtrlRecordRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/prd/mtrlCtrlRecord"
+      body : "*"
+    };
+  }
+  rpc UpdateMtrlCtrlRecord(MtrlCtrlRecordRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/prd/mtrlCtrlRecord"
+      body : "*"
+    };
+  }
+  rpc GetMtrlExtendedRecord(MtrlExtendedRecordRequest) returns (MtrlExtendedRecordReply) {
+    option (google.api.http) = {
+      post : "/prd/mtrlExtendedRecord/get"
+      body : "*"
+    };
+  }
+  rpc AddMtrlExtendedRecord(MtrlExtendedRecordRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/prd/mtrlExtendedRecord"
+      body : "*"
+    };
+  }
+  rpc UpdateMtrlExtendedRecord(MtrlExtendedRecordRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/prd/mtrlExtendedRecord"
+      body : "*"
+    };
+  }
+  //取得中間製品的批量及單位
+  rpc GetBatchQuantity(GetBatchQuantityRequest) returns (GetBatchQuantityReply) {
+    option (google.api.http) = {
+      post : "/prd/product/batchQuantity/get"
+      body : "*"
+    };
+  }
+  rpc AddPcrFirstMoveInMaterialRecord(AddPcrFirstMoveInMaterialRecordRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/prd/AddPcrFirstMoveInMaterialRecord"
+      body : "*"
+    };
+  }
+  rpc AddPcrSecondMoveInMaterialRecord(AddPcrSecondMoveInMaterialRecordRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/prd/AddPcrSecondMoveInMaterialRecord"
+      body : "*"
+    };
+  }
+  // 新增盤點紀錄
+  rpc AddMtrlInventoryRecord(MtrlInventoryRecordRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/prd/mtrlInventoryRecord"
+      body : "*"
+    };
+  }
+  // 取得盤點紀錄
+  rpc GetPrdStkList(GetPrdStkListRequest) returns (GetPrdStkListReply) {
+    option (google.api.http) = {
+      post : "/prd/prdStk/get"
+      body : "*"
+    };
+  }
+}
+
+//標示卡-單筆
+message Barcode {
+  string subno   = 1;
+  string factory = 2;
+  string slipno  = 3;
+  int32  prd_qty = 4;
+  int32  use_qty = 5;
+}
+
+//生產紀錄-多筆
+message ProductionRecords {
+  repeated ProductionRecord records = 1;
+}
+
+//生產紀錄-單筆
+message ProductionRecord {
+  string subno       = 1;
+  string factory     = 2;
+  string pday        = 3;
+  string class       = 4;
+  string empno       = 5;
+  string stype       = 6;
+  string ptype       = 7;
+  string machnd      = 8;
+  string barcode     = 9;
+  string partno      = 10;
+  string cordslip    = 11;
+  string cordpn      = 12;
+  string rubber_slip = 13;
+  string rubber_pn   = 14;
+  string user_no     = 15;
+}
+
+//異動資料數量
+message AffectedReply {
+  int64 rows_affected = 1;
+}
+
+// 膠料表合格異動-單筆
+message PrdRubb {
+  string subno   = 1;
+  string factory = 2;
+  string qcfinal = 3;
+  string slipno  = 4;
+}
+
+// 紀錄盤點資訊
+message MtrlInventoryRecordRequest {
+  string subno   = 1;
+  string factory = 2;
+  string empno   = 3;
+  string machnd  = 4;
+  string barcode = 5;
+  string pday    = 6;
+  string usrno   = 7;
+}
+
+// 取得盤點清單
+message GetPrdStkListRequest {
+  string subno   = 1;
+  string pday    = 2;
+  string factory = 3;
+}
+
+// 材料盤點清單-多筆
+message GetPrdStkListReply {
+  repeated StkList lists = 1;
+}
+
+// 材料盤點清單-單筆
+message StkList {
+  string machnd   = 1;
+  string barcode  = 2;
+  string exodate  = 3;
+  string partno   = 4;
+  float  useqty   = 5;
+  string usedspec = 6;
+}

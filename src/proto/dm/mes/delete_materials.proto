@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message DeleteMaterialsRequest {
+  repeated MaterialList materials = 1;
+
+  message MaterialList {
+    string product_type    = 1;
+    string mtrl_product_id = 2;
+    string mtrl_level      = 3;
+    string mtrl_lot_id     = 4;
+  }
+}
+
+message DeleteMaterialsReply {}

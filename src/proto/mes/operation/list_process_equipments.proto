@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/dm/rs/enums.proto";
+
+message ListProcessEquipmentsRequest {
+  string                  recipe_id      = 1;
+  // 途程名稱
+  string                  process_name   = 2;
+  proto.dm.rs.ProcessType process_type   = 3;
+
+}
+message ListProcessEquipmentsReply {
+  repeated string product_equipment_ids = 1;
+  repeated string setting_equipment_ids = 2;
+}

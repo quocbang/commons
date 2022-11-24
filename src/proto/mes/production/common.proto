@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/dm/rs/enums.proto";
+import "proto/mes/code/enums.proto";
+
+/*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*/
+/*~*~*~*~*~*~ Basic Common Messages ~*~*~*~*~*~*/
+/*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*/
+
+// 投料收料基本資訊
+message MoveBasicInfo {
+    //工單號
+    string lot_id              = 2;
+    //作業機台號
+    string equipment_id        = 3;
+    //工作日
+    string work_date           = 4;
+    //班別
+    string shift               = 5;
+    //投入產出量
+    float  move_weight         = 6;
+    //操作者
+    string update_by           = 7;
+    //投入產出首數
+    int32  sheet_count         = 8;
+    //標示卡條碼
+    string material_lot_id     = 9;
+    //產品代號
+    string material_product_id =10;
+    //產品代號
+    string material_level      =11;
+    //載具ID
+    string carrier_id          =12;
+}
+
+// 步驟
+message Step {
+    // 步驟ID
+    int32 id                = 1;
+    // 步驟控制設定
+    repeated control controls = 2;
+    //控制設定
+    message control {
+        // 設定項目名稱
+        string name = 2;
+        // 設定值
+        float value = 3;
+        // 劑量單位
+        string unit = 4;
+    }
+}
+
+// 材料清單
+message Material {
+    // 材料名稱
+    string name  = 1;
+    // 材料等級
+    string level = 2;  // A、B
+    // 數量
+    float  qty   = 3;
+    // 計量單位
+    string unit  = 4;
+}
+
+//材料明細 (幾乎與MMTRLST相同)
+message MaterialList {
+    // 材料標示卡條碼
+    string material_lot_id                  = 1;
+    // 材料類別
+    proto.dm.rs.ProductType product_type    = 2;
+    // 材料ID
+    string material_product_id              = 3;
+    // 材料等級
+    string material_level                   = 4;
+    // 管理廠
+    proto.dm.rs.FactoryID owned_factory_id  = 5;
+    // 管理部門
+    string owned_department_id              = 6;
+    // 儲位ID
+    string storage_id                       = 7;
+    // 載具ID
+    string carrier_id                       = 8;
+    // 庫存數
+    string stock_qty                        = 9;
+    // 最小使用量
+    float  min_use_qty                      =10;
+    // 計量單位
+    string unit                             =11;
+    // 過期日
+    string expire_at                        =12;
+    // 材料狀態
+    code.MaterialStatus  status             =13;
+    // 備註
+    string comments                         =14;
+    // 最後更新日
+    string update_at                        =15;
+    // 最後更新人
+    string update_by                        =16;
+    // 入庫日
+    string insert_at                        =17;
+    // 入庫人
+    string insert_by                        =18;
+
+    // 材料變更紀錄使用 (展延, 扣留, 解扣留)
+    // 車間
+    string region                           =19;
+    // 新有效日期
+    string new_expire_date                  =20;
+    // 過期日
+    int32  over_day                         =21;
+    // 展延原因
+    string reason                           =22;
+    // 生產別
+    proto.dm.rs.StageStatus stage           =23;
+}

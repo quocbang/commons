@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+// 查詢
+message GetCarrierMaterialRequest {
+  string crr_id          = 1;
+  string mtrl_lot_id     = 2;
+  string mtrl_product_id = 3;
+}
+message GetCarrierMaterialReply {
+  repeated CrrMtrlInfo mtrls = 1;
+}
+
+// 新增
+message AddCarrierMaterialRequest {
+  string crr_id          = 1;
+  string mtrl_lot_id     = 2;
+  string mtrl_product_id = 3;
+  string user            = 4;
+}
+message AddCarrierMaterialReply {}
+
+// 修改
+message UpdateCarrierMaterialRequest {
+  repeated CrrMtrlInfo mtrls = 1;
+  string               user  = 2;
+}
+message UpdateCarrierMaterialReply {}
+
+// 刪除
+message DeleteCarrierMaterialRequest {
+  repeated CrrMtrlInfo mtrls = 1;
+  string               user  = 2;
+}
+message DeleteCarrierMaterialReply {}
+
+message CrrMtrlInfo {
+  string crr_id          = 1;
+  string mtrl_lot_id     = 2;
+  string mtrl_product_id = 3;
+  string update_at       = 4;
+  string update_by       = 5;
+}

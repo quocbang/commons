@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message GetWorkOrderRequest {
+  string eqpt_id         = 1;
+  string work_date       = 2;
+  string lot_id          = 3;
+  string shift           = 4;
+  string dept_id         = 5;
+  string product_id      = 6;
+  string cr_process_name = 7;
+  string nx_process_name = 8;
+  string start_date      = 9;
+  string end_date        = 10;
+  string run_flag        = 11;
+  string lot_stat        = 12;
+  string prod_type       = 13;
+  string prep_start      = 14;
+  string prep_end        = 15;
+  string mtrl_type       = 16;
+  bool   complete        = 17;
+}
+
+message GetWorkOrderReply {
+  repeated Lot resved_orders = 1;
+}
+
+message Lot {
+  int32  fty_id          = 1;
+  string lot_id          = 2;
+  string recipe_id       = 3;
+  string resv_eqpt_id    = 4;
+  string product_id      = 5;
+  int32  stage_status    = 6;
+  string major_version   = 7;
+  string cr_process_name = 8;
+  string nx_process_name = 9;
+  string lot_stat        = 10;
+  string resv_date       = 11;
+  string resv_shift      = 12;
+  string shift_seq       = 13;
+  string dept_id         = 14;
+  float  move_in_qty     = 15;
+  float  move_out_qty    = 16;
+  float  plan_opt_qty    = 17;
+  int32  sht_cnt         = 18;
+  int32  in_sht_cnt      = 19;
+  int32  out_sht_cnt     = 20;
+  string update_at       = 21;
+  string update_by       = 22;
+  string insert_at       = 23;
+  string insert_by       = 24;
+  string run_flag        = 25;
+  string prod_type       = 26;
+  string recipe_eqpt_id  = 27;
+  string rwk_name        = 28;
+}

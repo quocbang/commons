@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package proto.dm.utility;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/utility";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "proto/dm/utility/permission.proto";
+
+// 權限服務.
+service Authentication {
+  // MutatePermission adds/removes the columns that the permission can access.
+  // Also you can assign star sign to column name to make whole table accessible or not.
+  rpc MutatePermission(MutationPermissionRequest) returns (PermissionDetailReply) {
+    option (google.api.http) = {
+      patch : "/utility/permissions/{id}"
+      body : "mutation"
+    };
+  }
+  // DeletePermission deletes specific permission.
+  rpc DeletePermission(PermissionRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/utility/permissions/{id}"
+    };
+  }
+  // GetPermission returns the tables that the permission can access and the columns that the permission cannot access.
+  rpc GetPermission(PermissionRequest) returns (PermissionDetailReply) {
+    option (google.api.http) = {
+      get : "/utility/permissions/{id}"
+      additional_bindings {
+        post : "/utility/permissions/{id}/get"
+        body : "*"
+      }
+    };
+  }
+  // ListPermissionIDs 查詢所有權限代號.
+  rpc ListPermissionIDs(google.protobuf.Empty) returns (Permissions) {
+    option (google.api.http) = {
+      get : "/utility/permissions"
+      additional_bindings {
+        post : "/utility/permissions/get"
+        body : "*"
+      }
+    };
+  }
+
+  // CreateUserPermission 程式權限授權給使用者.
+  rpc CreateUserPermission(UserPermission) returns (UserPermission) {
+    option (google.api.http) = {
+      post : "/utility/users/{user_id}/permissions"
+      body : "*"
+    };
+  }
+  // DeleteUserPermission 刪除使用者權限.
+  rpc DeleteUserPermission(UserPermission) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/utility/users/{user_id}/permissions/{permission_id}"
+    };
+  }
+  // ListUserPermissions 查詢使用者所有權限.
+  rpc ListUserPermissions(UserPermission) returns (Permissions) {
+    option (google.api.http) = {
+      get : "/utility/users/{user_id}/permissions"
+      additional_bindings {
+        post : "/utility/users/{user_id}/permissions/get"
+      }
+    };
+  }
+}

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package proto.dm.accounting; 
+
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/accounting";
+
+// 結帳碼(Monthly payment posting code description)
+enum EntryType {
+  ENTRY_TYPE_UNSPECIFIED = 0;              
+
+  //單純過帳-空白
+  SIMPLE_POSTING = 1;                          
+  //帳務月結-N
+  ACCOUNT_MONTHLY = 2;                   
+  //成本月結-Y
+  COST_MONTH = 3;                        
+  //重分類月結-Z
+  RECLASSIFICATION = 4;                 
+  //稅務月結(含未實現銷貨毛利)(including unrealized sales gross profit)-X
+  TAX_MONTH = 5;                         
+  //會計師查帳調整分錄月結(AJE)-R
+  AJE = 6;  
+  //會計師查帳調整分錄月結(RJE)-E                           
+  RJE = 7;                              
+  //IFRS認列差異-I
+  IFRS_RECOGNIZES_DIFFERENCES = 8;        
+  //IFRS表達差異-F
+  IFRS_EXPRESSION_DIFFERENCE = 9;         
+  //期未年度結帳-W
+  ANNUAL_CHECKOUT = 10;                  
+  //IFRS的成本月結-V
+  IFRS_COST_MONTHLY = 11;                 
+  //當地期末年度結帳-U
+  LOCAL_FINAL_YEAR_CLOSING = 12;           
+}

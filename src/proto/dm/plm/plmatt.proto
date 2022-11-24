@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto.dm.plm;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/plm";
+
+message PlmattRequest{
+    Plmatt data = 1;
+}
+
+message PlmattReply{
+    int64 rows_affect = 1;  //受影響的資料筆數
+}
+
+message Plmatt{
+    int32  no        = 1;   //流水號
+    int32  plmmasno  = 2;   //對應的plmmas號碼
+    int32  seq       = 3;   //項次
+    string fname     = 4;   //原始檔名
+    string nfname    = 5;   //新檔名
+    string extension = 6;   //副檔名
+    int32  ver       = 7;   //版本
+    string status    = 8;   //狀態
+    string indat     = 9;   //鍵入日期
+    string intime    = 10;  //鍵入時間
+    string usrno     = 11;  //鍵入人員
+}

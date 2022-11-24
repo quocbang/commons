@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message MtxShipListRequest {
+  string tx_id           = 1; //轉移編號 (廠+移出部門+單據日期+三碼流水號)
+  string item_id         = 2; //項次編號
+  int32  seq_no          = 3;
+  string status          = 4;
+  string mtrl_lot_id     = 5;  //材料 Lot ID, 標示卡編號
+  string mtrl_product_id = 6;  //材料 ID ,材料,半製品,成品編號
+  string mtrl_level      = 7;  //材料等級
+  float  qty             = 9;  //移轉數量
+  string unit            = 10; //計量單位
+  string update_at       = 11; //更新日期
+  string update_by       = 12; //更新人
+  string insert_at       = 13; //建檔日期
+  string insert_by       = 14; //建檔人
+  bool   only_today      = 15; //Compare Date
+}
+
+message MtxShipListReply {
+  repeated MtxShipList output = 1;
+}
+message MtxShipList {
+  string tx_id           = 1; //轉移編號 (廠+移出部門+單據日期+三碼流水號)
+  string item_id         = 2; //項次編號
+  int32  seq_no          = 3;
+  string status          = 4;
+  string mtrl_lot_id     = 5;  //材料 Lot ID, 標示卡編號
+  string mtrl_product_id = 6;  //材料 ID ,材料,半製品,成品編號
+  string mtrl_level      = 7;  //材料等級
+  float  qty             = 8;  //移轉數量
+  string unit            = 9;  //計量單位
+  string update_at       = 10; //更新日期
+  string update_by       = 11; //更新人
+  string insert_at       = 12; //建檔日期
+  string insert_by       = 13; //建檔人
+}

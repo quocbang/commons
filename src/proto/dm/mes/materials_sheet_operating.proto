@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+// 查詢
+message GetMaterialsSheetRequest {
+  string lot_id = 1;
+  string sht_no = 2;
+}
+message GetMaterialsSheetReply {
+  repeated MtrlSheetInfo mtrls = 1;
+}
+
+// 新增
+message AddMaterialsSheetRequest {
+  string mtrl_lot_id     = 1;
+  string mtrl_product_id = 2;
+  string mtrl_level      = 3;
+  string lot_id          = 4;
+  string sht_no          = 5;
+  float  qty             = 6;
+  string unit            = 7;
+  string update_at       = 8;
+  string update_by       = 9;
+}
+message AddMaterialsSheetReply {}
+
+message MtrlSheetInfo {
+  string mtrl_lot_id     = 1;
+  string mtrl_product_id = 2;
+  string mtrl_level      = 3;
+  string lot_id          = 4;
+  string sht_no          = 5;
+  float  qty             = 6;
+  string unit            = 7;
+  string update_at       = 8;
+  string update_by       = 9;
+}

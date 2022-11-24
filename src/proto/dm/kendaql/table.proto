@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package proto.dm.kendaql;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/kendaql";
+
+import "proto/dm/kendaql/data_type.proto";
+
+message Table {
+  string name  = 1;
+  string alias = 2;
+}
+
+message Column {
+  string table_alias = 1;
+  string name        = 2;
+}
+
+message Function {
+  message Param {
+    oneof value {
+      string string_value = 1;
+      Column column_value = 2;
+    }
+  }
+
+  string   name                = 1;
+  repeated Param parameters    = 2;
+  DataType       expected_type = 3;
+}
+
+message Col {
+  oneof col {
+    Column   column   = 1;
+    Function function = 2;
+  }
+}

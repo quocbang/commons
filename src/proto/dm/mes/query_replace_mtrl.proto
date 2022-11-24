@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message ReplaceMtrl {
+  string replace_by_id = 1;
+  string level         = 2;
+  float  ratio         = 3;
+}
+
+message GetReplaceMtrlRequest {
+  string product_id = 1;
+  string level      = 2;
+}
+
+message GetReplaceMtrlReply {
+  repeated ReplaceMtrl rp_mtrls = 1;
+}

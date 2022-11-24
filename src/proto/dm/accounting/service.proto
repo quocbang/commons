@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package proto.dm.accounting;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/accounting";
+
+import "proto/dm/accounting/accounting_entry.proto";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service Accounting{
+    // 取得accounting_entry資料
+    rpc GetAccountingEntryPost(AccountingEntryRequest) returns (MultiAccountingEntry) {
+        option (google.api.http) = {
+            post : "/accounting/entries/get"
+            body : "*"
+        };
+    }
+    // 新增accounting_entry資料
+    // sub_id無必要傳入
+    rpc AddAccountingEntry(SingleAccountingEntry) returns (AddAccountingEntryResult) {
+        option (google.api.http) = {
+            post : "/accounting/entries"
+            body : "*"
+        };
+    }
+    // 修改accounting _entry資料
+    rpc UpdateAccountingEntry(MultiAccountingEntry) returns (AffectedReply) {
+        option (google.api.http) = {
+            put : "/accounting/entries"
+            body : "*"
+        };
+    }
+    // 刪除accounting _entry資料
+    rpc DeleteAccountingEntry(SingleAccountingEntry) returns (AffectedReply) {
+        option (google.api.http) = {
+            delete : "/accounting/entries/{sub_company}/{date}/{id}/{account_number1}/{cod}/{currency}"
+        };
+    }
+    // 取得accounting_entry內容並LOCK
+    rpc GetAccountingEntryAndLock(AccountingEntryRequest) returns (MultiAccountingEntry) {
+        option (google.api.http) = {
+            post : "/accounting/entries/lock/get"
+            body : "*"
+        };
+    }
+    // Unlock accounting_entry內容
+    rpc UnlockAccountingEntry(MultiAccountingEntry) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            put : "/accounting/entries/unlock"
+            body : "*"
+        };
+    }
+
+}
+
+// 異動資料數量
+message AffectedReply {
+    int64 rows_affected = 1;
+}

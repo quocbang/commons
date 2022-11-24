@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package proto.mes.v2.check;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/check";
+
+enum ActionMode {
+    ACTION_AUTO     = 0;  // Actions will be taken if all check passed.
+    ACTION_FORCE    = 1;  // Actions will be taken even if some checks fail.
+    ACTION_PRECHECK = 2;  // No action will be taken -- just run the checks.
+}
+
+enum ResourceStatus {
+    RESOURCE_STATUS_NONE      = 0;
+    RESOURCE_STATUS_BOUND     = 1;  // The resource is bound to station site.
+    RESOURCE_STATUS_PRESERVED = 2;  // The resource is bound to station site with enough quantity preserved (but not yet measured nor dispensed).
+    RESOURCE_STATUS_READY     = 3;  // The resource is measured with the required quantity.
+    RESOURCE_STATUS_FED       = 4;  // The resource is fed into the production process.
+}
+
+// Checks if a resource action is ok.
+// If workOrder is empty, simply check if the action is possible & allowed, e.g., material is enough and not expired.
+// Otherwise check if the action is expected for the work order, e.g., material or tool is required by the work order.
+message ResourceAction {
+    ActionMode actionMode = 1;
+    string     workOrder  = 2;
+    uint32     batch      = 3;  // may be 0 if it's not for a particular batch, e.g., shared tools
+
+    map<string, ResourceStatus> groupRequirements = 4;
+}

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+import "proto/dm/rs/enums.proto";
+
+message MtxPdaRequest {
+    code.FunctionModel action_type                     = 1;
+    string material_lot_id                             = 2;
+    repeated MaterialTransactionList transaction_lists = 3;
+    string update_by                                   = 4; //使用者
+}
+
+message MtxPdaReply {
+    repeated MaterialTransactionList transaction_lists = 1;
+    code.error.MtxPda    err                           = 2;
+}
+
+message MaterialTransactionList {
+    proto.dm.rs.ProductType product_type                        = 1;    //材料類別
+    string material_product_id                = 2;    //材料 ID ,材料,半製品,成品編號
+    string material_level                     = 3;    //材料等級
+    proto.dm.rs.FactoryID  current_factory_id = 4;
+    string current_department_id              = 5;
+    proto.dm.rs.FactoryID  next_factory_id    = 6;    //移入廠
+    string next_department_id                 = 7;    //移入單位代號
+    float  remaining_qty                      = 8;    //剩餘需求量
+}

@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package proto.dm.utility;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/utility";
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+message Token {
+  string                    token  = 1;
+  google.protobuf.Timestamp expiry = 2;
+  LoginError                error  = 3;
+}
+
+message TokenRequest {
+  string                   user_id  = 1;
+  string                   password = 2;
+  google.protobuf.Duration lifetime = 3;
+}
+
+message LoginError {
+  enum Error {
+    NO_ERROR  = 0;
+    BAD_LOGIN = 1;
+  }
+  Error  code   = 1;
+  string detail = 2;
+}
+
+enum TokenError {
+  NO_ERROR    = 0;
+  NOT_EXISTED = 1;
+  EXPIRY      = 2;
+  MISMATCH    = 3;
+}
+
+message AuthenticationError {
+  TokenError error  = 1;
+  string     detail = 2;
+}

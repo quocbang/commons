@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package proto.dm.gdt;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/gdt";
+
+import "google/api/annotations.proto";
+
+import "proto/dm/gdt/query_gdtbar.proto";
+import "proto/dm/gdt/query_gdtpat.proto";
+
+// GDT system
+service GDT {
+  //回傳原料比重
+  rpc GetMtrlSG(GetMtrlSGRequest) returns (GetMtrlSGReply) {
+    option (google.api.http) = {
+      post : "/gdt/mtrlSG/get"
+      body : "*"
+    };
+  };
+  //回傳原料大類對應的5碼料號+等級
+  rpc GetMtrls(GetMtrlsRequest) returns (GetMtrlsReply) {
+    option (google.api.http) = {
+      post : "/gdt/mtrls/get"
+      body : "*"
+    };
+  };
+  // Obtain data using mtrlLotID from Gdtbar
+  rpc GetGdtbar(GetGdtbarRequest) returns (GetGdtbarReply) {
+    option (google.api.http) = {
+      post : "/gdt/gdtbar/get"
+      body : "*"
+    };
+  }
+
+  // Obtain minimum usage quantity of queried material
+  rpc GetGdtpat(GetGdtpatRequest) returns (GetGdtpatReply) {
+    option (google.api.http) = {
+      post : "/gdt/gdtpat/get"
+      body : "*"
+    };
+  }
+}
+
+message GetMtrlSGRequest {
+  string itnbr = 1; //原料5碼
+}
+
+message GetMtrlSGReply {
+  float sg = 1; //比重(例如:1.050)
+}
+
+message GetMtrlsRequest {
+  string type = 1; //原料2碼(大類)
+}
+
+message GetMtrlsReply {
+  message Mtrl {
+    string matno = 1;
+    string level = 2;
+  }
+  repeated Mtrl mtrls = 1;
+}

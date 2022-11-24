@@ -1,0 +1,210 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+import "proto/dm/mes/work_order_struct.proto";
+import "proto/dm/mes/create_work_order_head.proto";
+import "proto/dm/mes/create_work_order.proto";
+import "proto/dm/mes/modify_work_order_status.proto";
+import "proto/dm/mes/add_m_sheet_bom_record.proto";
+import "proto/dm/mes/add_material.proto";
+import "proto/dm/mes/create_prepare_order.proto";
+import "proto/dm/mes/query_prepare_order_list.proto";
+import "proto/dm/mes/modify_mtrllst_record.proto";
+import "proto/dm/mes/query_material_list.proto";
+import "proto/dm/mes/delete_materials.proto";
+import "proto/dm/mes/modify_prepare_order_info.proto";
+import "proto/dm/mes/query_code.proto";
+import "proto/dm/mes/query_sheet_info.proto";
+import "proto/dm/mes/create_sheet_info.proto";
+import "proto/dm/mes/modify_sheet_info.proto";
+import "proto/dm/mes/query_replace_mtrl.proto";
+import "proto/dm/mes/create_container_info.proto";
+import "proto/dm/mes/query_container_info.proto";
+import "proto/dm/mes/delete_container.proto";
+import "proto/dm/mes/modify_container_info.proto";
+import "proto/dm/mes/modify_mconmtrlst.proto";
+import "proto/dm/mes/create_mconmtrlst.proto";
+import "proto/dm/mes/delete_mconmtrlst.proto";
+import "proto/dm/mes/query_mconmtrlst.proto";
+import "proto/dm/mes/modify_meqpt.proto";
+import "proto/dm/mes/create_meqpt.proto";
+import "proto/dm/mes/delete_meqpt.proto";
+import "proto/dm/mes/query_meqpt.proto";
+import "proto/dm/mes/modify_meqptcon.proto";
+import "proto/dm/mes/create_meqptcon.proto";
+import "proto/dm/mes/delete_meqptcon.proto";
+import "proto/dm/mes/query_meqptcon.proto";
+import "proto/dm/mes/modify_storage_id.proto";
+import "proto/dm/mes/query_eqpt_detail.proto";
+import "proto/dm/mes/query_eqpt_list.proto";
+import "proto/dm/mes/query_eqpt_material_list.proto";
+import "proto/dm/mes/carrier_operating.proto";
+import "proto/dm/mes/carrier_material_operating.proto";
+import "proto/dm/mes/mtrl_tx_list.proto";
+import "proto/dm/mes/materials_sheet_operating.proto";
+import "proto/dm/mes/mtx_list.proto";
+import "proto/dm/mes/mtx_ship_list.proto";
+import "proto/dm/mes/add_meas_value.proto";
+import "proto/dm/mes/get_mtrl_list_by_dept.proto";
+import "proto/dm/mes/add_log_record.proto";
+import "proto/dm/mes/get_container_by_container_type.proto";
+
+// MES system
+service MES {
+  //查詢工單
+  rpc GetWorkOrderList(GetWorkOrderRequest) returns (GetWorkOrderReply);
+  //查詢備料單
+  rpc GetPrepareOrderList(GetPrepareOrderRequest) returns (GetPrepareOrderReply);
+  //新增工單標頭
+  rpc AddWorkOrderHead(AddWorkOrderHeadRequest) returns (AddWorkOrderHeadReply);
+  //新增工單
+  rpc AddWorkOrder(AddWorkOrderRequest) returns (AddWorkOrderReply);
+  //新增備料表
+  rpc AddPrepareOrder(AddPrepareOrderRequest) returns (AddPrepareOrderReply);
+  //修改工單狀態
+  rpc UpdateWorkOrderStatus(UpdateWorkOrderStatusRequest) returns (UpdateWorkOrderStatusReply);
+  //投料扣帳
+  rpc UpdateMtrllstRecord(UpdateMtrllstRecordRequest) returns (UpdateMtrllstRecordReply);
+  //投料紀錄寫入至MSHEETBOM
+  rpc AddMsheetbomRecord(AddMsheetbomRecordRequest) returns (AddMsheetbomRecordReply);
+  //寫入MTRLST
+  rpc AddMaterial(AddMaterialRequest) returns (AddMaterialReply);
+  //查詢材料
+  rpc GetMaterialList(GetMaterialListRequest) returns (GetMaterialListReply);
+  //刪除材料
+  rpc DeleteMaterials (DeleteMaterialsRequest) returns (DeleteMaterialsReply);
+  //修改備料資訊
+  rpc UpdatePrepareOrderInfo (UpdatePrepareOrderInfoRequest) returns (UpdatePrepareOrderInfoReply);
+  //搜尋首數資訊
+  rpc GetSheetInfo (GetSheetInfoRequest) returns (GetSheetInfoReply);
+  //新增首數資訊
+  rpc AddSheetInfo (AddSheetInfoRequest) returns (AddSheetInfoReply);
+  //修改首數資訊
+  rpc UpdateSheetInfo (UpdateSheetInfoRequest) returns (UpdateSheetInfoReply);
+
+  //新增材料移轉明細紀錄
+  rpc AddMtrlTxList (MtrlTxListRequest) returns (MaterialTransactions);
+  //查詢材料移轉明細紀錄
+  rpc GetMtrlTxList (MtrlTxListRequest) returns (MaterialTransactions);
+  //修改材料移轉明細紀錄
+  rpc UpdateMtrlTxList (MtrlTxListRequest) returns (MaterialTransactions);
+  //刪除材料移轉明細紀錄
+  rpc DeleteMtrlTxList (MtrlTxListRequest) returns (MaterialTransactions);
+
+  //新增材料移轉明細紀錄
+  rpc AddMtx (MTxListRequest) returns (MaterialTransactions);
+  rpc AddMtxDetail (MTxListRequest) returns (MaterialTransactions);
+  //查詢材料移轉明細紀錄
+  rpc GetMTx (MTxListRequest) returns (MaterialTransactions);
+  rpc GetMTxPDA (MTxListRequest) returns (MaterialTransactions);
+  //修改材料移轉明細
+  rpc UpdateMTx (MTxListRequest) returns (MaterialTransactions);
+  //修改材料移轉明細紀錄
+  rpc UpdateMTxDetail (MTxListRequest) returns (MaterialTransactions);
+  //刪除材料移轉明細紀錄
+  rpc DeleteMTX (MTxListRequest) returns (MaterialTransactions);
+  rpc DeleteMTxDetail (MTxListRequest) returns (MaterialTransactions);
+
+  //新增材料移轉出庫紀錄
+  rpc AddMtxShp (MtxShipListRequest) returns (MtxShipListReply);
+  //查詢材料移轉出庫紀錄
+  rpc GetMTxShp (MtxShipListRequest) returns (MtxShipListReply);
+  //修改材料移轉出庫紀錄
+  rpc UpdateMTxShp (MtxShipListRequest) returns (MtxShipListReply);
+  //刪除材料移轉出庫紀錄
+  rpc DeleteMTxShp (MtxShipListRequest) returns (MtxShipListReply);
+
+  //新增Container Info
+  rpc AddContainerInfo (AddContainerRequest) returns (AddContainerReply);
+  //查詢Container Info
+  rpc GetContainerInfo (GetContainerRequest) returns (GetContainerReply);
+  //修改Container Info
+  rpc UpdateContainerInfo(UpdateContainerRequest) returns (UpdateContainerReply);
+  //刪除Container Info
+  rpc DeleteContainerInfo(DeleteContainerRequest) returns (DeleteContainerReply);
+
+  //新增Mconmtrlst Info
+  rpc AddMconmtrlst(AddMconmtrlstRequest) returns (AddMconmtrlstReply);
+  //查詢Mconmtrlst Info
+  rpc GetMconmtrlst(GetMconmtrlstRequest) returns (GetMconmtrlstReply);
+  //修改Mconmtrlst Info
+  rpc UpdateMconmtrlst(UpdateMconmtrlstRequest) returns (UpdateMconmtrlstReply);
+  //刪除Mconmtrlst Info
+  rpc DeleteMconmtrlst(DeleteMconmtrlstRequest) returns (DeleteMconmtrlstReply);
+
+  //新增Meqpt Info
+  rpc AddMeqpt(AddMeqptRequest) returns (AddMeqptReply);
+  //查詢Meqpt Info
+  rpc GetMeqpt(GetMeqptRequest) returns (GetMeqptReply);
+  //修改Meqpt Info
+  rpc UpdateMeqpt(UpdateMeqptRequest) returns (UpdateMeqptReply);
+  //刪除Meqpt Info
+  rpc DeleteMeqpt(DeleteMeqptRequest) returns (DeleteMeqptReply);
+
+  //新增Meqptcon Info
+  rpc AddMeqptcon(AddMeqptconRequest) returns (AddMeqptconReply);
+  //查詢Meqptcon Info
+  rpc GetMeqptcon(GetMeqptconRequest) returns (GetMeqptconReply);
+  //修改Meqptcon Info
+  rpc UpdateMeqptcon(UpdateMeqptconRequest) returns (UpdateMeqptconReply);
+  //刪除Meqptcon Info
+  rpc DeleteMeqptcon(DeleteMeqptconRequest) returns (DeleteMeqptconReply);
+  //修改Storage ID
+  rpc UpdateStorageId(UpdateStorageIdRequest) returns (UpdateStorageIdReply);
+
+  // ～*～*～*～*～*～　代號檔　～*～*～*～*～*～　//
+  //回傳代號 (代號Value、名稱Name)
+  rpc GetCode(GetCodeRequest) returns (GetCodeReply);
+
+  // ～*～*～*～*～*～　替代材料檔　～*～*～*～*～*～　//
+  //回傳替代材料ID以及替代比率
+  rpc GetReplaceMtrl(GetReplaceMtrlRequest) returns (GetReplaceMtrlReply);
+
+  // ～*～*～*～*～*～　設備-桶槽-材料對應檔　～*～*～*～*～*～　//
+  //回傳設備ID清單
+  rpc GetEqptList(GetEqptListRequest) returns (GetEqptListReply);
+  //回傳設備對應的材料集合(lotID+mtrlID)
+  rpc GetEqptMaterialList(GetEqptMaterialListRequest) returns (GetEqptMaterialListReply);
+  //回傳設備的基本資訊
+  rpc GetEqptDetail(GetEqptDetailRequest) returns (GetEqptDetailReply);
+
+  // ～*～*～*～*～*～　卡匣-材料對應檔　～*～*～*～*～*～　//
+  //回傳卡匣明細
+  rpc GetCarrierDetail(GetCarrierDetailRequest) returns (GetCarrierDetailReply);
+  //新增卡匣明細
+  rpc AddCarrierDetail(AddCarrierDetailRequest) returns (AddCarrierDetailReply);
+  //修改卡匣明細
+  rpc UpdateCarrierDetail(UpdateCarrierDetailRequest) returns (UpdateCarrierDetailReply);
+  //刪除卡匣明細
+  rpc DeleteCarrierDetail(DeleteCarrierDetailRequest) returns (DeleteCarrierDetailReply);
+
+  //回傳卡匣材料明細
+  rpc GetCarrierMaterial(GetCarrierMaterialRequest) returns (GetCarrierMaterialReply);
+  //新增卡匣材料明細
+  rpc AddCarrierMaterial(AddCarrierMaterialRequest) returns (AddCarrierMaterialReply);
+  //修改卡匣材料明細
+  rpc UpdateCarrierMaterial(UpdateCarrierMaterialRequest) returns (UpdateCarrierMaterialReply);
+  //刪除卡匣材料明細
+  rpc DeleteCarrierMaterial(DeleteCarrierMaterialRequest) returns (DeleteCarrierMaterialReply);
+
+  // ～*～*～*～*～*～　材料-首數對應檔　～*～*～*～*～*～　//
+  //取得材料首數明細
+  rpc GetMaterialsSheet(GetMaterialsSheetRequest) returns (GetMaterialsSheetReply);
+  //新增材料首數明細
+  rpc AddMaterialsSheet(AddMaterialsSheetRequest) returns (AddMaterialsSheetReply);
+
+  // ～*～*～*～*～*～   紀錄檢測值    ～*～*～*～*～*～　//
+  rpc AddMeasValue(AddMeasValueRequest) returns (AddMeasValueReply);
+
+  // ～*～*～*～  取得管理部門所擁有材料清單  ～*～*～*～　//
+  rpc GetMtrlListByDept(GetMtrlListByDeptRequest) returns (GetMtrlListByDeptReply);
+
+  // ～*～*～*～*～*～   Log Record    ～*～*～*～*～*～　//
+  rpc AddLogRecord(AddLogRecordRequest) returns (AddLogRecordReply);
+
+  // 依類別取得桶槽
+  rpc GetContainerByContype(GetContainerByContypeRequest) returns (GetContainerByContypeReply);
+
+}

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package proto.mes.v2.inspection;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2/inspection";
+
+import "google/protobuf/timestamp.proto";
+
+import "proto/utils/types.proto";
+
+message Batch {
+    // 檢驗開使時間
+    google.protobuf.Timestamp timestamp = 5;
+    // 檢驗結束時間
+    google.protobuf.Timestamp timestampEnd = 7;
+    // 試驗編號
+    string sequence = 1;
+    string resourceID = 2;
+    // part number or name
+    string partName = 3;
+    // 檢驗結果
+    map<string, Result> results = 4;
+    // 判定結果
+    Judgment judgment = 6;
+}
+
+message Result {
+    message Grouped {
+        map<string, Params> groupedParams = 1;
+    }
+
+    oneof value {
+        utils.Decimal number  = 1;
+        Grouped       grouped = 2;
+    }
+}
+
+message Params {
+    message Param {
+        string name  = 1;
+        Value  value = 2;
+    }
+    repeated Param params = 1;
+}
+
+message Value {
+    oneof value {
+        utils.Decimal decimalValue = 1;
+    }
+}
+
+enum Judgment {
+    JUDGMENT_UNSPECIFIED = 0;
+    QUALIFIED            = 1;
+    FAILED               = 2;
+}

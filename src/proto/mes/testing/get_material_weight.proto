@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/container/enum_type.proto";
+
+// 取得BOM清單請求
+message GetMaterialWeightRequest {
+  // 廠別
+  proto.dm.rs.FactoryID factory_id        = 1;
+  // 配合表ID
+  string recipe_id    = 2;
+  // 生產機台
+  string product_equipment_id = 3;
+  // 設定機台 (指下工程所需機台, 只有密煉使用)
+  string set_equipment_id  = 4;
+  // 途程名稱
+  string process_name = 5;
+}
+
+// 取得BOM清單回應
+message GetMaterialWeightReply {
+  // 材料
+  message Material {
+    // 材料類型
+    proto.dm.rs.ProductType type             = 1;
+    // 材料ID
+    string id                                = 2;
+    // 材料等級
+    string level                             = 3;
+    // 標準耗用量
+    float  value                             = 4;
+    // 計量單位 : 重量、長度、個數
+    string unit                              = 5;
+    // 允許誤差
+    float error_margin                       = 6;
+    // 桶槽類型 : 有指定桶槽代表為中央供應料
+    proto.dm.rs.container.Type containerType = 7;
+    // 指定recipe id (如密煉使用之藥包需指定特定藥包配合表版本)
+    string specified_recipe_id               = 8;
+  }
+  // 材料清單
+  repeated Material materials = 2;
+}

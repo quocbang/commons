@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package proto.dm.utility;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/utility";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "proto/dm/utility/token.proto";
+
+// Utility service.
+service Utility {
+  // NewToken 新增token.
+  rpc NewToken(TokenRequest) returns (Token) {
+    option (google.api.http) = {
+      post : "/utility/token"
+      body : "*"
+    };
+  }
+  // CheckToken 檢查token.
+  rpc CheckToken(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/utility/token/get"
+      body : "*"
+    };
+  }
+  // DeleteToken 刪除token.
+  rpc DeleteToken(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/utility/token"
+    };
+  }
+
+  // GetNewItnbr 新舊成代轉換.
+  rpc GetNewItnbr(SingleItnbr) returns (SingleNewItnbr) {
+    option (google.api.http) = {
+      post : "/utility/newItnbr/get"
+      body : "*"
+    };
+  }
+  // GetItnbrClassificationDescription 成代分類別說明.
+  rpc GetItnbrClassificationDescription(SingleItnbr)
+      returns (ItnbrClassification) {
+    option (google.api.http) = {
+      post : "/utility/itnbrClassificationDescription/get"
+      body : "*"
+    };
+  }
+  // GetCustomStdqty 客戶責任條數.
+  rpc GetCustomStdqty(Custom) returns (Qty) {
+    option (google.api.http) = {
+      post : "/utility/customStdqty/get"
+      body : "*"
+    };
+  }
+}
+
+message Custom {
+  string subno  = 1;
+  string yyyymm = 2;
+  string cusno  = 3;
+}
+
+message Qty {
+  int64 responsibility = 1;
+  int64 achievement    = 2;
+}
+
+message SingleItnbr {
+  string itnbr = 1;
+}
+
+message SingleNewItnbr {
+  string itnbr = 1;
+}
+
+message ItnbrClassification {
+  string description = 1;
+}

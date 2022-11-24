@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package proto.dm.gdt;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/gdt";
+
+message GetGdtbarRequest {
+  string barcode = 1;
+  string seqno   = 2;
+}
+
+message GetGdtbarReply {
+  repeated Gdtbar data = 1;
+}
+message Gdtbar {
+  string factory  = 1;
+  string kind     = 2;
+  string barcode  = 3;
+  string seqno    = 4;
+  string batchno  = 5;
+  string prddate  = 6;
+  string validate = 7;
+  string spdsc    = 8;
+  string itnbr    = 9;
+  string level    = 10;
+  string qty      = 11;
+  string prtno    = 12;
+  string indate   = 13;
+  string intime   = 14;
+  string usrno    = 15;
+}

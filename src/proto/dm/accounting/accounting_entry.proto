@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package proto.dm.accounting;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/accounting";
+
+import "google/protobuf/timestamp.proto";
+
+import "proto/sub_company.proto";
+import "proto/dm/accounting/credit_or_debit.proto";
+import "proto/dm/accounting/entry_type.proto";
+import "proto/dm/currency.proto";
+
+
+
+// query
+message AccountingEntryRequest {
+    proto.SubCompany            sub_company     = 1;
+    google.protobuf.Timestamp   date            = 2;
+    string                      id              = 3;
+    int32                       sub_id          = 4;
+    string                      account_number1 = 5;
+    CreditOrDebit               cod             = 6;
+    Currency                    currency        = 7;
+}
+
+// 單筆
+message SingleAccountingEntry {
+    string                      accounting_system   = 1;
+    proto.SubCompany            sub_company         = 2;
+    google.protobuf.Timestamp   date                = 3;
+    string                      id                  = 4; 
+    int32                       sub_id              = 5; 
+    EntryType                   entry_type          = 6;
+    string                      account_number1     = 7;
+    string                      account_number2     = 8;
+    CreditOrDebit               cod                 = 9;
+    Currency                    currency            = 10;
+    float                       amount              = 11;
+    float                       local_amount        = 12; 
+    repeated string             references          = 13;
+    repeated string             tags                = 14;
+    google.protobuf.Timestamp   created_at          = 15;
+    string                      created_by          = 16;
+}
+
+// 多筆
+message MultiAccountingEntry {
+    repeated SingleAccountingEntry dataset = 1; 
+}
+
+message AddAccountingEntryResult{
+    int32 sub_id = 1;
+}

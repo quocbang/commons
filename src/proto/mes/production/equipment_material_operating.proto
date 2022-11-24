@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/error/enums.proto";
+import "proto/mes/code/enums.proto";
+
+//機台掛載材料操作請求
+message EquipmentMaterialOperatingRequest {
+    // 操作類別
+    code.FunctionModel action_type   = 1;
+    // 工位ID
+    int32 action_order               = 2;
+    // 工單號 -- 用來計算可投料次數用
+    string lot_id                    = 3;
+    //途程名稱 --不給也沒差, 預設抓取可投料工單, 一台設備不可能同時跑兩個投料途程
+    string process_name              = 4;
+    // 設備ID
+    string equipment_id              = 5;
+    // 材料條碼
+    string material_lot_id           = 6;
+}
+
+//機台掛載材料操作回應
+message EquipmentMaterialOperatingReply {
+
+    // 可投料次數計數
+    message MoveInCounter {
+        // 桶槽描述
+        string container_description  = 1;
+        // 可投次數
+        float  qty                    = 2;
+        // TODO: remove this in future, 可有可無
+        // 計量單位 -- 密煉-首, 成型-條
+        string unit                   = 3;
+    }
+
+    // 材料
+    message Material {
+        // 標示卡條碼
+        string lot_id     = 1;
+        // 材料ID
+        string product_id = 2;
+        // 材料等級
+        string level      = 3;
+        // 剩餘量
+        float  qty        = 4;
+    }
+    // 錯誤代碼
+    code.error.EquipmentMaterialOperating err = 1;
+    // 掛載材料可投料次數 (base on process now running)
+    repeated MoveInCounter move_in_counter    = 2;
+    // 掛載材料明細
+    repeated Material materials               = 3;
+}
+
+

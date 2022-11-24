@@ -1,0 +1,2208 @@
+syntax = "proto3";
+
+package proto.dm.per;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/per";
+
+import "proto/dm/per/pertre.proto";
+import "proto/dm/per/list_permas.proto";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// PER system
+service PER {
+  //取得職能數量
+  rpc GetJobCount(SingleJob) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/job/count/get"
+      body : "*"
+    };
+  }
+  //取得職能代號
+  rpc GetJob(SingleJob) returns (MultiJob) {
+    option (google.api.http) = {
+      post : "/per/job/get"
+      body : "*"
+    };
+  }
+  //新增職能代號
+  rpc AddJob(MultiJob) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/job"
+      body : "*"
+    };
+  }
+  //修改職能代號
+  rpc UpdateJob(MultiJob) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/job"
+      body : "*"
+    };
+  }
+  //刪除職能代號
+  rpc DeleteJob(SingleJob) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/job/{subno}/{jobno}"
+    };
+  }
+  //取得職能代號並 lock
+  rpc GetJobAndLock(SingleJob) returns (MultiJob) {
+    option (google.api.http) = {
+      post : "/per/job/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 職能代號
+  rpc UnlockJob(MultiJob) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/job/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得合格講師數量
+  rpc GetQualifiedLectorCount(SingleQualifiedLector) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/qualifiedLector/count/get"
+      body : "*"
+    };
+  }
+  //取得合格講師資料
+  rpc GetQualifiedLector(QualifiedLectorRequest)
+      returns (MultiQualifiedLector) {
+    option (google.api.http) = {
+      post : "/per/qualifiedLector/get"
+      body : "*"
+    };
+  }
+  //新增合格講師
+  rpc AddQualifiedLector(MultiQualifiedLector) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/qualifiedLector"
+      body : "*"
+    };
+  }
+  //修改合格講師
+  rpc UpdateQualifiedLector(MultiQualifiedLector) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/qualifiedLector"
+      body : "*"
+    };
+  }
+  //刪除合格講師
+  rpc DeleteQualifiedLector(SingleQualifiedLector) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/qualifiedLector/{subno}/{currno}/{empno}"
+    };
+  }
+  //取得合格講師並 lock
+  rpc GetQualifiedLectorAndLock(QualifiedLectorRequest)
+      returns (MultiQualifiedLector) {
+    option (google.api.http) = {
+      post : "/per/qualifiedLector/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 合格講師
+  rpc UnlockQualifiedLector(MultiQualifiedLector)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/qualifiedLector/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得授課單位數量
+  rpc GetTeachingUnitCount(SingleTeachingUnit) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/teachingUnit/count/get"
+      body : "*"
+    };
+  }
+  //取得授課單位名稱
+  rpc GetTeachingUnitName(SingleTeachingUnit) returns (TeachingUnitName) {
+    option (google.api.http) = {
+      post : "/per/teachingUnit/name/get"
+      body : "*"
+    };
+  }
+  //取得授課單位資料
+  rpc GetTeachingUnit(SingleTeachingUnit) returns (MultiTeachingUnit) {
+    option (google.api.http) = {
+      post : "/per/teachingUnit/get"
+      body : "*"
+    };
+  }
+  //新增授課單位
+  rpc AddTeachingUnit(MultiTeachingUnit) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/teachingUnit"
+      body : "*"
+    };
+  }
+  //修改授課單位
+  rpc UpdateTeachingUnit(MultiTeachingUnit) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/teachingUnit"
+      body : "*"
+    };
+  }
+  //刪除授課單位
+  rpc DeleteTeachingUnit(SingleTeachingUnit) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/teachingUnit/{subno}/{teaunit}"
+    };
+  }
+  //取得授課單位並 lock
+  rpc GetTeachingUnitAndLock(SingleTeachingUnit) returns (MultiTeachingUnit) {
+    option (google.api.http) = {
+      post : "/per/teachingUnit/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 授課單位
+  rpc UnlockTeachingUnit(MultiTeachingUnit) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/teachingUnit/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得中分類課程數量
+  rpc GetMediumSortCouseCount(SingleMediumSortCouse) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/mediumSortCouse/count/get"
+      body : "*"
+    };
+  }
+  //取得中分類課程名稱
+  rpc GetMediumSortCouseName(SingleMediumSortCouse)
+      returns (MediumSortCouseName) {
+    option (google.api.http) = {
+      post : "/per/mediumSortCouse/name/get"
+      body : "*"
+    };
+  }
+  //取得中分類課程
+  rpc GetMediumSortCouse(SingleMediumSortCouse) returns (MultiMediumSortCouse) {
+    option (google.api.http) = {
+      post : "/per/mediumSortCouse/get"
+      body : "*"
+    };
+  }
+  //新增中分類課程
+  rpc AddMediumSortCouse(MultiMediumSortCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/mediumSortCouse"
+      body : "*"
+    };
+  }
+  //修改中分類課程
+  rpc UpdateMediumSortCouse(MultiMediumSortCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/mediumSortCouse"
+      body : "*"
+    };
+  }
+  //刪除中分類課程
+  rpc DeleteMediumSortCouse(SingleMediumSortCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/mediumSortCouse/{subno}/{bigno}/{medno}"
+    };
+  }
+  //取得中分類課程並 lock
+  rpc GetMediumSortCouseAndLock(SingleMediumSortCouse)
+      returns (MultiMediumSortCouse) {
+    option (google.api.http) = {
+      post : "/per/mediumSortCouse/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 中分類課程
+  rpc UnlockMediumSortCouse(MultiMediumSortCouse)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/mediumSortCouse/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得開課資料數量
+  rpc GetCouseCount(SingleCouse) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/couse/count/get"
+      body : "*"
+    };
+  }
+  //取得開課資料最大流水號
+  rpc GetCouseSerno(SingleCouse) returns (SernoReply) {
+    option (google.api.http) = {
+      post : "/per/couse/serno/get"
+      body : "*"
+    };
+  }
+  //取得開課資料
+  rpc GetCouse(SingleCouse) returns (MultiCouse) {
+    option (google.api.http) = {
+      post : "/per/couse/get"
+      body : "*"
+    };
+  }
+  //新增開課資料
+  rpc AddCouse(MultiCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/couse"
+      body : "*"
+    };
+  }
+  //修改開課資料
+  rpc UpdateCouse(MultiCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/couse"
+      body : "*"
+    };
+  }
+  //刪除開課資料
+  rpc DeleteCouse(SingleCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/couse/{subno}/{year}/{depno}/{serno}"
+    };
+  }
+  //取得開課資料並 lock
+  rpc GetCouseAndLock(SingleCouse) returns (MultiCouse) {
+    option (google.api.http) = {
+      post : "/per/couse/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 開課資料
+  rpc UnlockCouse(MultiCouse) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/couse/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得學習資料數量
+  rpc GetStudyCount(SingleStudy) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/study/count/get"
+      body : "*"
+    };
+  }
+  //取得學習資料
+  rpc GetStudySerno(SingleStudy) returns (MultiStudy) {
+    option (google.api.http) = {
+      post : "/per/study/serno/get"
+      body : "*"
+    };
+  }
+  //取得學習資料
+  rpc GetStudy(SingleStudy) returns (MultiStudy) {
+    option (google.api.http) = {
+      post : "/per/study/get"
+      body : "*"
+    };
+  }
+  //新增學習資料
+  rpc AddStudy(MultiStudy) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/study"
+      body : "*"
+    };
+  }
+  //修改學習資料
+  rpc UpdateStudy(MultiStudy) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/study"
+      body : "*"
+    };
+  }
+  //修改學習資料(依percur更新資料)
+  rpc UpdateStudy1(MultiStudy) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/study/couse"
+      body : "*"
+    };
+  }
+  //刪除學習資料
+  rpc DeleteStudy(SingleStudy) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/study/{subno}/{year}/{depno}/{serno}"
+    };
+  }
+  //取得學習資料並 lock
+  rpc GetStudyAndLock(SingleStudy) returns (MultiStudy) {
+    option (google.api.http) = {
+      post : "/per/study/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 學習資料
+  rpc UnlockStudy(MultiStudy) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/study/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得應修課程數量
+  rpc GetRequiredCouseCount(SingleRequiredCouse) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/requiredCouse/count/get"
+      body : "*"
+    };
+  }
+  //取得應修課程
+  rpc GetRequiredCouse(SingleRequiredCouse) returns (MultiRequiredCouse) {
+    option (google.api.http) = {
+      post : "/per/requiredCouse/get"
+      body : "*"
+    };
+  }
+  //新增應修課程
+  rpc AddRequiredCouse(MultiRequiredCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/requiredCouse"
+      body : "*"
+    };
+  }
+  //修改應修課程
+  rpc UpdateRequiredCouse(MultiRequiredCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/requiredCouse"
+      body : "*"
+    };
+  }
+  //刪除應修課程
+  rpc DeleteRequiredCouse(SingleRequiredCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/requiredCouse/{subno}/{grade}"
+    };
+  }
+  //取得應修課程並 lock
+  rpc GetRequiredCouseAndLock(SingleRequiredCouse)
+      returns (MultiRequiredCouse) {
+    option (google.api.http) = {
+      post : "/per/requiredCouse/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 應修課程
+  rpc UnlockRequiredCouse(MultiRequiredCouse) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/requiredCouse/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得教育訓練承諾書簽約資料數量
+  rpc GetSignCount(SingleSign) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/sign/count/get"
+      body : "*"
+    };
+  }
+  //取得教育訓練承諾書簽約資料
+  rpc GetSign(SingleSign) returns (MultiSign) {
+    option (google.api.http) = {
+      post : "/per/sign/get"
+      body : "*"
+    };
+  }
+  //新增教育訓練承諾書簽約資料
+  rpc AddSign(MultiSign) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/sign"
+      body : "*"
+    };
+  }
+  //修改教育訓練承諾書簽約資料
+  rpc UpdateSign(MultiSign) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/sign"
+      body : "*"
+    };
+  }
+  //刪除教育訓練承諾書簽約資料
+  rpc DeleteSign(SingleSign) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/sign/{subno}/{actyy}/{empno}"
+    };
+  }
+  //取得教育訓練承諾書簽約資料並 lock
+  rpc GetSignAndLock(SingleSign) returns (MultiSign) {
+    option (google.api.http) = {
+      post : "/per/sign/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 教育訓練承諾書簽約資料
+  rpc UnlockSign(MultiSign) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/sign/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得教育訓練簽核層級資料數量
+  rpc GetSignLevelCount(SingleSignLevel) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/signLevel/count/get"
+      body : "*"
+    };
+  }
+  //取得教育訓練簽核層級資料
+  rpc GetSignLevel(SingleSignLevel) returns (MultiSignLevel) {
+    option (google.api.http) = {
+      post : "/per/signLevel/get"
+      body : "*"
+    };
+  }
+  //新增教育訓練簽核層級資料
+  rpc AddSignLevel(MultiSignLevel) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/signLevel"
+      body : "*"
+    };
+  }
+  //修改教育訓練簽核層級資料
+  rpc UpdateSignLevel(MultiSignLevel) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/signLevel"
+      body : "*"
+    };
+  }
+  //刪除教育訓練簽核層級資料
+  rpc DeleteSignLevel(SingleSignLevel) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/signLevel/{subno}/{people}/{level}"
+    };
+  }
+  //取得教育訓練簽核層級資料並 lock
+  rpc GetSignLevelAndLock(SingleSignLevel) returns (MultiSignLevel) {
+    option (google.api.http) = {
+      post : "/per/signLevel/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 教育訓練簽核層級資料
+  rpc UnlockSignLevel(MultiSignLevel) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/signLevel/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得年度計畫序號數量
+  rpc GetPlanSerialCount(SinglePlanSerial) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/planSerial/count/get"
+      body : "*"
+    };
+  }
+  //取得年度計畫序號
+  rpc GetPlanSerial(SinglePlanSerial) returns (MultiPlanSerial) {
+    option (google.api.http) = {
+      post : "/per/planSerial/get"
+      body : "*"
+    };
+  }
+  //新增年度計畫序號
+  rpc AddPlanSerial(MultiPlanSerial) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/planSerial"
+      body : "*"
+    };
+  }
+  //修改年度計畫序號
+  rpc UpdatePlanSerial(MultiPlanSerial) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/planSerial"
+      body : "*"
+    };
+  }
+  //刪除年度計畫序號
+  rpc DeletePlanSerial(SinglePlanSerial) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/planSerial/{subno}/{year}/{depno}/{planno}"
+    };
+  }
+  //取得年度計畫序號並 lock
+  rpc GetPlanSerialAndLock(SinglePlanSerial) returns (MultiPlanSerial) {
+    option (google.api.http) = {
+      post : "/per/planSerial/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 年度計畫序號
+  rpc UnlockPlanSerial(MultiPlanSerial) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/planSerial/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得職能數量
+  rpc GetJobDutyCount(SingleJobDuty) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/jobDuty/count/get"
+      body : "*"
+    };
+  }
+  //取得職能代號
+  rpc GetJobDuty(SingleJobDuty) returns (MultiJobDuty) {
+    option (google.api.http) = {
+      post : "/per/jobDuty/get"
+      body : "*"
+    };
+  }
+  //新增職能代號
+  rpc AddJobDuty(MultiJobDuty) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/jobDuty"
+      body : "*"
+    };
+  }
+  //修改職能代號
+  rpc UpdateJobDuty(MultiJobDuty) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/jobDuty"
+      body : "*"
+    };
+  }
+  //刪除職能代號
+  rpc DeleteJobDuty(SingleJobDuty) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/jobDuty/{subno}/{jobno}"
+    };
+  }
+  //取得職能代號並 lock
+  rpc GetJobDutyAndLock(SingleJobDuty) returns (MultiJobDuty) {
+    option (google.api.http) = {
+      post : "/per/jobDuty/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 職能代號
+  rpc UnlockJobDuty(MultiJobDuty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/jobDuty/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得教育訓練計畫數量
+  rpc GetTrainingPlanCount(SingleTrainingPlan) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/trainingPlan/count/get"
+      body : "*"
+    };
+  }
+  //取得教育訓練計畫
+  rpc GetTrainingPlan(SingleTrainingPlan) returns (MultiTrainingPlan) {
+    option (google.api.http) = {
+      post : "/per/trainingPlan/get"
+      body : "*"
+    };
+  }
+  //新增教育訓練計畫代
+  rpc AddTrainingPlan(MultiTrainingPlan) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/trainingPlan"
+      body : "*"
+    };
+  }
+  //修改教育訓練計畫
+  rpc UpdateTrainingPlan(MultiTrainingPlan) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/trainingPlan"
+      body : "*"
+    };
+  }
+  //刪除教育訓練計畫
+  rpc DeleteTrainingPlan(SingleTrainingPlan) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/trainingPlan/{subno}/{no}/{depno}/{yymm}/{bmno}"
+    };
+  }
+  //取得教育訓練計畫並 lock
+  rpc GetTrainingPlanAndLock(SingleTrainingPlan) returns (MultiTrainingPlan) {
+    option (google.api.http) = {
+      post : "/per/trainingPlan/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 教育訓練計畫
+  rpc UnlockTrainingPlan(MultiTrainingPlan) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/trainingPlan/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得特種作業人員數量
+  rpc GetSpecialOperatorCount(SingleSpecialOperator) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/specialOperator/count/get"
+      body : "*"
+    };
+  }
+  //取得特種作業人員資料
+  rpc GetSpecialOperator(SingleSpecialOperator) returns (MultiSpecialOperator) {
+    option (google.api.http) = {
+      post : "/per/specialOperator/get"
+      body : "*"
+    };
+  }
+  //取得特種作業人員資料(不含離職人員)
+  rpc GetSpecialOperator1(SingleSpecialOperator) returns (MultiSpecialOperator) {
+    option (google.api.http) = {
+      post : "/per/specialOperator1/get"
+      body : "*"
+    };
+  }
+  //新增特種作業人員
+  rpc AddSpecialOperator(MultiSpecialOperator) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/specialOperator"
+      body : "*"
+    };
+  }
+  //修改特種作業人員
+  rpc UpdateSpecialOperator(MultiSpecialOperator) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/specialOperator"
+      body : "*"
+    };
+  }
+  //刪除特種作業人員
+  rpc DeleteSpecialOperator(SingleSpecialOperator) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/specialOperator/{subno}/{trno}"
+    };
+  }
+  //取得特種作業人員並 lock
+  rpc GetSpecialOperatorAndLock(SingleSpecialOperator)
+      returns (MultiSpecialOperator) {
+    option (google.api.http) = {
+      post : "/per/specialOperator/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 特種作業人員
+  rpc UnlockSpecialOperator(MultiSpecialOperator)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/specialOperator/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得職能必修課程數量
+  rpc GetJobDutyRequiredCouseCount(SingleJobDutyRequiredCouse)
+      returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/jobDutyRequiredCouse/count/get"
+      body : "*"
+    };
+  }
+  //取得職能必修課程
+  rpc GetJobDutyRequiredCouse(SingleJobDutyRequiredCouse)
+      returns (MultiJobDutyRequiredCouse) {
+    option (google.api.http) = {
+      post : "/per/jobDutyRequiredCouse/get"
+      body : "*"
+    };
+  }
+  //新增職能必修課程
+  rpc AddJobDutyRequiredCouse(MultiJobDutyRequiredCouse)
+      returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/jobDutyRequiredCouse"
+      body : "*"
+    };
+  }
+  //修改職能必修課程
+  rpc UpdateJobDutyRequiredCouse(MultiJobDutyRequiredCouse)
+      returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/jobDutyRequiredCouse"
+      body : "*"
+    };
+  }
+  //刪除職能必修課程
+  rpc DeleteJobDutyRequiredCouse(SingleJobDutyRequiredCouse)
+      returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/jobDutyRequiredCouse/{subno}/{resiyn}/{resno}"
+    };
+  }
+  //取得職能必修課程並 lock
+  rpc GetJobDutyRequiredCouseAndLock(SingleJobDutyRequiredCouse)
+      returns (MultiJobDutyRequiredCouse) {
+    option (google.api.http) = {
+      post : "/per/jobDutyRequiredCouse/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 職能必修課程
+  rpc UnlockJobDutyRequiredCouse(MultiJobDutyRequiredCouse)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/jobDutyRequiredCouse/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得培訓費用數量
+  rpc GetTrainingFeesCount(SingleTrainingFees) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/trainingFees/count/get"
+      body : "*"
+    };
+  }
+  //取得培訓費用資料
+  rpc GetTrainingFees(SingleTrainingFees) returns (MultiTrainingFees) {
+    option (google.api.http) = {
+      post : "/per/trainingFees/get"
+      body : "*"
+    };
+  }
+  //新增培訓費用資料
+  rpc AddTrainingFees(MultiTrainingFees) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/trainingFees"
+      body : "*"
+    };
+  }
+  //修改培訓費用資料
+  rpc UpdateTrainingFees(MultiTrainingFees) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/trainingFees"
+      body : "*"
+    };
+  }
+  //刪除培訓費用資料
+  rpc DeleteTrainingFees(SingleTrainingFees) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/trainingFees/{subno}/{yearno}/{deptno}/{serno}/{empno}"
+    };
+  }
+  //取得培訓費用並 lock
+  rpc GetTrainingFeesAndLock(SingleTrainingFees) returns (MultiTrainingFees) {
+    option (google.api.http) = {
+      post : "/per/trainingFees/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 培訓費用
+  rpc UnlockTrainingFees(MultiTrainingFees) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/trainingFees/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得學習資料數量
+  rpc GetLearnCount(SingleLearn) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/learn/count/get"
+      body : "*"
+    };
+  }
+  //取得學習資料
+  rpc GetLearn(SingleLearn) returns (MultiLearn) {
+    option (google.api.http) = {
+      post : "/per/learn/get"
+      body : "*"
+    };
+  }
+  //新增學習資料
+  rpc AddLearn(MultiLearn) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/learn"
+      body : "*"
+    };
+  }
+  //新增學習資料1
+  rpc AddLearn1(MultiLearn) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/learn1"
+      body : "*"
+    };
+  }
+  //修改學習資料
+  rpc UpdateLearn(MultiLearn) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/learn"
+      body : "*"
+    };
+  }
+  //修改學習資料
+  rpc UpdateLearnUnitno(MultiLearn) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/learn/unitno"
+      body : "*"
+    };
+  }
+  //刪除學習資料
+  rpc DeleteLearn(SingleLearn) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/learn/{subno}/{year}/{depno}/{serno}"
+    };
+  }
+  //取得學習資料並 lock
+  rpc GetLearnAndLock(SingleLearn) returns (MultiLearn) {
+    option (google.api.http) = {
+      post : "/per/learn/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 學習資料
+  rpc UnlockLearn(MultiLearn) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/learn/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得開課資料數量
+  rpc GetLearnCouseCount(SingleLearnCouse) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/learnCouse/count/get"
+      body : "*"
+    };
+  }
+  //取得開課資料最大流水號
+  rpc GetLearnCouseSerno(SingleLearnCouse) returns (SernoReply) {
+    option (google.api.http) = {
+      post : "/per/learnCouse/serno/get"
+      body : "*"
+    };
+  }
+  //取得開課資料
+  rpc GetLearnCouse(SingleLearnCouse) returns (MultiLearnCouse) {
+    option (google.api.http) = {
+      post : "/per/learnCouse/get"
+      body : "*"
+    };
+  }
+  //新增開課資料
+  rpc AddLearnCouse(MultiLearnCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/learnCouse"
+      body : "*"
+    };
+  }
+  //新增開課資料1
+  rpc AddLearnCouse1(MultiLearnCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/learnCouse1"
+      body : "*"
+    };
+  }
+  //修改開課資料
+  rpc UpdateLearnCouse(MultiLearnCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/learnCouse"
+      body : "*"
+    };
+  }
+  //刪除開課資料
+  rpc DeleteLearnCouse(SingleLearnCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/learnCouse/{subno}/{year}/{depno}/{serno}"
+    };
+  }
+  //取得開課資料並 lock
+  rpc GetLearnCouseAndLock(SingleLearnCouse) returns (MultiLearnCouse) {
+    option (google.api.http) = {
+      post : "/per/learnCouse/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 開課資料
+  rpc UnlockLearnCouse(MultiLearnCouse) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/learnCouse/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得教育訓練教材數量
+  rpc GetTrainingMaterialsCount(SingleTrainingMaterials) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/trainingMaterials/count/get"
+      body : "*"
+    };
+  }
+  //取得教育訓練教材資料
+  rpc GetTrainingMaterials(SingleTrainingMaterials)
+      returns (MultiTrainingMaterials) {
+    option (google.api.http) = {
+      post : "/per/trainingMaterials/get"
+      body : "*"
+    };
+  }
+  //取得教育訓練教材資料
+  rpc GetTrainingMaterialsSerno(SingleTrainingMaterials) returns (SernoReply) {
+    option (google.api.http) = {
+      post : "/per/trainingMaterials/serno/get"
+      body : "*"
+    };
+  }
+  //新增教育訓練教材資料
+  rpc AddTrainingMaterials(MultiTrainingMaterials) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/trainingMaterials"
+      body : "*"
+    };
+  }
+  //修改教育訓練教材資料
+  rpc UpdateTrainingMaterials(MultiTrainingMaterials) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/trainingMaterials"
+      body : "*"
+    };
+  }
+  //刪除教育訓練教材資料
+  rpc DeleteTrainingMaterials(SingleTrainingMaterials) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/trainingMaterials/{subno}/{itemno}"
+    };
+  }
+  //取得教育訓練教材資料並 lock
+  rpc GetTrainingMaterialsAndLock(SingleTrainingMaterials)
+      returns (MultiTrainingMaterials) {
+    option (google.api.http) = {
+      post : "/per/trainingMaterials/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 教育訓練教材資料
+  rpc UnlockTrainingMaterials(MultiTrainingMaterials)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/trainingMaterials/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得職能崗位數量
+  rpc GetJobDutyPostCount(SingleJobDutyPost) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/jobDutyPost/count/get"
+      body : "*"
+    };
+  }
+  //取得職能崗位資料
+  rpc GetJobDutyPost(SingleJobDutyPost) returns (MultiJobDutyPost) {
+    option (google.api.http) = {
+      post : "/per/jobDutyPost/get"
+      body : "*"
+    };
+  }
+  //新增職能崗位資料
+  rpc AddJobDutyPost(MultiJobDutyPost) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/jobDutyPost"
+      body : "*"
+    };
+  }
+  //修改職能崗位資料
+  rpc UpdateJobDutyPost(MultiJobDutyPost) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/jobDutyPost"
+      body : "*"
+    };
+  }
+  //刪除職能崗位資料
+  rpc DeleteJobDutyPost(SingleJobDutyPost) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/jobDutyPost/{subno}/{resiyn}/{resno}"
+    };
+  }
+  //取得職能崗位並 lock
+  rpc GetJobDutyPostAndLock(SingleJobDutyPost) returns (MultiJobDutyPost) {
+    option (google.api.http) = {
+      post : "/per/jobDutyPost/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 職能崗位
+  rpc UnlockJobDutyPost(MultiJobDutyPost) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/jobDutyPost/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得證件管理數量
+  rpc GetCredentialsManagementCount(SingleCredentialsManagement)
+      returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/credentialsManagement/count/get"
+      body : "*"
+    };
+  }
+  //取得證件管理資料
+  rpc GetCredentialsManagement(SingleCredentialsManagement)
+      returns (MultiCredentialsManagement) {
+    option (google.api.http) = {
+      post : "/per/credentialsManagement/get"
+      body : "*"
+    };
+  }
+  //新增證件管理資料
+  rpc AddCredentialsManagement(MultiCredentialsManagement)
+      returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/credentialsManagement"
+      body : "*"
+    };
+  }
+  //修改證件管理資料
+  rpc UpdateCredentialsManagement(MultiCredentialsManagement)
+      returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/credentialsManagement"
+      body : "*"
+    };
+  }
+  //刪除證件管理資料
+  rpc DeleteCredentialsManagement(SingleCredentialsManagement)
+      returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/credentialsManagement/{subno}/{empno}"
+    };
+  }
+  //取得證件管理並 lock
+  rpc GetCredentialsManagementAndLock(SingleCredentialsManagement)
+      returns (MultiCredentialsManagement) {
+    option (google.api.http) = {
+      post : "/per/credentialsManagement/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 證件管理
+  rpc UnlockCredentialsManagement(MultiCredentialsManagement)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/credentialsManagement/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得教育訓練基准檔案數量
+  rpc GetJobRequiredCouseCount(SingleJobRequiredCouse) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/jobRequiredCouse/count/get"
+      body : "*"
+    };
+  }
+  //取得教育訓練基准檔案資料
+  rpc GetJobRequiredCouse(SingleJobRequiredCouse)
+      returns (MultiJobRequiredCouse) {
+    option (google.api.http) = {
+      post : "/per/jobRequiredCouse/get"
+      body : "*"
+    };
+  }
+  //新增教育訓練基准檔案資料
+  rpc AddJobRequiredCouse(MultiJobRequiredCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/jobRequiredCouse"
+      body : "*"
+    };
+  }
+  //修改教育訓練基准檔案資料
+  rpc UpdateJobRequiredCouse(MultiJobRequiredCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/jobRequiredCouse"
+      body : "*"
+    };
+  }
+  //刪除教育訓練基准檔案資料
+  rpc DeleteJobRequiredCouse(SingleJobRequiredCouse) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/jobRequiredCouse/{subno}/{titleno}/{bigno}/{medno}"
+    };
+  }
+  //取得教育訓練基准檔案並 lock
+  rpc GetJobRequiredCouseAndLock(SingleJobRequiredCouse)
+      returns (MultiJobRequiredCouse) {
+    option (google.api.http) = {
+      post : "/per/jobRequiredCouse/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 教育訓練基准檔案
+  rpc UnlockJobRequiredCouse(MultiJobRequiredCouse)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/jobRequiredCouse/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得職稱說明數量
+  rpc GetJobTitleCount(SingleJobTitle) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/jobTitle/count/get"
+      body : "*"
+    };
+  }
+  //取得職稱說明資料
+  rpc GetJobTitle(SingleJobTitle) returns (MultiJobTitle) {
+    option (google.api.http) = {
+      post : "/per/jobTitle/get"
+      body : "*"
+    };
+  }
+  //新增職稱說明資料
+  rpc AddJobTitle(MultiJobTitle) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/jobTitle"
+      body : "*"
+    };
+  }
+  //修改職稱說明資料
+  rpc UpdateJobTitle(MultiJobTitle) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/jobTitle"
+      body : "*"
+    };
+  }
+  //刪除職稱說明資料
+  rpc DeleteJobTitle(SingleJobTitle) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/jobTitle/{subno}/{titleno}"
+    };
+  }
+  //取得職稱說明並 lock
+  rpc GetJobTitleAndLock(SingleJobTitle) returns (MultiJobTitle) {
+    option (google.api.http) = {
+      post : "/per/jobTitle/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 職稱說明
+  rpc UnlockJobTitle(MultiJobTitle) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/jobTitle/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得上崗資格數量
+  rpc GetWorkQualificationCount(SingleWorkQualification) returns (CountReply) {
+    option (google.api.http) = {
+      post : "/per/workQualification/count/get"
+      body : "*"
+    };
+  }
+  //取得上崗資格資料
+  rpc GetWorkQualification(SingleWorkQualification)
+      returns (MultiWorkQualification) {
+    option (google.api.http) = {
+      post : "/per/workQualification/get"
+      body : "*"
+    };
+  }
+  //新增上崗資格資料
+  rpc AddWorkQualification(MultiWorkQualification) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/workQualification"
+      body : "*"
+    };
+  }
+  //修改上崗資格資料
+  rpc UpdateWorkQualification(MultiWorkQualification) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/workQualification"
+      body : "*"
+    };
+  }
+  //刪除上崗資格資料
+  rpc DeleteWorkQualification(SingleWorkQualification) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/workQualification/{subno}/{empno}/{item}"
+    };
+  }
+  //取得上崗資格並 lock
+  rpc GetWorkQualificationAndLock(SingleWorkQualification)
+      returns (MultiWorkQualification) {
+    option (google.api.http) = {
+      post : "/per/workQualification/lock/get"
+      body : "*"
+    };
+  }
+  // unlock 上崗資格
+  rpc UnlockWorkQualification(MultiWorkQualification)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/workQualification/unlock"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得人事主檔之其他代號
+  rpc GetEmployeeOtherCode1(EmployeeMaskRequest) returns (EmployeeOtherCode) {
+    option (google.api.http) = {
+      post : "/per/employee/otherCode1/get"
+      body : "*"
+    };
+  }
+  //取得員工資料
+  rpc GetEmployee(EmployeeMaskRequest) returns (Employees) {
+    option (google.api.http) = {
+      post : "/per/employee/get"
+      body : "*"
+    };
+  }
+  //取得員工資料
+  rpc GetEmployees(SingleEmployee) returns (SingleEmployee) {
+    option (google.api.http) = {
+      post : "/per/employees/get"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得設定檔說明
+  rpc GetSeccodCodsc(SingleSeccod) returns (CodscReply) {
+    option (google.api.http) = {
+      post : "/per/seccod/codsc/get"
+      body : "*"
+    };
+  }
+
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得部門說明
+  rpc GetDepartmentDesc(DepartmentRequest) returns (CodscReply) {
+    option (google.api.http) = {
+      post : "/per/department/desc/get"
+      body : "*"
+    };
+  }
+  //以廠別取得全部部門
+  rpc GetDepClassGroup(EachFactoryRequest) returns (EachFactoryReply) {
+    option (google.api.http) = {
+      post : "/per/dep/class/group/get"
+      body : "*"
+    };
+  }
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //取得員工資料 for 教育訓練紀錄表
+  rpc GetEmployeeForTrainingRecord(EmployeeMaskRequest)
+      returns (EmployeeForTrainingRecord) {
+    option (google.api.http) = {
+      get : "/per/employee/trainingRecord"
+    };
+  }
+  //取得教育訓練紀錄表
+  rpc GetTrainingReport(TrainingRecordRequest) returns (MultiTrainingReport) {
+    option (google.api.http) = {
+      post : "/per/trainingReport/get"
+      body : "*"
+    };
+  }
+  //取得教育訓練紀錄表(一個SQL)
+  rpc GetTrainingRecordWithOneSQL(TrainingRecordRequest)
+      returns (TrainingRecord) {
+    option (google.api.http) = {
+      post : "/per/trainingRecord/v2/get"
+      body : "*"
+    };
+  }
+  //取得教育訓練紀錄表(多個SQL)
+  rpc GetTrainingRecordWithMultiSQL(TrainingRecordRequest)
+      returns (TrainingRecord) {
+    option (google.api.http) = {
+      post : "/per/trainingRecord/v1/get"
+      body : "*"
+    };
+  }
+
+  //取得教育訓練成績表
+  rpc GetTrainingScoreReport(TrainingRecordRequest)
+      returns (MultiTrainingScoreReport) {
+    option (google.api.http) = {
+      post : "/per/trainingScoreReport/get"
+      body : "*"
+    };
+  }
+  //取得彈性工時資料
+  rpc GetFlexibleWorkHour(FlexibleWorkHourRequest)
+      returns (MultiFlexibleWorkHour) {
+    option (google.api.http) = {
+      post : "/per/flexibleWorkHour/get"
+      body : "*"
+    };
+  }
+  //新增彈性工時資料
+  rpc AddFlexibleWorkHour(FlexibleWorkHourRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/flexibleWorkHour"
+      body : "*"
+    };
+  }
+  //修改彈性工時資料
+  rpc UpdateFlexibleWorkHour(FlexibleWorkHourRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      put : "/per/flexibleWorkHour"
+      body : "*"
+    };
+  }
+  //刪除彈性工時資料
+  rpc DeleteFlexibleWorkHour(FlexibleWorkHourRequest) returns (AffectedReply) {
+    option (google.api.http) = {
+      delete : "/per/flexibleWorkHour/{subno}/{empno}"
+    };
+  }
+  //取得彈性工時資料並lock
+  rpc GetFlexibleWorkHourAndLock(FlexibleWorkHourRequest)
+      returns (MultiFlexibleWorkHour) {
+    option (google.api.http) = {
+      post : "/per/flexibleWorkHour/lock/get"
+      body : "*"
+    };
+  }
+  // unlock彈性工時資料
+  rpc FlexibleWorkHourUnlock(FlexibleWorkHourRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/per/flexibleWorkHour/unlock"
+      body : "*"
+    };
+  }
+
+  // LOAD 範例
+  rpc LoadJob(File) returns (AffectedReply) {
+    option (google.api.http) = {
+      post : "/per/job/load"
+      body : "*"
+    };
+  }
+
+  // UNLOAD 範例
+  rpc UnloadJob(SingleJob) returns (File) {
+    option (google.api.http) = {
+      post : "/per/job/unload"
+      body : "*"
+    };
+  }
+  rpc UnloadJob1(SingleJob) returns (File) {
+    option (google.api.http) = {
+      post : "/per/job/unload/txt"
+      body : "*"
+    };
+  }
+
+  rpc UnloadJob2(SingleJob) returns (File) {
+    option (google.api.http) = {
+      post : "/per/job/unload/txt1"
+      body : "*"
+    };
+  }
+
+  /*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+  //人員列表
+  rpc ListPermas(ListPermasRequest) returns (ListPermasReply){
+    option(google.api.http)={
+      post: "/per/listPermas"
+      body: "*"
+    };
+  }
+}
+/*～＊～＊～＊～＊～＊～＊～＊～＊～＊～不同table的分隔線～＊～＊～＊～＊～＊～＊～＊～＊～＊～*/
+
+message File {
+  string path = 1;
+}
+
+//員工-請求(mask)
+message EmployeeMaskRequest {
+  enum Flag {
+    SUBNO      = 0;
+    DEPNO      = 1;
+    EMPNO      = 2;
+    NAME       = 3;
+    USER_NO2   = 4;
+    LEAVE_DATE = 5;
+    NUM_FLAGS  = 6;
+  }
+  int32  query_mask       = 1;
+  string subno            = 2;
+  string department_no    = 3;
+  string employee_no      = 4;
+  string name             = 5;
+  string user_no2         = 6;
+  string start_leave_date = 7;
+  string end_leave_date   = 8;
+}
+
+//單筆員工基本資料
+message Employee {
+  enum Flag {
+    SUBNO         = 0;
+    DEPARTMENT_NO = 1;
+    EMPLOYEE_NO   = 2;
+    NAME          = 3;
+    USER_NO2      = 4;
+    EMAIL         = 5;
+    LEAVE_DATE    = 6;
+    NUM_FLAGS     = 7;
+  }
+  string subno         = 1;
+  string department_no = 2;
+  string employee_no   = 3;
+  string name          = 4;
+  string user_no2      = 5;
+  string email         = 6;
+  string leave_date    = 7;
+}
+//多筆員工資本資料
+message Employees {
+  repeated Employee employees = 1;
+}
+
+//人事主檔-其他代號
+message EmployeeOtherCode {
+  repeated string othercodes = 1;
+}
+
+//單筆員工基本資料
+message SingleEmployee {
+  string subno     = 1;
+  string empno     = 2;
+  string depno     = 3;
+  string name      = 4;
+  string engnam    = 5;
+  string usrno2    = 6;
+  string leader    = 7;
+  string email     = 8;
+  string entdat    = 9;
+  string entdat2   = 10;
+  string dicode    = 11;
+  string saltyp    = 12;
+  string jobtit    = 13;
+  string strdat    = 14;
+  string postn     = 15;
+  string updat     = 16;
+  string suspdat   = 17;
+  string rstdat    = 18;
+  string levdat    = 19;
+  string levtyp    = 20;
+  string retdat    = 21;
+  string usedat    = 22;
+  string tundat    = 23;
+  string sleep     = 24;
+  string usedo     = 25;
+  string zhanzhu   = 26;
+  string workind   = 27;
+  string code14    = 28;
+  string code37    = 29;
+  string code15    = 30;
+  string code21    = 31;
+  string code22    = 32;
+  string code23    = 33;
+  string othcod1   = 34;
+  string othcod2   = 35;
+  string othcod3   = 36;
+  string certno    = 37;
+  string cyymm     = 38;
+  string passno    = 39;
+  string natplc    = 40;
+  string bldtyp    = 41;
+  string sextyp    = 42;
+  string bithdat   = 43;
+  string telno     = 44;
+  string cellph    = 45;
+  string conter    = 46;
+  string sostel    = 47;
+  string prmadr    = 48;
+  string comadr    = 49;
+  string eduno     = 50;
+  string scolno    = 51;
+  string subjno    = 52;
+  string byymm     = 53;
+  string comexp    = 54;
+  string marial    = 55;
+  string spsnam    = 56;
+  string rasno     = 57;
+  string nattyp    = 58;
+  string figure    = 59;
+  string source    = 60;
+  string inempno   = 61;
+  string intnam    = 62;
+  string intoffice = 63;
+  string comm      = 64;
+  string indat     = 65;
+  string usrno     = 66;
+}
+
+//單筆職能代號
+message SingleJob {
+  string subno   = 1;
+  string jobno   = 2;
+  string jobname = 3;
+}
+
+//多筆職能代號
+message MultiJob {
+  repeated SingleJob dataset = 1;
+}
+
+//單筆合格講師資料
+message QualifiedLectorRequest {
+  enum ReplyFlag {
+    SUBNO     = 0; // 0x01
+    CURRNO    = 1; // 0x02
+    EMPNO     = 2; // 0x04
+    QUALDATE  = 3; // 0x08
+    BOOKNO    = 4;
+    USRNO2    = 5;
+    NUM_FLAGS = 6;
+  }
+  int32  mask     = 1;
+  string subno    = 2;
+  string currno   = 3;
+  string empno    = 4;
+  string qualdate = 5;
+  string bookno   = 6;
+  string usrno2   = 7;
+}
+
+//單筆合格講師資料
+message SingleQualifiedLector {
+  string subno    = 1;
+  string currno   = 2;
+  string empno    = 3;
+  string qualdate = 4;
+  string bookno   = 5;
+}
+
+//多筆合格講師資料
+message MultiQualifiedLector {
+  repeated SingleQualifiedLector dataset = 1;
+}
+
+//授課單位主檔  -授課單位名稱
+message TeachingUnitName {
+  string teaname = 1;
+}
+
+//單筆授課單位資料
+message SingleTeachingUnit {
+  string subno   = 1;
+  string teaunit = 2;
+  string teaname = 3;
+  string comm    = 4;
+  string presid  = 5;
+  string address = 6;
+  string telno   = 7;
+  string faxno   = 8;
+  string email   = 9;
+}
+//多筆授課單位資料
+message MultiTeachingUnit {
+  repeated SingleTeachingUnit dataset = 1;
+}
+
+//中分類課程主檔  -課程名稱
+message MediumSortCouseName {
+  string medname = 1;
+}
+
+//單筆中分類課程
+message SingleMediumSortCouse {
+  string subno   = 1;
+  string bigno   = 2;
+  string medno   = 3;
+  string medname = 4;
+  string postn1  = 5;
+  string postn2  = 6;
+  string contkey = 7;
+  string jobtit1 = 8;
+  string jobtit2 = 9;
+  string jobtit3 = 10;
+  string jobtit4 = 11;
+  string jobtit5 = 12;
+  string jobno1  = 13;
+  string jobno2  = 14;
+  string jobno3  = 15;
+  string jobno4  = 16;
+  string jobno5  = 17;
+  string require = 18;
+  string indat   = 19;
+  string usrno   = 20;
+}
+//多筆中分類課程
+message MultiMediumSortCouse {
+  repeated SingleMediumSortCouse dataset = 1;
+}
+
+//單筆開班課程資料
+message SingleCouse {
+  string subno    = 1;
+  string year     = 2;
+  string depno    = 3;
+  string serno    = 4;
+  string factory  = 5;
+  string currno   = 6;
+  string planno   = 7;
+  string explain  = 8;
+  string sponsor  = 9;
+  string lectno   = 10;
+  string teaunit  = 11;
+  string lectname = 12;
+  int32  joinple  = 13;
+  int32  people   = 14;
+  int64  lectexp  = 15;
+  int64  bookexp  = 16;
+  int64  otherexp = 17;
+  string stadate  = 18;
+  string time1    = 19;
+  string enddate  = 20;
+  string time2    = 21;
+  float  hour     = 22;
+}
+
+//多筆開班課程資料
+message MultiCouse {
+  repeated SingleCouse dataset = 1;
+}
+
+//單筆學習資料
+message SingleStudy {
+  string subno    = 1;
+  string year     = 2;
+  string depno    = 3;
+  string factory  = 4;
+  string serno    = 5;
+  string currno   = 6;
+  string empno    = 7;
+  string unitno   = 8;
+  int32  studyexp = 9;
+  int32  travexp  = 10;
+  int32  otherexp = 11;
+  string estimate = 12;
+  string join     = 13;
+}
+
+//多筆學習資料
+message MultiStudy {
+  repeated SingleStudy dataset = 1;
+}
+
+//學習資料例外更新條件
+message StudyInfoRequest {
+  string subno = 1;
+  string year  = 2;
+  string depno = 3;
+  string serno = 4;
+  string empno = 5;
+}
+
+//單筆應修課程資料
+message SingleRequiredCouse {
+  string subno  = 1;
+  string grade  = 2;
+  string currno = 3;
+  float  trahr  = 4;
+  string judge  = 5;
+  string indat  = 6;
+  string usrno  = 7;
+}
+
+//多筆應修課程資料
+message MultiRequiredCouse {
+  repeated SingleRequiredCouse dataset = 1;
+}
+
+//單筆教育訓練承諾書簽約資料
+message SingleSign {
+  string subno  = 1;
+  string actyy  = 2;
+  string empno  = 3;
+  string clsno  = 4;
+  string sigdat = 5;
+  string stodat = 6;
+  float  traexp = 7;
+  string certif = 8;
+  string sign   = 9;
+  string indat  = 10;
+  string usrno  = 11;
+}
+
+//多筆教育訓練承諾書簽約資料
+message MultiSign {
+  repeated SingleSign dataset = 1;
+}
+
+//單筆教育訓練簽核層級資料
+message SingleSignLevel {
+  string subno   = 1;
+  string people  = 2;
+  float  amount1 = 3;
+  float  amount2 = 4;
+  string amt     = 5;
+  string level   = 6;
+  string strdat  = 7;
+  string indat   = 8;
+  string usrno   = 9;
+}
+
+//多筆教育訓練簽核層級資料
+message MultiSignLevel {
+  repeated SingleSignLevel dataset = 1;
+}
+
+//單筆年度計畫序號
+message SinglePlanSerial {
+  string subno   = 1;
+  string year    = 2;
+  string season1 = 3;
+  string season2 = 4;
+  string season3 = 5;
+  string season4 = 6;
+  string depno   = 7;
+  string type    = 8;
+  string factory = 9;
+  float  people  = 10;
+  float  hour    = 11;
+  float  budget  = 12;
+  string planno  = 13;
+  string explain = 14;
+  string indat   = 15;
+  string usrno   = 16;
+}
+
+//多筆年度計畫序號
+message MultiPlanSerial {
+  repeated SinglePlanSerial dataset = 1;
+}
+
+//單筆職能代號
+message SingleJobDuty {
+  string subno   = 1;
+  string jobno   = 2;
+  string jobname = 3;
+  string indat   = 4;
+  string usrno   = 5;
+}
+
+//多筆職能代號
+message MultiJobDuty {
+  repeated SingleJobDuty dataset = 1;
+}
+
+//單筆教育訓練計畫
+message SingleTrainingPlan {
+  string subno   = 1;
+  int32  no      = 2;
+  string depno   = 3;
+  string yymm    = 4;
+  string bmno    = 5;
+  string type    = 6;
+  string factory = 7;
+  string teaunit = 8;
+  string times   = 9;
+  float  hour    = 10;
+  float  expense = 11;
+  string kind    = 12;
+  string comm    = 13;
+  string indat   = 14;
+  string usrno   = 15;
+}
+
+//多筆教育訓練計畫
+message MultiTrainingPlan {
+  repeated SingleTrainingPlan dataset = 1;
+}
+
+//單筆特種作業人員
+message SingleSpecialOperator {
+  string subno  = 1;
+  string trno   = 2;
+  string empno  = 3;
+  string name   = 4;
+  string depno  = 5;
+  string sextyp = 6;
+  string eduno  = 7;
+  string entdat = 8;
+  string certno = 9;
+  string natadr = 10;
+  string type   = 11;
+  string office = 12;
+  string number = 13;
+  string commd  = 14;
+  string operno = 15;
+  string usedat = 16;
+  string date1  = 17;
+  string date2  = 18;
+  string strdat = 19;
+  string trse   = 20;
+  string getdat = 21;
+  string indat  = 22;
+  string usrno  = 23;
+}
+
+//多筆特種作業人員
+message MultiSpecialOperator {
+  repeated SingleSpecialOperator dataset = 1;
+}
+
+//單筆職能應修課程資料
+message SingleJobDutyRequiredCouse {
+  string subno  = 1;
+  string resiyn = 2;
+  string resno  = 3;
+  string bmno   = 4;
+  string indat  = 5;
+  string usrno  = 6;
+}
+
+//多筆職能應修課程資料
+message MultiJobDutyRequiredCouse {
+  repeated SingleJobDutyRequiredCouse dataset = 1;
+}
+
+//單筆學習資料
+message SingleLearn {
+  string subno    = 1;
+  string year     = 2;
+  string depno    = 3;
+  string serno    = 4;
+  string factory  = 5;
+  string stadate  = 6;
+  string enddate  = 7;
+  string currno   = 8;
+  string empno    = 9;
+  string unitno   = 10;
+  string estimate = 11;
+}
+
+//多筆學習資料
+message MultiLearn {
+  repeated SingleLearn dataset = 1;
+}
+
+//單筆開班課程資料
+message SingleLearnCouse {
+  string subno    = 1;
+  string year     = 2;
+  string depno    = 3;
+  string serno    = 4;
+  string factory  = 5;
+  string itemno   = 6;
+  string currno   = 7;
+  string explain  = 8;
+  string sponsor  = 9;
+  string type     = 10;
+  string lectno   = 11;
+  string teaunit  = 12;
+  string lectname = 13;
+  string stadate  = 14;
+  string time1    = 15;
+  string enddate  = 16;
+  string time2    = 17;
+  string type1    = 18;
+  float  hour     = 19;
+  string getypm   = 20;
+  string indat    = 21;
+  string usrno    = 22;
+}
+
+//多筆開班課程資料
+message MultiLearnCouse {
+  repeated SingleLearnCouse dataset = 1;
+}
+
+//單筆教育訓練教材資料
+message SingleTrainingMaterials {
+  string subno   = 1;
+  string itemno  = 2;
+  string yymm    = 3;
+  string type    = 4;
+  string depno   = 5;
+  string empno   = 6;
+  string bmno    = 7;
+  string explain = 8;
+  string number  = 9;
+  string comm    = 10;
+  string indat   = 11;
+  string usrno   = 12;
+}
+
+//多筆教育訓練教材資料
+message MultiTrainingMaterials {
+  repeated SingleTrainingMaterials dataset = 1;
+}
+
+//單筆職能崗位資料
+message SingleJobDutyPost {
+  string subno   = 1;
+  string resiyn  = 2;
+  string resno   = 3;
+  string heacle  = 4;
+  string itemno  = 5;
+  string workind = 6;
+  string jobtit  = 7;
+  string comm    = 8;
+  string comm1   = 9;
+  string indat   = 10;
+  string usrno   = 11;
+}
+
+//多筆職能崗位資料
+message MultiJobDutyPost {
+  repeated SingleJobDutyPost dataset = 1;
+}
+
+//單筆教育訓練計畫
+message SingleTrainingFees {
+  string subno   = 1;
+  string yearno  = 2;
+  string deptno  = 3;
+  string serno   = 4;
+  string empno   = 5;
+  string name    = 6;
+  string depno   = 7;
+  float  tecexp  = 8;
+  float  traexp  = 9;
+  float  othexp  = 10;
+  float  teaexp  = 11;
+  float  bookexp = 12;
+  float  allexp  = 13;
+  string effstr  = 14;
+  string effend  = 15;
+  string type    = 16;
+  string comm    = 17;
+  string indat   = 18;
+  string usrno   = 19;
+}
+
+//多筆教育訓練計畫
+message MultiTrainingFees {
+  repeated SingleTrainingFees dataset = 1;
+}
+
+//單筆職務應上課程資料
+message SingleJobRequiredCouse {
+  string subno   = 1;
+  string titleno = 2;
+  string bigno   = 3;
+  string medno   = 4;
+}
+
+//多筆職務應上課程資料
+message MultiJobRequiredCouse {
+  repeated SingleJobRequiredCouse dataset = 1;
+}
+
+//單筆職稱說明資料
+message SingleJobTitle {
+  string subno     = 1;
+  string titleno   = 2;
+  string titlename = 3;
+  int32  titleexa  = 4;
+}
+
+//多筆職稱說明資料
+message MultiJobTitle {
+  repeated SingleJobTitle dataset = 1;
+}
+
+//單筆證件管理資料
+message SingleCredentialsManagement {
+  string subno    = 1;
+  string empno    = 2;
+  string name     = 3;
+  string depno    = 4;
+  string engname  = 5;
+  string mailcode = 6;
+  string bithdat  = 7;
+  string portcode = 8;
+  string portnum  = 9;
+  string effdat1  = 10;
+  string effdat2  = 11;
+  string nextdat  = 12;
+  string reccode  = 13;
+  string indate   = 14;
+  string usrno    = 15;
+}
+
+//多筆證件管理資料
+message MultiCredentialsManagement {
+  repeated SingleCredentialsManagement dataset = 1;
+}
+
+//單筆上崗資格資料
+message SingleWorkQualification {
+  string subno    = 1;
+  string empno    = 2;
+  string name     = 3;
+  string depno    = 4;
+  string sextyp   = 5;
+  string training = 6;
+  string skill    = 7;
+  string position = 8;
+  int32  item     = 9;
+  string depart   = 10;
+  string chdate   = 11;
+  string indat    = 12;
+  string usrno    = 13;
+}
+
+//多筆上崗資格資料
+message MultiWorkQualification {
+  repeated SingleWorkQualification dataset = 1;
+}
+
+//開課資料流水號
+message SernoReply {
+  string serno = 1;
+}
+
+//教育訓練紀錄表請求
+message TrainingRecordRequest {
+  string subno          = 1; //廠別
+  string depno          = 2; //部門代號
+  string empno          = 3; //工號
+  string entdat         = 4; //入職日
+  string levdat         = 5; //離職日
+  string factory        = 6; //廠內/外
+  string training_start = 7; //開訓日
+  string training_end   = 8; //結訓日
+}
+
+//教育訓練紀錄表
+message TrainingRecord {
+  EmployeeForTrainingRecord header        = 1;
+  repeated TrainingRecordContent contents = 2;
+}
+
+//教育訓練紀錄表表頭
+message EmployeeForTrainingRecord {
+  string empno      = 1; //工號
+  string name       = 2; //姓名
+  string sextyp     = 3; //性別
+  string birthday   = 4; //生日
+  string entdat     = 5; //進廠日期
+  string edu_degree = 6; //學歷
+  string dep_name   = 7; //所屬單位名稱
+  string jobname    = 8; //職稱
+  string postn      = 9; //職級
+}
+
+//教育訓練紀錄表內容
+message TrainingRecordContent {
+  string serno              = 1;  //案號
+  string factory            = 2;  //廠內/外
+  string course_name        = 3;  //課程名稱, permed table
+  string course_description = 4;  //課程說明
+  string training_unit      = 5;  //訓練單位
+  string startdat           = 6;  //開訓日
+  string enddat             = 7;  //結訓日
+  float  hours              = 8;  //時數
+  uint64 cost               = 9;  //費用
+  string estimate           = 10; //評價
+}
+
+//教育訓練紀錄表
+message SingleTrainingReport {
+  string empno    = 1;  //工號
+  string name     = 2;  //員工姓名
+  string sextyp   = 3;  //性別
+  string bithdat  = 4;  //員工生日
+  string entdat   = 5;  //入職日
+  string eduno    = 6;  //學歷代號
+  string jobtit   = 7;  //職稱代號
+  string postn    = 8;  //職級
+  string serno    = 9;  //案號
+  string factory  = 10; //廠內外
+  string currno   = 11; //課程代號
+  string depno    = 12; //訓練單位
+  string explain  = 13; //課程說明
+  string stadate  = 14; //開訓日期
+  string enddate  = 15; //結訓日期
+  float  hour     = 16; //時數
+  float  trainexp = 17; //費用
+  string estimate = 18; //評價
+  string teaunit  = 19; //授課單位
+}
+//多筆教育訓練紀錄表
+message MultiTrainingReport {
+  repeated SingleTrainingReport dataset = 1;
+}
+
+//教育訓練成績表
+message SingleTrainingScoreReport {
+  string empno    = 1; //工號
+  string name     = 2; //員工姓名
+  string entdat   = 3; //入職日
+  float  hour0    = 4; //廠內上課時數
+  float  hour1    = 5; //廠內課程,廠外講師時數
+  float  hour2    = 6; //廠外上課時數
+  float  estimate = 7; //評價
+}
+//多筆教育訓練成績表
+message MultiTrainingScoreReport {
+  repeated SingleTrainingScoreReport dataset = 1;
+}
+
+//單筆設定檔
+message SingleSeccod {
+  string subno    = 1;
+  string codekind = 2;
+  string code     = 3;
+  string codsc    = 4;
+  string dtaco    = 5;
+  string accco    = 6;
+  string indat    = 7;
+  string usrno    = 8;
+}
+
+//部門查詢
+message DepartmentRequest {
+  string subno = 1;
+  string serno = 2;
+  string depno = 3;
+}
+
+//單筆設定檔說明
+message CodscReply {
+  string codsc = 1;
+}
+
+//各廠部門
+message EachFactoryRequest {
+  int32 action_type
+      = 1; // 0= all department, 1 = Department, 2 = Class, 3 = Group
+  string subno = 2;
+  string serno = 3;
+  string depno = 4;
+}
+
+//多筆部門/課/組別
+message EachFactoryReply {
+  repeated FRep arr = 1;
+}
+
+//單筆部門/課/組別
+message FRep {
+  string depno    = 1;
+  string depnodsc = 2;
+}
+
+//數量
+message CountReply {
+  int64 count = 1;
+}
+
+//異動資料數量
+message AffectedReply {
+  int64 rows_affected = 1;
+}

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message UpdateMtrllstRecordRequest {
+  repeated UpdateAryRequest mtrls = 1;
+}
+message UpdateAryRequest {
+  //材料標示卡條碼
+  string mtrl_lot_id = 1;
+  //材料類別
+  string product_type = 2;
+  //材料 ID
+  string mtrl_product_id = 3;
+  //材料等級
+  string mtrl_level = 4;
+  //管理廠ID (持有)
+  int32  owned_fty_id = 5;
+  //管理部門ID（持有）
+  string owned_dept_id = 6;
+  //儲位ID
+  string storage_id = 7;
+  //儲位ID
+  string carrier_id = 8;
+  //庫存量
+  string stock_qty = 9;
+  //最小使用量
+  float  min_use_qty = 10;
+  //計量單位
+  string unit = 11;
+  //到期日
+  string expire_at = 12;
+  //材料狀態
+  string status = 13;
+  //備註
+  string comments = 14;
+  //更新人
+  string update_by = 15;
+  //建檔人
+  string insert_by = 16;
+}
+message UpdateMtrllstRecordReply {}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+
+
+message ContainerMaterialOperatingRequest {
+    // CRUD
+    code.FunctionModel action_type = 1;
+    // 桶槽ID
+    string container_id            = 2;
+    // 標示卡條碼
+    string material_lot_id         = 3;
+    // 更新人
+    string update_by               = 4;
+    // 工位次序
+    // 在大部分的製程中，不區分材料工位，即預設為 1。
+    // 在連續作業工程做材料預檢核時，以工位區分不同規格的材料。
+    // 例如： 蓋膠 A、B規格連續生產，其材料會區分兩個工位存放，
+    //       當載料掛載至工位1時，則檢查是否與A規格的BOM相符，同理，材料掛載至工位2時，則檢查是否與B規格的BOM相符。
+    //       當A規格生產完畢，欲切換至B規格生產時，工位1材料會卸載，並將工位2位的材料移至工位1。
+    int32 action_order             = 5;
+
+}
+message ContainerMaterialOperatingReply {
+    code.error.ContainerMaterialOperating err                         = 1;
+    repeated EquipmentContainerMaterial equipment_container_materials = 2;
+    message EquipmentContainerMaterial {
+        string equipment_id           = 1;
+        string container_id           = 2;
+        string material_lot_id        = 3;
+        string material_level         = 4;
+        float  stock_qty              = 5;
+        string material_product_id    = 6;
+        string action_order           = 7;
+        string update_by              = 8;
+        string update_at              = 9;
+    }
+}

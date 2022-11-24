@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package proto.dm.gdt;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/gdt";
+
+message GetGdtpatRequest {
+  string itnbr = 1;
+}
+
+message GetGdtpatReply {
+  repeated Gdtpat data = 1;
+}
+message Gdtpat {
+  string itnbr   = 1;
+  string pallets = 2;
+  string unit1   = 3;
+  string basewg  = 4;
+  string unit2   = 5;
+  string pallwg  = 6;
+  string indat   = 7;
+  string usrno   = 8;
+}

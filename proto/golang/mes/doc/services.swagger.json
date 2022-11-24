@@ -1,0 +1,4983 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "services.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/mes/api/operation/CarrierOperating": {
+      "post": {
+        "summary": "載具操作",
+        "operationId": "CarrierOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesCarrierOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesCarrierOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ContainerMaterialOperating": {
+      "post": {
+        "summary": "桶槽材料操作",
+        "operationId": "ContainerMaterialOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesContainerMaterialOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesContainerMaterialOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ContainerOperating": {
+      "post": {
+        "summary": "桶槽操作",
+        "operationId": "ContainerOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesContainerOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesContainerOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/CreateWorkOrder": {
+      "post": {
+        "summary": "建立工單",
+        "operationId": "CreateWorkOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesCreateWorkOrderReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesCreateWorkOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/EquipmentContainerOperating": {
+      "post": {
+        "summary": "設備桶槽操作",
+        "operationId": "EquipmentContainerOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesEquipmentContainerOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesEquipmentContainerOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/EquipmentOperating": {
+      "post": {
+        "summary": "設備操作",
+        "operationId": "EquipmentOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesEquipmentOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesEquipmentOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/GetBom": {
+      "post": {
+        "summary": "依階段取得材料",
+        "operationId": "GetBom",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesGetBomReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesGetBomRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListCodes": {
+      "post": {
+        "summary": "取得代號資料",
+        "operationId": "ListCodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListCodesReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListCodesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListDepartments": {
+      "post": {
+        "summary": "取得部門資訊",
+        "operationId": "ListDepartments",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListDepartmentsReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListDepartmentsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListEquipmentIDs": {
+      "post": {
+        "summary": "載入機台資訊",
+        "operationId": "ListEquipmentIDs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListEquipmentIDsReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListEquipmentIDsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListFactoryIDs": {
+      "post": {
+        "summary": "載入廠別資訊",
+        "operationId": "ListFactoryIDs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListFactoryIDsReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListMaterialCategoriesByOwnedDepartment": {
+      "post": {
+        "summary": "取得材料類別 (依所屬部門)",
+        "operationId": "ListMaterialCategoriesByOwnedDepartment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListMaterialCategoriesByOwnedDepartmentReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListMaterialCategoriesByOwnedDepartmentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListMaterialProductIDs": {
+      "post": {
+        "summary": "載入材料庫製品識別碼",
+        "operationId": "ListMaterialProductIDs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListMaterialProductIDsReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListMaterialProductIDsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListMeasurementParameters": {
+      "post": {
+        "summary": "載入指定配合表之指定量測參數",
+        "operationId": "ListMeasurementParameters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListMeasurementParametersReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListMeasurementParametersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListProcessEquipments": {
+      "post": {
+        "summary": "取得階段可生產設備清單",
+        "operationId": "ListProcessEquipments",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListProcessEquipmentsReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListProcessEquipmentsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListProductIDs": {
+      "post": {
+        "summary": "載入生產製品識別碼",
+        "operationId": "ListProductIDs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListProductIDsReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListProductIDsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListProductTypes": {
+      "post": {
+        "summary": "載入製程識別碼",
+        "operationId": "ListProductTypes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListProductTypesReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListProductTypesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/ListRecipeAllProcesses": {
+      "post": {
+        "summary": "取得配合表所有階段",
+        "operationId": "ListRecipeAllProcesses",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesListRecipeAllProcessesReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesListRecipeAllProcessesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/MTxOperating": {
+      "post": {
+        "summary": "移轉單操作",
+        "operationId": "MTxOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesTransactionListOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesTransactionListOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/MTxShipOperating": {
+      "post": {
+        "summary": "材料移轉作業 for UI",
+        "operationId": "MTxShipOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesMTxShipListOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesMTxShipListOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/MaterialTransactionListOperating": {
+      "post": {
+        "summary": "材料移轉作業",
+        "operationId": "MaterialTransactionOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesMaterialTransactionListOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesMaterialTransactionListOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/MtxShipOperatingPDA": {
+      "post": {
+        "summary": "材料移轉作業 (for PDA)",
+        "operationId": "MtxShipOperatingPDA",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesMtxPdaReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesMtxPdaRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/RapidCheckOperating": {
+      "post": {
+        "summary": "快檢作業",
+        "operationId": "RapidCheckOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesRapidCheckOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesRapidCheckOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/SetInitialProcess": {
+      "post": {
+        "summary": "設定工單初始階段",
+        "operationId": "SetInitialProcess",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesSetInitialProcessReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesSetInitialProcessRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/WorkOrderOperating": {
+      "post": {
+        "summary": "工單操作 for UI",
+        "operationId": "WorkOrderOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesWorkOrderOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesWorkOrderOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/workorder/create": {
+      "post": {
+        "summary": "建工單",
+        "operationId": "CreateWorkOrder_NEW",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesCreateWorkOrderNewReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesCreateWorkOrderNewRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/workorder/query": {
+      "post": {
+        "summary": "查詢工單",
+        "operationId": "QueryWorkOrder_NEW",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesQueryWorkOrderNewReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesQueryWorkOrderNewRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/operation/workorder/update": {
+      "post": {
+        "summary": "更新工單",
+        "operationId": "UpdateWorkOrder_NEW",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesUpdateWorkOrderNewReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesUpdateWorkOrderNewRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/CheckMaterialLotID": {
+      "post": {
+        "summary": "檢查收料標示卡資訊 (check information form erp, only for pre-print process)",
+        "operationId": "CheckMaterialLotID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesCheckMaterialLotIDReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesCheckMaterialLotIDRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/CheckProductTools": {
+      "post": {
+        "summary": "檢核工具",
+        "operationId": "CheckProductTools",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesCheckProductToolsReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesCheckProductToolsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/CheckScanMaterial": {
+      "post": {
+        "summary": "材料檢核",
+        "operationId": "CheckScanMaterial",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesCheckScanMaterialReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesCheckScanMaterialRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/EquipmentMaterialOperating": {
+      "post": {
+        "summary": "設備材料操作",
+        "operationId": "EquipmentMaterialOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesEquipmentMaterialOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesEquipmentMaterialOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/GetRecipeForMp": {
+      "post": {
+        "summary": "only for mp : 取得MP配方明細",
+        "operationId": "GetRecipeForMp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesGetRecipeForMpReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesGetRecipeForMpRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/GetRecipeIDByBarcode": {
+      "post": {
+        "summary": "only for mp : 透過條碼取得配方號",
+        "operationId": "GetRecipeIdByBarcode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesGetRecipeIDByBarcodeReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesGetRecipeIDByBarcodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/ListMaterialInventory": {
+      "post": {
+        "summary": "取得材料庫存清單",
+        "operationId": "ListMaterialInventory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesGetMaterialInventoryListReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesGetMaterialInventoryListRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/LoginNout": {
+      "post": {
+        "summary": "登入登出驗證",
+        "operationId": "LoginNout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesLoginAndLogoutReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesLoginAndLogoutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/MaterialInventoryTaking": {
+      "post": {
+        "summary": "材料盤點",
+        "operationId": "MaterialInventoryTaking",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesMaterialInventoryTakingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesMaterialInventoryTakingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/MaterialOperating": {
+      "post": {
+        "summary": "材料操作",
+        "operationId": "MaterialOperating",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesMaterialOperatingReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesMaterialOperatingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/MoveEnd": {
+      "post": {
+        "summary": "投料,收料 結束",
+        "operationId": "MoveEnd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesMoveEndReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesMoveEndRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/MoveIn": {
+      "post": {
+        "summary": "投料 by Sheet",
+        "operationId": "MoveIn",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesMoveInReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesMoveInRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/MoveOut": {
+      "post": {
+        "summary": "收料 by Sheet",
+        "operationId": "MoveOut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesMoveOutReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesMoveOutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/WorkOrderOperating_PLC": {
+      "post": {
+        "summary": "取得可投料/收料工單資訊 (包含BOM, Tool List, Configs)",
+        "operationId": "WorkOrderOperating_PLC",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesWorkOrderOperatingPlcReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesWorkOrderOperatingPlcRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/mes/api/production/isRejects": {
+      "post": {
+        "summary": "only for mp : 透過條碼確認是否為不良品",
+        "operationId": "IsRejects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/mesIsRejectsReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/mesIsRejectsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "API"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CheckScanMaterialReplyPreMoveInMaterial": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "材料標示卡條碼"
+        },
+        "product_id": {
+          "type": "string",
+          "title": "材料ID"
+        },
+        "level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "投入量 : 密煉製程計量單位為kg, 精度小數三位, 其他製程待訂定"
+        },
+        "realWeight": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "此flag為true時代表重量來自PLC"
+        }
+      },
+      "title": "準備投入之材料"
+    },
+    "CheckScanMaterialRequestScaleMaterial": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "材料標示卡條碼"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "耗用量"
+        }
+      },
+      "title": "掃描材料資訊"
+    },
+    "ContainerMaterialOperatingReplyEquipmentContainerMaterial": {
+      "type": "object",
+      "properties": {
+        "equipment_id": {
+          "type": "string"
+        },
+        "container_id": {
+          "type": "string"
+        },
+        "material_lot_id": {
+          "type": "string"
+        },
+        "material_level": {
+          "type": "string"
+        },
+        "stock_qty": {
+          "type": "number",
+          "format": "float"
+        },
+        "material_product_id": {
+          "type": "string"
+        },
+        "action_order": {
+          "type": "string"
+        },
+        "update_by": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        }
+      }
+    },
+    "ContainerOperatingReplyContainerInfo": {
+      "type": "object",
+      "properties": {
+        "container_id": {
+          "type": "string"
+        },
+        "owned_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "owned_department_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/codeContainerStatus"
+        },
+        "container_type": {
+          "$ref": "#/definitions/rscontainerType"
+        },
+        "update_at": {
+          "type": "string"
+        },
+        "update_by": {
+          "type": "string"
+        }
+      }
+    },
+    "EquipmentContainerOperatingReplyEquipmentContainer": {
+      "type": "object",
+      "properties": {
+        "equipment_id": {
+          "type": "string"
+        },
+        "container_id": {
+          "type": "string"
+        },
+        "update_by": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        }
+      }
+    },
+    "EquipmentMaterialOperatingReplyMoveInCounter": {
+      "type": "object",
+      "properties": {
+        "container_description": {
+          "type": "string",
+          "title": "桶槽描述"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "可投次數"
+        },
+        "unit": {
+          "type": "string",
+          "title": "TODO: remove this in future, 可有可無\n計量單位 -- 密煉-首, 成型-條"
+        }
+      },
+      "title": "可投料次數計數"
+    },
+    "EquipmentOperatingReplyEquipment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "owned_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "owned_department_id": {
+          "type": "string"
+        },
+        "bay_id": {
+          "type": "string",
+          "title": "TODO: remove this in feature"
+        },
+        "description": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "string"
+        },
+        "product_types": {
+          "type": "string",
+          "title": "here are product type values split by `,`"
+        },
+        "update_by": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        }
+      }
+    },
+    "GetBomReplyBomDetail": {
+      "type": "object",
+      "properties": {
+        "material_product_id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float"
+        },
+        "error_margin": {
+          "type": "number",
+          "format": "float"
+        },
+        "specified_recipe_id": {
+          "type": "string"
+        },
+        "alternative_materials": {
+          "type": "string"
+        }
+      }
+    },
+    "ListCodesReplyCode": {
+      "type": "object",
+      "properties": {
+        "code_value": {
+          "type": "string"
+        },
+        "code_name": {
+          "type": "string"
+        },
+        "code_description": {
+          "type": "string"
+        },
+        "sub_value": {
+          "type": "string"
+        },
+        "sub_name": {
+          "type": "string"
+        },
+        "sub_description": {
+          "type": "string"
+        }
+      }
+    },
+    "ListDepartmentsReplyDepartment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "ListDepartmentsRequestAction": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "DEPARTMENT",
+        "CLASS",
+        "GROUP"
+      ],
+      "default": "UNSPECIFIED"
+    },
+    "ListEquipmentIDsReplyEquipments": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "ListMaterialCategoriesByOwnedDepartmentReplyMaterialCategory": {
+      "type": "object",
+      "properties": {
+        "product_id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType"
+        }
+      }
+    },
+    "ListMaterialProductIDsReplyProduct": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        }
+      }
+    },
+    "ListProductIDsReplyProducts": {
+      "type": "object",
+      "properties": {
+        "recipe_id": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/rsStageStatus"
+        },
+        "major": {
+          "type": "string"
+        },
+        "minor": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        }
+      }
+    },
+    "MaterialTransactionListOperatingReplyMaterialTransaction": {
+      "type": "object",
+      "properties": {
+        "tx_id": {
+          "type": "string",
+          "title": "轉移編號 (廠+移出部門+單據日期+三碼流水號)"
+        },
+        "tx_type": {
+          "$ref": "#/definitions/codeTransactionType",
+          "title": "1-\u003e生產 (same factory) 2-\u003e調撥 (diff factory) 3-\u003e代工 4-\u003e報廢 5-\u003e買賣 6-\u003e研發"
+        },
+        "material_lot_id": {
+          "type": "string",
+          "title": "材料 Lot ID, 標示卡編號"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "材料類別"
+        },
+        "material_product_id": {
+          "type": "string",
+          "title": "材料 ID ,材料,半製品,成品編號"
+        },
+        "material_level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "current_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "移出廠"
+        },
+        "current_department_id": {
+          "type": "string",
+          "title": "移出單位代號"
+        },
+        "next_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "移入廠"
+        },
+        "next_department_id": {
+          "type": "string",
+          "title": "移入單位代號"
+        },
+        "codd": {
+          "type": "string",
+          "title": "內外購"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "移轉數量"
+        },
+        "unit": {
+          "type": "string",
+          "title": "計量單位"
+        },
+        "confirm_at": {
+          "type": "string",
+          "title": "確認日期"
+        },
+        "confirm_by": {
+          "type": "string",
+          "title": "確認人"
+        },
+        "status": {
+          "$ref": "#/definitions/codeTransactionStatus",
+          "title": "移轉狀態"
+        },
+        "comments": {
+          "type": "string",
+          "title": "註解"
+        },
+        "update_at": {
+          "type": "string",
+          "title": "更新日期"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "更新人"
+        },
+        "insert_at": {
+          "type": "string",
+          "title": "建檔日期"
+        },
+        "insert_by": {
+          "type": "string",
+          "title": "建檔人"
+        }
+      }
+    },
+    "RapidCheckOperatingReplySheet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "lot_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/codeLotStatus"
+        },
+        "current_process_name": {
+          "type": "string",
+          "title": "途程名稱"
+        },
+        "current_process_type": {
+          "$ref": "#/definitions/rsProcessType"
+        },
+        "next_process_name": {
+          "type": "string",
+          "title": "途程名稱"
+        },
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "stage_status": {
+          "$ref": "#/definitions/rsStageStatus"
+        },
+        "major_version": {
+          "type": "string"
+        },
+        "update_by": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        }
+      }
+    },
+    "RapidCheckOperatingRequestmeasurementItem": {
+      "type": "object",
+      "properties": {
+        "equipment_id": {
+          "type": "string"
+        },
+        "recipe_id": {
+          "type": "string"
+        },
+        "sheet_id": {
+          "type": "string"
+        },
+        "item_name": {
+          "type": "string",
+          "title": "TODO this should be a enum"
+        },
+        "sequence_no": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string",
+          "title": "TODO this should be a enum"
+        },
+        "conformity": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "Stepcontrol": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "設定項目名稱"
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "title": "設定值"
+        },
+        "unit": {
+          "type": "string",
+          "title": "劑量單位"
+        }
+      },
+      "title": "控制設定"
+    },
+    "TransactionListOperatingReplyTransactionList": {
+      "type": "object",
+      "properties": {
+        "tx_id": {
+          "type": "string",
+          "title": "轉移編號 (廠+移出部門+單據日期+三碼流水號)"
+        },
+        "tx_type": {
+          "$ref": "#/definitions/codeTransactionType",
+          "title": "1-\u003e生產 (same factory) 2-\u003e調撥 (diff factory) 3-\u003e代工 4-\u003e報廢 5-\u003e買賣 6-\u003e研發"
+        },
+        "item_id": {
+          "type": "string",
+          "title": "項次"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "材料類別"
+        },
+        "material_product_id": {
+          "type": "string",
+          "title": "材料 ID ,材料,半製品,成品編號"
+        },
+        "material_level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "current_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "移出廠"
+        },
+        "current_department_id": {
+          "type": "string",
+          "title": "移出單位代號"
+        },
+        "next_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "移入廠"
+        },
+        "next_department_id": {
+          "type": "string",
+          "title": "移入單位代號"
+        },
+        "codd": {
+          "type": "string",
+          "title": "內外購"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "移轉數量"
+        },
+        "unit": {
+          "type": "string",
+          "title": "計量單位"
+        },
+        "confirm_at": {
+          "type": "string",
+          "title": "確認日期"
+        },
+        "confirm_by": {
+          "type": "string",
+          "title": "確認人"
+        },
+        "status": {
+          "$ref": "#/definitions/codeTransactionStatus",
+          "title": "移轉狀態"
+        },
+        "tx_comments": {
+          "type": "string",
+          "title": "註解"
+        },
+        "comments": {
+          "type": "string",
+          "title": "材料註解"
+        },
+        "update_at": {
+          "type": "string",
+          "title": "更新日期"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "更新人"
+        },
+        "insert_at": {
+          "type": "string",
+          "title": "建檔日期"
+        },
+        "insert_by": {
+          "type": "string",
+          "title": "建檔人"
+        }
+      }
+    },
+    "WorkOrderOperatingRequestGetPrepOrders": {
+      "type": "object",
+      "properties": {
+        "prep_start": {
+          "type": "string"
+        },
+        "prep_end": {
+          "type": "string"
+        },
+        "prep_type": {
+          "type": "string"
+        }
+      }
+    },
+    "codeCarrierStatus": {
+      "type": "string",
+      "enum": [
+        "CARRIER_STATUS_UNSPECIFIED",
+        "CARRIER_EMPTY",
+        "CARRIER_REAL"
+      ],
+      "default": "CARRIER_STATUS_UNSPECIFIED",
+      "description": "- CARRIER_STATUS_UNSPECIFIED: 載具狀態未定義\n - CARRIER_EMPTY: 空載具\n - CARRIER_REAL: 使用中",
+      "title": "載具狀態"
+    },
+    "codeContainerStatus": {
+      "type": "string",
+      "enum": [
+        "CONTAINER_STATUS_UNSPECIFIED",
+        "CONTAINER_EMPTY",
+        "CONTAINER_REAL"
+      ],
+      "default": "CONTAINER_STATUS_UNSPECIFIED",
+      "description": "- CONTAINER_STATUS_UNSPECIFIED: 桶槽狀態未定義\n - CONTAINER_EMPTY: 空載具\n - CONTAINER_REAL: 使用中",
+      "title": "桶槽狀態"
+    },
+    "codeFunctionModel": {
+      "type": "string",
+      "enum": [
+        "FUNCTION_MODEL_UNSPECIFIED",
+        "CREATE",
+        "READ",
+        "UPDATE",
+        "DELETE"
+      ],
+      "default": "FUNCTION_MODEL_UNSPECIFIED",
+      "description": "- FUNCTION_MODEL_UNSPECIFIED: 資料操作未定義(\n - CREATE: 新增(Create)\n - READ: 讀取(Read)\n - UPDATE: 更新(Update)\n - DELETE: 刪除(Delete)",
+      "title": "資料操作定義"
+    },
+    "codeLotStatus": {
+      "type": "string",
+      "enum": [
+        "LOT_STATUS_UNSPECIFIED",
+        "RESERVED",
+        "INPUT",
+        "PROCESSING",
+        "COMPLETED",
+        "WAIT",
+        "IN_PROGRESS"
+      ],
+      "default": "LOT_STATUS_UNSPECIFIED",
+      "description": "- RESERVED: for work order\n已排產尚未投料\n - INPUT: 已投料尚未投完\n - PROCESSING: 已投完尚未收完\n - COMPLETED: 完成生產\n - WAIT: for work sheet\n準備投料\n - IN_PROGRESS: 已入料",
+      "title": "工單狀態定義"
+    },
+    "codeMaterialStatus": {
+      "type": "string",
+      "enum": [
+        "MATERIAL_STATUS_UNSPECIFIED",
+        "AVAILABLE",
+        "HOLD",
+        "INSPECTION",
+        "MOUNTED",
+        "UNAVAILABLE"
+      ],
+      "default": "MATERIAL_STATUS_UNSPECIFIED",
+      "description": "- MATERIAL_STATUS_UNSPECIFIED: 未定義\n - AVAILABLE: 可用\n - HOLD: 管制\n - INSPECTION: 快檢中\n - MOUNTED: 掛載\n - UNAVAILABLE: 不可用",
+      "title": "材料狀態定義"
+    },
+    "codeShippingStatus": {
+      "type": "string",
+      "enum": [
+        "SHIPPING_STATUS_UNSPECIFIED",
+        "SHIPPED",
+        "RECEIVED"
+      ],
+      "default": "SHIPPING_STATUS_UNSPECIFIED",
+      "description": "- SHIPPING_STATUS_UNSPECIFIED: 無定義\n - SHIPPED: 已出貨\n - RECEIVED: 已收貨",
+      "title": "出貨狀態"
+    },
+    "codeTransactionStatus": {
+      "type": "string",
+      "enum": [
+        "TRANSACTION_STATUS_UNSPECIFIED",
+        "UNCONFIRMED",
+        "CONFIRMING",
+        "ACCEPTED",
+        "DECLINED"
+      ],
+      "default": "TRANSACTION_STATUS_UNSPECIFIED",
+      "description": "- TRANSACTION_STATUS_UNSPECIFIED: 無定義\n - UNCONFIRMED: 未確認\n - CONFIRMING: 確認中\n - ACCEPTED: 接受\n - DECLINED: 拒絕",
+      "title": "轉移明細移轉狀態 : 未確認, 接受, 拒絕"
+    },
+    "codeTransactionType": {
+      "type": "string",
+      "enum": [
+        "TRANSACTION_TYPE_UNSPECIFIED",
+        "PRODUCTION",
+        "TRANSFER_BETWEEN_FACTORY",
+        "ORIGINAL_EQUIPMENT_MANUFACTURER",
+        "SCRAPPED",
+        "BUYING_AND_SELLING",
+        "RESEARCH_AND_DEVELOPMENT"
+      ],
+      "default": "TRANSACTION_TYPE_UNSPECIFIED",
+      "description": "- TRANSACTION_TYPE_UNSPECIFIED: 無定義\n - PRODUCTION: 生產\n - TRANSFER_BETWEEN_FACTORY: 調撥\n - ORIGINAL_EQUIPMENT_MANUFACTURER: 代工\n - SCRAPPED: 報廢\n - BUYING_AND_SELLING: 買賣\n - RESEARCH_AND_DEVELOPMENT: 研發",
+      "title": "轉移明細移轉原因"
+    },
+    "codeerrorMaterial": {
+      "type": "string",
+      "enum": [
+        "CHECK_MATERIAL_SUCCESS",
+        "CHECK_MATERIAL_FAILED",
+        "CHECK_MATERIAL_NOT_FOUND_LOT_ID",
+        "BARCODE_DUPLICATE",
+        "MATERIAL_UNAVAILABLE",
+        "MATERIAL_EXPIRED",
+        "NOT_FOUND_BARCODE",
+        "MATERIAL_NOT_ENOUGH",
+        "MATERIAL_NOT_MATCH",
+        "CENTRAL_SUPPLY_MATERIAL_NOT_ENOUGH",
+        "NOT_FOUND_PRODUCT_TYPE",
+        "INVENTORY_IS_LESS_THAN_MIN_DOSAGE",
+        "THIS_MATERIAL_NEED_TO_CUT",
+        "CENTRAL_SUPPLY_MATERIAL_DOES_NOT_NEED_TO_SCANNED"
+      ],
+      "default": "CHECK_MATERIAL_SUCCESS",
+      "description": "- CHECK_MATERIAL_SUCCESS: 材料檢核成功\n - CHECK_MATERIAL_FAILED: 檢核材料失敗\n - CHECK_MATERIAL_NOT_FOUND_LOT_ID: 找不到工單\n - BARCODE_DUPLICATE: 投料重複\n - MATERIAL_UNAVAILABLE: 材料不可使用\n - MATERIAL_EXPIRED: 材料過期\n - NOT_FOUND_BARCODE: 無此材料條碼\n - MATERIAL_NOT_ENOUGH: 材料不足\n - MATERIAL_NOT_MATCH: 材料不符\n - CENTRAL_SUPPLY_MATERIAL_NOT_ENOUGH: 中央供應材料不足\n - NOT_FOUND_PRODUCT_TYPE: 查無產品類別代號 (X)\n - INVENTORY_IS_LESS_THAN_MIN_DOSAGE: 材料重量小於最小單位使用量\n - THIS_MATERIAL_NEED_TO_CUT: 材料需要切膠\n - CENTRAL_SUPPLY_MATERIAL_DOES_NOT_NEED_TO_SCANNED: 中央供應不須掃描",
+      "title": "材料檢核錯誤代碼"
+    },
+    "dmrsProductType": {
+      "type": "string",
+      "enum": [
+        "PRODUCT_TYPE_UNSPECIFIED",
+        "NATURAL_RUBBER",
+        "SYNTHETIC_RUBBER",
+        "PU_FOAM",
+        "BUTYL_RUBBER",
+        "RECLAIMED_RUBBER",
+        "ANTIOXIDANT",
+        "ACTIVATOR",
+        "TACKIFIER",
+        "ADHESIVE",
+        "PROCESSING_AID",
+        "PIGMENT",
+        "PERFUME",
+        "VULCANIZING_AGENT",
+        "ACCELERATOR",
+        "RETARDER",
+        "FOAMING_AGENT",
+        "REINFORCING_AGENT",
+        "FILLER",
+        "RUBBER_PROCESS_OIL",
+        "MATERIAL_PLY",
+        "KEVLAR_FIBRE",
+        "KEVLAR_BRAND_ENGINEERED_ELASTOMER",
+        "KEVLAR_BEAD_RING",
+        "MATERIAL_BEAD",
+        "BEAD_WIRE",
+        "STEEL_CORD",
+        "REFLECTIVE_TAPE",
+        "TUBE_SEALANT",
+        "MATERIAL_CHAFER",
+        "FINE_CLOTH",
+        "CLOTH_OF_TUBELAR",
+        "RELEASE_AGENT",
+        "MARKING_COLOR_INK",
+        "SOLVENT",
+        "LUBE_OIL",
+        "CHEMICAL_REAGENT_OR_SOLVENT",
+        "LOGO_TAG",
+        "GREEN_TUBE",
+        "BC_TUBE_VALVE",
+        "MC_TUBE_VALVE",
+        "AIR_BAG_VALVE",
+        "PARTS",
+        "CUTED_PLY",
+        "CALENDERED_PLY",
+        "OTHER_MATERIAL",
+        "RUBBER",
+        "COMPOUNDING_INGREDIENT",
+        "ACCELERATOR_INGREDIENT",
+        "BEAD_FILLER",
+        "BEAD",
+        "BEAD_AND_BEAD_FILLER_PREASSEMBLY",
+        "STEEL_BELT",
+        "EDGE_GUM",
+        "BELT_AND_EDGE_GUM_PREASSEMBLY",
+        "PLY",
+        "CHAFER",
+        "FLIPPER",
+        "WRAPPING",
+        "CARCASS_PLY",
+        "CAP_PLY",
+        "TREAD",
+        "INNER_LINER",
+        "SIDEWALL",
+        "SQUEEZE",
+        "GREEN_TIRE",
+        "TIRE",
+        "CURING_BLADDER",
+        "TURN_UP_BLADDER",
+        "TUBULAR_CASING",
+        "CURED_TUBULAR_TREAD",
+        "RETURN_COMPOUND"
+      ],
+      "default": "PRODUCT_TYPE_UNSPECIFIED",
+      "description": "- NATURAL_RUBBER: 原材料大類\n天然橡膠\n - SYNTHETIC_RUBBER: 合成橡膠\n - PU_FOAM: PU FOAM\n - BUTYL_RUBBER: 丁基橡膠\n - RECLAIMED_RUBBER: 再生膠\n - ANTIOXIDANT: 老防劑\n - ACTIVATOR: 活性劑\n - TACKIFIER: 增粘劑\n - ADHESIVE: 接著劑\n - PROCESSING_AID: 加工助劑\n - PIGMENT: 顏料\n - PERFUME: 香料\n - VULCANIZING_AGENT: 硫化劑\n - ACCELERATOR: 促進劑\n - RETARDER: 遲延劑\n - FOAMING_AGENT: 發泡劑\n - REINFORCING_AGENT: 補強劑\n - FILLER: 填充劑\n - RUBBER_PROCESS_OIL: 橡膠油\n - MATERIAL_PLY: 簾布\n - KEVLAR_FIBRE: KV纖維\n - KEVLAR_BRAND_ENGINEERED_ELASTOMER: KEE工程膠\n - KEVLAR_BEAD_RING: KV RING\n - MATERIAL_BEAD: 鋼絲圈\n - BEAD_WIRE: 鋼絲\n - STEEL_CORD: 鋼絲簾線\n - REFLECTIVE_TAPE: 反光帶\n - TUBE_SEALANT: 防漏液\n - MATERIAL_CHAFER: 防擦布\n - FINE_CLOTH: 細布\n - CLOTH_OF_TUBELAR: 管胎用線布\n - RELEASE_AGENT: 離型劑\n - MARKING_COLOR_INK: 標色糊\n - SOLVENT: 溶劑\n - LUBE_OIL: 潤滑油\n - CHEMICAL_REAGENT_OR_SOLVENT: 化學藥劑與溶劑\n - LOGO_TAG: LOGO標籤\n - GREEN_TUBE: 胎管\n - BC_TUBE_VALVE: 平車嘴\n - MC_TUBE_VALVE: 機車嘴\n - AIR_BAG_VALVE: 汽胎嘴\n - PARTS: 零配件\n - CUTED_PLY: 裁斷簾布\n - CALENDERED_PLY: 蓋膠簾布\n - OTHER_MATERIAL: 其他\n - RUBBER: 半製品, 成品\n膠料\n - COMPOUNDING_INGREDIENT: 藥包(配合劑)\n - ACCELERATOR_INGREDIENT: 藥包(促進劑)\n - BEAD_FILLER: 三角膠\n - BEAD: 鋼絲圈\n - BEAD_AND_BEAD_FILLER_PREASSEMBLY: 胎圈(鋼絲圈+三角膠)\n - STEEL_BELT: 環帶\n - EDGE_GUM: 環帶邊膠\n - BELT_AND_EDGE_GUM_PREASSEMBLY: 環帶+邊膠\n - PLY: 簾布\n - CHAFER: 防擦布\n - FLIPPER: 胎唇護布\n - WRAPPING: 鋼絲包布\n - CARCASS_PLY: 裁斷簾布\n - CAP_PLY: 尼龍束帶\n - TREAD: 胎面膠\n - INNER_LINER: 內面膠\n - SIDEWALL: 胎邊膠\n - SQUEEZE: 中心膠\n - GREEN_TIRE: 生胎\n - TIRE: 成品\n - CURING_BLADDER: 氣囊\n - TURN_UP_BLADDER: 氣袋\n - TUBULAR_CASING: 管胎胎體\n - CURED_TUBULAR_TREAD: 管胎硫化胎面膠\n - RETURN_COMPOUND: 回收膠料",
+      "title": "製程類別"
+    },
+    "errorCarrierOperating": {
+      "type": "string",
+      "enum": [
+        "CARRIER_OPERATING_SUCCESS",
+        "CARRIER_OPERATING_UNDEFINED_ACTION_TYPE",
+        "CARRIER_OPERATING_CARRIER_ID_REPEAT",
+        "CARRIER_OPERATING_NOT_FOUND_CARRIER_ID"
+      ],
+      "default": "CARRIER_OPERATING_SUCCESS"
+    },
+    "errorCheckMaterialLotID": {
+      "type": "string",
+      "enum": [
+        "CHECK_MATERIAL_LOT_ID_SUCCESS",
+        "CHECK_MATERIAL_LOT_ID_MATERIAL_LOT_ID_DOES_NOT_EXIST",
+        "CHECK_MATERIAL_LOT_ID_INSUFFICIENT_INFO",
+        "CHECK_MATERIAL_LOT_ID_MATERIAL_LOT_IO_ALREADY_EXISTED",
+        "CHECK_MATERIAL_LOT_ID_EXPIRED"
+      ],
+      "default": "CHECK_MATERIAL_LOT_ID_SUCCESS"
+    },
+    "errorCheckProdTools": {
+      "type": "string",
+      "enum": [
+        "CHECK_PRODUCT_TOOLS_SUCCESS",
+        "CHECK_PRODUCT_TOOLS_NOT_MATCH",
+        "CHECK_PRODUCT_TOOLS_NOT_ENOUGH",
+        "CHECK_PRODUCT_TOOLS_NOT_FOUND_LOT_ID",
+        "CHECK_PRODUCT_TOOLS_REPEAT",
+        "CHECK_PRODUCT_TOOLS_NOT_NEED_TO_CHECK"
+      ],
+      "default": "CHECK_PRODUCT_TOOLS_SUCCESS"
+    },
+    "errorContainerIdOperating": {
+      "type": "string",
+      "enum": [
+        "CONTAINER_OPERATING_SUCCESS",
+        "CONTAINER_OPERATING_FAILED"
+      ],
+      "default": "CONTAINER_OPERATING_SUCCESS"
+    },
+    "errorContainerMaterialOperating": {
+      "type": "string",
+      "enum": [
+        "CONTAINER_MATERIAL_OPERATING_SUCCESS",
+        "CONTAINER_MATERIAL_OPERATING_FAILED"
+      ],
+      "default": "CONTAINER_MATERIAL_OPERATING_SUCCESS"
+    },
+    "errorEquipmentContainerOperating": {
+      "type": "string",
+      "enum": [
+        "EQUIPMENT_CONTAINER_OPERATING_SUCCESS",
+        "EQUIPMENT_CONTAINER_OPERATING_FAILED"
+      ],
+      "default": "EQUIPMENT_CONTAINER_OPERATING_SUCCESS"
+    },
+    "errorEquipmentMaterialOperating": {
+      "type": "string",
+      "enum": [
+        "EQUIPMENT_MATERIAL_OPERATING_SUCCESS",
+        "EQUIPMENT_MATERIAL_OPERATING_NOT_FOUND_LOT_ID"
+      ],
+      "default": "EQUIPMENT_MATERIAL_OPERATING_SUCCESS"
+    },
+    "errorEquipmentOperating": {
+      "type": "string",
+      "enum": [
+        "EQUIPMENT_OPERATING_SUCCESS",
+        "EQUIPMENT_OPERATING_FAILED"
+      ],
+      "default": "EQUIPMENT_OPERATING_SUCCESS"
+    },
+    "errorGetMaterialInventoryList": {
+      "type": "string",
+      "enum": [
+        "GET_MATERIAL_INVENTORY_LIST_SUCCESS",
+        "GET_MATERIAL_INVENTORY_LIST_NOT_FOUND_DATA"
+      ],
+      "default": "GET_MATERIAL_INVENTORY_LIST_SUCCESS"
+    },
+    "errorLoginAndLogout": {
+      "type": "string",
+      "enum": [
+        "LOGIN_AND_LOGOUT_SUCCESS",
+        "LOGIN_AND_LOGOUT_FAIL"
+      ],
+      "default": "LOGIN_AND_LOGOUT_SUCCESS",
+      "description": "- LOGIN_AND_LOGOUT_SUCCESS: 登入成功\n - LOGIN_AND_LOGOUT_FAIL: 登入失敗",
+      "title": "登出/登入錯誤代碼"
+    },
+    "errorMaterialInventoryTalking": {
+      "type": "string",
+      "enum": [
+        "MATERIAL_INVENTORY_SUCCESS",
+        "MATERIAL_INVENTORY_NOT_FOUND_BARCODE"
+      ],
+      "default": "MATERIAL_INVENTORY_SUCCESS"
+    },
+    "errorMaterialOperating": {
+      "type": "string",
+      "enum": [
+        "MATERIAL_OPERATING_SUCCESS",
+        "MATERIAL_LOT_ID_REPEAT",
+        "NOT_FOUND_MATERIAL_LOT_ID",
+        "MATERIAL_OPERATING_INSUFFICIENT_INFO",
+        "MATERIAL_OPERATING_PRODUCT_TYPE_IS_NOT_DEFINED",
+        "MATERIAL_OPERATING_MATERIAL_UNIT_IS_NOT_DEFINED",
+        "THIS_MATERIAL_CAN_NOT_POSTPONE_AGAIN"
+      ],
+      "default": "MATERIAL_OPERATING_SUCCESS",
+      "title": "- MATERIAL_OPERATING_SUCCESS: 材料操作成功\n - MATERIAL_LOT_ID_REPEAT: 標示卡重複\n - NOT_FOUND_MATERIAL_LOT_ID: 無此條碼\n - MATERIAL_OPERATING_INSUFFICIENT_INFO: 資訊不足錯誤\n - MATERIAL_OPERATING_PRODUCT_TYPE_IS_NOT_DEFINED: 產品類別未定義\n - MATERIAL_OPERATING_MATERIAL_UNIT_IS_NOT_DEFINED: 材料單位未定義\n - THIS_MATERIAL_CAN_NOT_POSTPONE_AGAIN: 材料不得重複展延"
+    },
+    "errorMaterialTransactionOperating": {
+      "type": "string",
+      "enum": [
+        "MATERIAL_TRANSACTION_OPERATING_SUCCESS",
+        "MATERIAL_TRANSACTION_OPERATING_TX_NOT_FOUND"
+      ],
+      "default": "MATERIAL_TRANSACTION_OPERATING_SUCCESS"
+    },
+    "errorMoveEnd": {
+      "type": "string",
+      "enum": [
+        "MOVE_END_SUCCESS",
+        "MOVE_END_FAILED",
+        "MOVE_END_NOT_FOUND_LOT_ID",
+        "NO_SHEET_MOVE_IN_CAN_NOT_END",
+        "CANT_MOVE_OUT_END_BEFORE_MOVE_IN_FINISH",
+        "HAVE_SHEET_MOVE_OUT_NOT_YET_CAN_NOT_END"
+      ],
+      "default": "MOVE_END_SUCCESS",
+      "description": "- MOVE_END_SUCCESS: 投料或收料成功\n - MOVE_END_FAILED: 投料或收料失敗\n - MOVE_END_NOT_FOUND_LOT_ID: 查無此工單\n - NO_SHEET_MOVE_IN_CAN_NOT_END: 尚未投料不可結束投料\n - CANT_MOVE_OUT_END_BEFORE_MOVE_IN_FINISH: 投料尚未完成，不可結束收料\n - HAVE_SHEET_MOVE_OUT_NOT_YET_CAN_NOT_END: 收料未完成,不可結束收料",
+      "title": "投料/收膠結束錯誤代碼"
+    },
+    "errorMoveIn": {
+      "type": "string",
+      "enum": [
+        "MOVE_IN_SUCCESS",
+        "MOVE_IN_FAILED",
+        "MOVE_IN_NOT_FOUND_LOT_ID",
+        "MOVE_IN_NOT_FOUND_SHEET_ID",
+        "MOVE_IN_WRONG_SHEET_STATUS"
+      ],
+      "default": "MOVE_IN_SUCCESS",
+      "description": "- MOVE_IN_SUCCESS: 投料成功\n - MOVE_IN_FAILED: 投料失敗\n - MOVE_IN_NOT_FOUND_LOT_ID: 查無此工單\n - MOVE_IN_NOT_FOUND_SHEET_ID: 查無首數\n - MOVE_IN_WRONG_SHEET_STATUS: 該首數狀態不可投料",
+      "title": "投料錯誤代碼"
+    },
+    "errorMoveOut": {
+      "type": "string",
+      "enum": [
+        "MOVE_OUT_SUCCESS",
+        "MOVE_OUT_FAILED",
+        "MOVE_OUT_NOT_FOUND_LOT_ID",
+        "MOVE_OUT_NOT_FOUND_SHEET_ID",
+        "MOVE_OUT_NOT_FOUND_NEXT_PROCESS_NAME",
+        "THIS_MATERIAL_LOT_ID_HAS_BEEN_USED",
+        "MOVE_OUT_WRONG_SHEET_STATUS",
+        "MOVE_OUT_INVALID_MATERIAL_LOT_ID",
+        "MOVE_OUT_NOT_FOUND_CARRIER_ID"
+      ],
+      "default": "MOVE_OUT_SUCCESS",
+      "description": "- MOVE_OUT_SUCCESS: 收料成功\n - MOVE_OUT_FAILED: 收料失敗\n - MOVE_OUT_NOT_FOUND_LOT_ID: 查無此工單\n - MOVE_OUT_NOT_FOUND_SHEET_ID: 查無首數\n - MOVE_OUT_NOT_FOUND_NEXT_PROCESS_NAME: 查無階段\n - THIS_MATERIAL_LOT_ID_HAS_BEEN_USED: 該條碼不可使用\n - MOVE_OUT_WRONG_SHEET_STATUS: 該首數狀態不可投料\n - MOVE_OUT_INVALID_MATERIAL_LOT_ID: 無效標示卡條碼\n - MOVE_OUT_NOT_FOUND_CARRIER_ID: 查無鐵架(載具)ID",
+      "title": "收料錯誤代碼"
+    },
+    "errorMtxPda": {
+      "type": "string",
+      "enum": [
+        "MTXPDA_OPERATING_SUCCESS",
+        "MTXPDA_OPERATING_MATERIAL_LOT_ID_NOT_IN_ANY_TX",
+        "MTXPDA_OPERATING_MATERIAL_LOT_ID_NOT_FOUND",
+        "MTXPDA_OPERATING_ALREADY_BEEN_RECEIVED",
+        "MTXPDA_OPERATING_MATERIAL_EXCEED_REQUIREMENT",
+        "MTXPDA_OPERATING_MATERIAL_NOT_MATCH",
+        "MTXPDA_OPERATING_SCAN_MULTIPLE_TIMES",
+        "MTXPDA_OPERATING_ACTION_TYPE",
+        "MTXPDA_OPERATING_MATERIAL_LOT_ID_NOT_MATCH_ANY_TX",
+        "MTXPDA_OPERATING_MATERIAL_LOT_ID_NOT_BEEN_USED",
+        "MTXPDA_OPERATING_INSUFFICIENT_REQUEST"
+      ],
+      "default": "MTXPDA_OPERATING_SUCCESS"
+    },
+    "errorMtxShipListOperating": {
+      "type": "string",
+      "enum": [
+        "MTXSHIPLIST_OPERATING_SUCCESS",
+        "MTXSHIPLIST_OPERATING_TX_NOT_FOUND",
+        "MTXSHIPLIST_OPERATING_MATERIAL_LOT_ID_NOT_FOUND",
+        "MTXSHIPLIST_OPERATING_MATERIAL_EXCEEDED",
+        "MTXSHIPLIST_OPERATING_MATERIAL_LOT_ID_NOT_IN_TX",
+        "MTXSHIPLIST_OPERATING_ALREADY_BEEN_RECEIVED",
+        "MTXSHIPLIST_OPERATING_INSUFFICIENT_INFO",
+        "MTXSHIPLIST_OPERATING_MATERIAL_NOT_MATCH",
+        "MTXSHIPLIST_OPERATING_SCAN_MULTIPLE_TIMES"
+      ],
+      "default": "MTXSHIPLIST_OPERATING_SUCCESS"
+    },
+    "errorRapidCheckOperating": {
+      "type": "string",
+      "enum": [
+        "RAPID_CHECK_OPERATING_SUCCESS",
+        "RAPID_CHECK_OPERATING_NOT_FOUND_SHEET_ID",
+        "RAPID_CHECK_OPERATING_WRONG_STATUS",
+        "RAPID_CHECK_OPERATING_NOT_FOUND_MATERIAL_BY_SHEET",
+        "RAPID_CHECK_OPERATING_NOT_FOUND_LOT_ID"
+      ],
+      "default": "RAPID_CHECK_OPERATING_SUCCESS",
+      "title": "- RAPID_CHECK_OPERATING_SUCCESS: 快檢操作成功"
+    },
+    "errorSetInitialProcess": {
+      "type": "string",
+      "enum": [
+        "SET_INITIAL_PROCESS_SUCCESS",
+        "SET_INITIAL_PROCESS_MISSING_REQUEST"
+      ],
+      "default": "SET_INITIAL_PROCESS_SUCCESS",
+      "description": "- SET_INITIAL_PROCESS_SUCCESS: 初始作業階段成功\n - SET_INITIAL_PROCESS_MISSING_REQUEST: 缺少初始作業階段request",
+      "title": "初始作業階段錯誤代碼"
+    },
+    "errorTransactionOperating": {
+      "type": "string",
+      "enum": [
+        "TRANSACTION_OPERATING_SUCCESS",
+        "TRANSACTION_OPERATING_TX_NOT_FOUND",
+        "TRANSACTION_OPERATING_TX_CANNOT_DELETE",
+        "TRANSACTION_OPERATING_INSUFFICIENT_REQUEST"
+      ],
+      "default": "TRANSACTION_OPERATING_SUCCESS"
+    },
+    "errorWorkOrderOperating": {
+      "type": "string",
+      "enum": [
+        "WORK_ORDER_OPERATING_SUCCESS",
+        "WORK_ORDER_OPERATING_FAILED",
+        "NOT_FOUND_LOT_ID"
+      ],
+      "default": "WORK_ORDER_OPERATING_SUCCESS",
+      "description": "- WORK_ORDER_OPERATING_SUCCESS: 工單操作成功\n - WORK_ORDER_OPERATING_FAILED: 工單操作條件失敗\n - NOT_FOUND_LOT_ID: 查無工單",
+      "title": "工單操作錯誤代碼"
+    },
+    "mesCarrier": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "ID"
+        },
+        "owned_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "管理廠"
+        },
+        "owned_department_id": {
+          "type": "string",
+          "title": "管理部門"
+        },
+        "status": {
+          "$ref": "#/definitions/codeCarrierStatus",
+          "title": "載具狀態"
+        },
+        "material": {
+          "type": "string",
+          "title": "可掛載材料 (目前未用)"
+        },
+        "update_at": {
+          "type": "string",
+          "title": "更新日"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        }
+      },
+      "title": "載具"
+    },
+    "mesCarrierOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorCarrierOperating",
+          "title": "錯誤代碼"
+        },
+        "carriers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesCarrier"
+          },
+          "title": "卡匣明細"
+        }
+      }
+    },
+    "mesCarrierOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "carrier_id": {
+          "type": "string",
+          "title": "add \u0026 query 條件"
+        },
+        "owned_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "owned_department_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/codeCarrierStatus"
+        },
+        "material": {
+          "type": "string"
+        },
+        "create_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "user": {
+          "type": "string"
+        },
+        "carriers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesCarrier"
+          },
+          "title": "update \u0026 delete"
+        }
+      },
+      "title": "卡匣操作"
+    },
+    "mesCheckMaterialLotIDReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorCheckMaterialLotID",
+          "title": "錯誤代碼"
+        }
+      },
+      "title": "檢查收料標示卡回應"
+    },
+    "mesCheckMaterialLotIDRequest": {
+      "type": "object",
+      "properties": {
+        "material_lot_id": {
+          "type": "string",
+          "title": "標示卡條碼"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "收料設備ID"
+        },
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱 -- 建議要給, 此處取工單未指定投料或收料工單, 當不指定時會抓優先序最高的工單"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        }
+      },
+      "title": "檢查標示卡請求"
+    },
+    "mesCheckProductToolsReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorCheckProdTools",
+          "title": "錯誤代碼"
+        }
+      },
+      "title": "檢核製工具回應"
+    },
+    "mesCheckProductToolsRequest": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "設備ID"
+        },
+        "all_check": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "是否為檢核全部, 為true時會檢查是否有漏掃"
+        },
+        "tool_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "工具ID清單"
+        }
+      },
+      "title": "檢核製工具請求"
+    },
+    "mesCheckScanMaterialReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/codeerrorMaterial",
+          "title": "錯誤代碼"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CheckScanMaterialReplyPreMoveInMaterial"
+          },
+          "title": "材料清單"
+        }
+      },
+      "title": "檢核材料回應"
+    },
+    "mesCheckScanMaterialRequest": {
+      "type": "object",
+      "properties": {
+        "recipe_id": {
+          "type": "string",
+          "title": "配合表ID -- 取工單上的就好了"
+        },
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱 -- 不給也沒差, 預設抓取可投料工單, 一台設備不可能同時跑兩個投料途程"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "作業機台號"
+        },
+        "sheet_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "首數-用於計算幾倍的基礎用量 (不給預設為1)"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        },
+        "all_check": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "是否為檢核全部, 為true時會檢查是否有漏掃"
+        },
+        "material_lot_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "材料條碼清單"
+        },
+        "scale_materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CheckScanMaterialRequestScaleMaterial"
+          },
+          "title": "實際重量秤量之材料清單 (條碼+實重)"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesCheckScanMaterialRequestMaterial"
+          },
+          "title": "材料清單 (測試中)"
+        }
+      },
+      "title": "檢核投入材料內容"
+    },
+    "mesCheckScanMaterialRequestMaterial": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "標示卡條碼"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "實際耗用量"
+        },
+        "isMounted": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "是否為掛載，當值為true是代表為中央供應。"
+        }
+      },
+      "title": "材料"
+    },
+    "mesContainerMaterialOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorContainerMaterialOperating"
+        },
+        "equipment_container_materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerMaterialOperatingReplyEquipmentContainerMaterial"
+          }
+        }
+      }
+    },
+    "mesContainerMaterialOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel",
+          "title": "CRUD"
+        },
+        "container_id": {
+          "type": "string",
+          "title": "桶槽ID"
+        },
+        "material_lot_id": {
+          "type": "string",
+          "title": "標示卡條碼"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "更新人"
+        },
+        "action_order": {
+          "type": "integer",
+          "format": "int32",
+          "title": "工位次序\n在大部分的製程中，不區分材料工位，即預設為 1。\n在連續作業工程做材料預檢核時，以工位區分不同規格的材料。\n例如： 蓋膠 A、B規格連續生產，其材料會區分兩個工位存放，\n      當載料掛載至工位1時，則檢查是否與A規格的BOM相符，同理，材料掛載至工位2時，則檢查是否與B規格的BOM相符。\n      當A規格生產完畢，欲切換至B規格生產時，工位1材料會卸載，並將工位2位的材料移至工位1。"
+        }
+      }
+    },
+    "mesContainerOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorContainerIdOperating"
+        },
+        "containerInfo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerOperatingReplyContainerInfo"
+          }
+        }
+      }
+    },
+    "mesContainerOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "container_id": {
+          "type": "string"
+        },
+        "owned_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "owned_department_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/codeContainerStatus"
+        },
+        "container_type": {
+          "$ref": "#/definitions/rscontainerType"
+        },
+        "update_by": {
+          "type": "string"
+        }
+      }
+    },
+    "mesCreateWorkOrderNewReply": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/errorWorkOrderOperating",
+          "title": "錯誤訊息"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesWorkOrderInfo"
+          },
+          "title": "新增工單清單"
+        }
+      },
+      "title": "建立工單回應"
+    },
+    "mesCreateWorkOrderNewRequest": {
+      "type": "object",
+      "properties": {
+        "factoryId": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "廠別"
+        },
+        "departmentId": {
+          "type": "string",
+          "title": "部門代號"
+        },
+        "productType": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "產品類別"
+        },
+        "recipeId": {
+          "type": "string",
+          "title": "配方號"
+        },
+        "planQty": {
+          "type": "string",
+          "title": "計畫數量"
+        },
+        "reworkName": {
+          "type": "string",
+          "title": "以下以後可能重工會用到\n途程名稱"
+        },
+        "reworkType": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "途程類別"
+        }
+      },
+      "title": "建立工單請求"
+    },
+    "mesCreateWorkOrderReply": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "工單編號"
+        },
+        "product_id": {
+          "type": "string",
+          "title": "產品編號"
+        },
+        "stage_status": {
+          "$ref": "#/definitions/rsStageStatus",
+          "title": "配方生產別"
+        },
+        "major_version": {
+          "type": "string",
+          "title": "配方版本"
+        },
+        "processes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesCreateWorkOrderReplyProcess"
+          },
+          "title": "途程清單"
+        }
+      },
+      "title": "建立工單回應"
+    },
+    "mesCreateWorkOrderReplyProcess": {
+      "type": "object",
+      "properties": {
+        "current_process_name": {
+          "type": "string",
+          "title": "當前站名"
+        },
+        "next_process_name": {
+          "type": "string",
+          "title": "下站名"
+        },
+        "plan_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "計畫量"
+        }
+      },
+      "title": "途程"
+    },
+    "mesCreateWorkOrderRequest": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "廠別"
+        },
+        "recipe_id": {
+          "type": "string",
+          "title": "配方號"
+        },
+        "product_id": {
+          "type": "string",
+          "title": "產品ID"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "產品類別"
+        },
+        "stage_status": {
+          "$ref": "#/definitions/rsStageStatus",
+          "title": "配方生產別"
+        },
+        "major_version": {
+          "type": "string",
+          "title": "主版本序號"
+        },
+        "plan_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "計畫數量"
+        },
+        "claim_by": {
+          "type": "string",
+          "title": "操作者"
+        },
+        "department_id": {
+          "type": "string",
+          "title": "部門代號"
+        },
+        "rework_process_name": {
+          "type": "string",
+          "title": "以下以後可能重工會用到\n途程名稱"
+        },
+        "rework_process_type": {
+          "$ref": "#/definitions/rsProcessType",
+          "title": "途程類型"
+        }
+      },
+      "title": "建立工單請求"
+    },
+    "mesEquipmentContainerOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorEquipmentContainerOperating"
+        },
+        "equipment_containers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EquipmentContainerOperatingReplyEquipmentContainer"
+          }
+        }
+      }
+    },
+    "mesEquipmentContainerOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "equipment_id": {
+          "type": "string"
+        },
+        "container_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "update_by": {
+          "type": "string"
+        }
+      }
+    },
+    "mesEquipmentMaterialOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorEquipmentMaterialOperating",
+          "title": "錯誤代碼"
+        },
+        "move_in_counter": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EquipmentMaterialOperatingReplyMoveInCounter"
+          },
+          "title": "掛載材料可投料次數 (base on process now running)"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesEquipmentMaterialOperatingReplyMaterial"
+          },
+          "title": "掛載材料明細"
+        }
+      },
+      "title": "機台掛載材料操作回應"
+    },
+    "mesEquipmentMaterialOperatingReplyMaterial": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "標示卡條碼"
+        },
+        "product_id": {
+          "type": "string",
+          "title": "材料ID"
+        },
+        "level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "剩餘量"
+        }
+      },
+      "title": "材料"
+    },
+    "mesEquipmentMaterialOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel",
+          "title": "操作類別"
+        },
+        "action_order": {
+          "type": "integer",
+          "format": "int32",
+          "title": "工位ID"
+        },
+        "lot_id": {
+          "type": "string",
+          "title": "工單號 -- 用來計算可投料次數用"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱 --不給也沒差, 預設抓取可投料工單, 一台設備不可能同時跑兩個投料途程"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "設備ID"
+        },
+        "material_lot_id": {
+          "type": "string",
+          "title": "材料條碼"
+        }
+      },
+      "title": "機台掛載材料操作請求"
+    },
+    "mesEquipmentOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorEquipmentOperating"
+        },
+        "equipments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EquipmentOperatingReplyEquipment"
+          }
+        }
+      }
+    },
+    "mesEquipmentOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "equipment_id": {
+          "type": "string"
+        },
+        "owned_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "owned_department_id": {
+          "type": "string"
+        },
+        "bay_id": {
+          "type": "string",
+          "title": "TODO: remove this in feature"
+        },
+        "description": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "string"
+        },
+        "product_types": {
+          "type": "string",
+          "title": "here are product type values split by `,`"
+        },
+        "update_by": {
+          "type": "string"
+        }
+      }
+    },
+    "mesGetBomReply": {
+      "type": "object",
+      "properties": {
+        "bom_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetBomReplyBomDetail"
+          }
+        }
+      }
+    },
+    "mesGetBomRequest": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "equipment_id": {
+          "type": "string"
+        },
+        "recipe_id": {
+          "type": "string"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱"
+        },
+        "recipe_equipment_id": {
+          "type": "string"
+        }
+      },
+      "title": "查詢"
+    },
+    "mesGetMaterialInventoryListReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorGetMaterialInventoryList",
+          "title": "錯誤代碼"
+        }
+      },
+      "title": "取得盤點清單回應"
+    },
+    "mesGetMaterialInventoryListRequest": {
+      "type": "object",
+      "properties": {
+        "production_date": {
+          "type": "string",
+          "title": "TODO : @wjy check why need this ? maybe rename it as update_at\n盤點日"
+        },
+        "sub_company": {
+          "type": "string",
+          "title": "TODO : this should be a enum\n公司別"
+        },
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "廠別"
+        }
+      },
+      "title": "取得盤點清單請求"
+    },
+    "mesGetMaterialWeightReplyMaterial": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "材料類型"
+        },
+        "id": {
+          "type": "string",
+          "title": "材料ID"
+        },
+        "level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "title": "標準耗用量"
+        },
+        "unit": {
+          "type": "string",
+          "title": "計量單位 : 重量、長度、個數"
+        },
+        "error_margin": {
+          "type": "number",
+          "format": "float",
+          "title": "允許誤差"
+        },
+        "containerType": {
+          "$ref": "#/definitions/rscontainerType",
+          "title": "桶槽類型 : 有指定桶槽代表為中央供應料"
+        },
+        "specified_recipe_id": {
+          "type": "string",
+          "title": "指定recipe id (如密煉使用之藥包需指定特定藥包配合表版本)"
+        }
+      },
+      "title": "材料"
+    },
+    "mesGetRecipeForMpReply": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesGetRecipeForMpReplyParameter"
+          },
+          "title": "配方參數清單"
+        }
+      },
+      "title": "取得MP配方明細回應"
+    },
+    "mesGetRecipeForMpReplyParameter": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "參數ID"
+        },
+        "description": {
+          "type": "string",
+          "title": "參數描述"
+        },
+        "maximum": {
+          "type": "number",
+          "format": "float",
+          "title": "最大值"
+        },
+        "standard": {
+          "type": "number",
+          "format": "float",
+          "title": "標準值"
+        },
+        "minimum": {
+          "type": "number",
+          "format": "float",
+          "title": "最小值"
+        },
+        "unit": {
+          "type": "string",
+          "title": "計量單位"
+        }
+      },
+      "title": "參數"
+    },
+    "mesGetRecipeForMpRequest": {
+      "type": "object",
+      "properties": {
+        "recipe_id": {
+          "type": "string",
+          "title": "配合表ID"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "設備ID"
+        }
+      },
+      "title": "取得MP配方明細請求"
+    },
+    "mesGetRecipeIDByBarcodeReply": {
+      "type": "object",
+      "properties": {
+        "recipe_id": {
+          "type": "string",
+          "title": "配合表ID"
+        }
+      },
+      "title": "依生胎條碼取得MP配方ID回應"
+    },
+    "mesGetRecipeIDByBarcodeRequest": {
+      "type": "object",
+      "properties": {
+        "barcode": {
+          "type": "string",
+          "title": "生胎條碼"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "設備ID"
+        }
+      },
+      "title": "依生胎條碼取得MP配方ID請求"
+    },
+    "mesIsRejectsReply": {
+      "type": "object",
+      "properties": {
+        "is_rejects": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "是否為不良品 true=不良"
+        }
+      },
+      "title": "透過生胎條碼確認是否為不良品回應"
+    },
+    "mesIsRejectsRequest": {
+      "type": "object",
+      "properties": {
+        "barcode": {
+          "type": "string",
+          "title": "生胎條碼"
+        }
+      },
+      "title": "透過生胎條碼確認是否為不良品請求"
+    },
+    "mesListCodesReply": {
+      "type": "object",
+      "properties": {
+        "codes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListCodesReplyCode"
+          }
+        }
+      }
+    },
+    "mesListCodesRequest": {
+      "type": "object",
+      "properties": {
+        "code_category": {
+          "type": "string"
+        },
+        "code_value": {
+          "type": "string"
+        },
+        "code_name": {
+          "type": "string"
+        },
+        "sub_category": {
+          "type": "string"
+        }
+      }
+    },
+    "mesListDepartmentsReply": {
+      "type": "object",
+      "properties": {
+        "departments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListDepartmentsReplyDepartment"
+          }
+        }
+      }
+    },
+    "mesListDepartmentsRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/ListDepartmentsRequestAction"
+        },
+        "sub_company": {
+          "type": "string"
+        },
+        "serial_no": {
+          "type": "string"
+        },
+        "department_id": {
+          "type": "string"
+        }
+      }
+    },
+    "mesListEquipmentIDsReply": {
+      "type": "object",
+      "properties": {
+        "equipments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListEquipmentIDsReplyEquipments"
+          }
+        }
+      }
+    },
+    "mesListEquipmentIDsRequest": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "department_id": {
+          "type": "string"
+        }
+      }
+    },
+    "mesListFactoryIDsReply": {
+      "type": "object",
+      "properties": {
+        "factory_Ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/rsFactoryID"
+          }
+        }
+      }
+    },
+    "mesListMaterialCategoriesByOwnedDepartmentReply": {
+      "type": "object",
+      "properties": {
+        "material_categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListMaterialCategoriesByOwnedDepartmentReplyMaterialCategory"
+          }
+        }
+      }
+    },
+    "mesListMaterialCategoriesByOwnedDepartmentRequest": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "owned_department_id": {
+          "type": "string"
+        }
+      }
+    },
+    "mesListMaterialProductIDsReply": {
+      "type": "object",
+      "properties": {
+        "material_products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListMaterialProductIDsReplyProduct"
+          }
+        }
+      }
+    },
+    "mesListMaterialProductIDsRequest": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType"
+        }
+      }
+    },
+    "mesListMeasurementParametersReply": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesListMeasurementParametersReplyParameter"
+          }
+        }
+      }
+    },
+    "mesListMeasurementParametersReplyParameter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "central": {
+          "type": "number",
+          "format": "float"
+        },
+        "min": {
+          "type": "number",
+          "format": "float"
+        },
+        "max": {
+          "type": "number",
+          "format": "float"
+        },
+        "error_margin": {
+          "type": "number",
+          "format": "float"
+        },
+        "enum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "mesListMeasurementParametersRequest": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "stage_status": {
+          "$ref": "#/definitions/rsStageStatus"
+        },
+        "major": {
+          "type": "string"
+        },
+        "minor": {
+          "type": "string"
+        },
+        "equipment": {
+          "type": "string"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱"
+        },
+        "lot_id": {
+          "type": "string"
+        }
+      }
+    },
+    "mesListProcessEquipmentsReply": {
+      "type": "object",
+      "properties": {
+        "product_equipment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "setting_equipment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "mesListProcessEquipmentsRequest": {
+      "type": "object",
+      "properties": {
+        "recipe_id": {
+          "type": "string"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱"
+        },
+        "process_type": {
+          "$ref": "#/definitions/rsProcessType"
+        }
+      }
+    },
+    "mesListProductIDsReply": {
+      "type": "object",
+      "properties": {
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListProductIDsReplyProducts"
+          }
+        }
+      }
+    },
+    "mesListProductIDsRequest": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱"
+        }
+      }
+    },
+    "mesListProductTypesReply": {
+      "type": "object",
+      "properties": {
+        "product_types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesListProductTypesReplyProductType"
+          }
+        }
+      }
+    },
+    "mesListProductTypesReplyProductType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/dmrsProductType"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "mesListProductTypesRequest": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        }
+      }
+    },
+    "mesListRecipeAllProcessesReply": {
+      "type": "object",
+      "properties": {
+        "processes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesListRecipeAllProcessesReplyProcess"
+          }
+        }
+      }
+    },
+    "mesListRecipeAllProcessesReplyProcess": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/rsProcessType"
+        }
+      }
+    },
+    "mesListRecipeAllProcessesRequest": {
+      "type": "object",
+      "properties": {
+        "recipe_id": {
+          "type": "string"
+        }
+      }
+    },
+    "mesLoginAndLogoutReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorLoginAndLogout",
+          "title": "錯誤代碼"
+        },
+        "job_title": {
+          "type": "string",
+          "title": "職稱 for permission control\n    select jobtit from permas\n    this column values is mapping by seccod.codekind = 'KE'"
+        },
+        "employee_name": {
+          "type": "string",
+          "title": "員工姓名"
+        },
+        "department_id": {
+          "type": "string",
+          "title": "部門代號"
+        }
+      },
+      "title": "登入登出回應"
+    },
+    "mesLoginAndLogoutRequest": {
+      "type": "object",
+      "properties": {
+        "action_mode": {
+          "$ref": "#/definitions/mesLoginAndLogoutRequestMode"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "作業機台號"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        },
+        "work_date": {
+          "type": "string",
+          "title": "工作日"
+        },
+        "shift": {
+          "type": "string",
+          "title": "班別"
+        },
+        "sub_company": {
+          "type": "string",
+          "title": "廠別"
+        },
+        "employee_number": {
+          "type": "string",
+          "title": "員工工號"
+        }
+      },
+      "title": "登入/登出請求"
+    },
+    "mesLoginAndLogoutRequestMode": {
+      "type": "string",
+      "enum": [
+        "LOGIN",
+        "LOGOUT"
+      ],
+      "default": "LOGIN",
+      "description": "- LOGIN: 登入\n - LOGOUT: 登出",
+      "title": "類別 I = login , O = logout"
+    },
+    "mesMTxShipListOperatingReply": {
+      "type": "object",
+      "properties": {
+        "shippingList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesShippingInfo"
+          }
+        },
+        "err": {
+          "$ref": "#/definitions/errorMtxShipListOperating"
+        }
+      }
+    },
+    "mesMTxShipListOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "tx_id": {
+          "type": "string"
+        },
+        "item_id": {
+          "type": "string"
+        },
+        "sequence_no": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "material_lot_id": {
+          "type": "string",
+          "title": "材料 Lot ID, 標示卡編號"
+        },
+        "material_product_id": {
+          "type": "string",
+          "title": "材料 ID ,材料,半製品,成品編號"
+        },
+        "material_level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "移轉數量"
+        },
+        "unit": {
+          "type": "string",
+          "title": "計量單位"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "更新人"
+        },
+        "only_today": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Compare Date"
+        },
+        "status": {
+          "$ref": "#/definitions/codeShippingStatus"
+        }
+      }
+    },
+    "mesMaterialInventoryTakingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorMaterialInventoryTalking",
+          "title": "錯誤代碼"
+        }
+      },
+      "title": "線邊料盤點回應"
+    },
+    "mesMaterialInventoryTakingRequest": {
+      "type": "object",
+      "properties": {
+        "sub_company": {
+          "type": "string",
+          "title": "TODO: this should be a enum\n子公司"
+        },
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "廠別"
+        },
+        "material_lot_id": {
+          "type": "string",
+          "title": "材料標示卡條碼"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "設備ID"
+        },
+        "production_date": {
+          "type": "string",
+          "title": "TODO : @wjy check why need this ? maybe rename it as update_at\n盤點日"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        }
+      },
+      "title": "線邊料盤點請求"
+    },
+    "mesMaterialList": {
+      "type": "object",
+      "properties": {
+        "material_lot_id": {
+          "type": "string",
+          "title": "材料標示卡條碼"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "材料類別"
+        },
+        "material_product_id": {
+          "type": "string",
+          "title": "材料ID"
+        },
+        "material_level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "owned_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "管理廠"
+        },
+        "owned_department_id": {
+          "type": "string",
+          "title": "管理部門"
+        },
+        "storage_id": {
+          "type": "string",
+          "title": "儲位ID"
+        },
+        "carrier_id": {
+          "type": "string",
+          "title": "載具ID"
+        },
+        "stock_qty": {
+          "type": "string",
+          "title": "庫存數"
+        },
+        "min_use_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "最小使用量"
+        },
+        "unit": {
+          "type": "string",
+          "title": "計量單位"
+        },
+        "expire_at": {
+          "type": "string",
+          "title": "過期日"
+        },
+        "status": {
+          "$ref": "#/definitions/codeMaterialStatus",
+          "title": "材料狀態"
+        },
+        "comments": {
+          "type": "string",
+          "title": "備註"
+        },
+        "update_at": {
+          "type": "string",
+          "title": "最後更新日"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "最後更新人"
+        },
+        "insert_at": {
+          "type": "string",
+          "title": "入庫日"
+        },
+        "insert_by": {
+          "type": "string",
+          "title": "入庫人"
+        },
+        "region": {
+          "type": "string",
+          "title": "材料變更紀錄使用 (展延, 扣留, 解扣留)\n車間"
+        },
+        "new_expire_date": {
+          "type": "string",
+          "title": "新有效日期"
+        },
+        "over_day": {
+          "type": "integer",
+          "format": "int32",
+          "title": "過期日"
+        },
+        "reason": {
+          "type": "string",
+          "title": "展延原因"
+        },
+        "stage": {
+          "$ref": "#/definitions/rsStageStatus",
+          "title": "生產別"
+        }
+      },
+      "title": "材料明細 (幾乎與MMTRLST相同)"
+    },
+    "mesMaterialOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorMaterialOperating",
+          "title": "錯誤代碼"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesMaterialList"
+          },
+          "title": "材料清單"
+        }
+      },
+      "title": "材料操作回應 (for OPI)"
+    },
+    "mesMaterialOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel",
+          "title": "操作類別"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "query 條件"
+        },
+        "material_lot_id": {
+          "type": "string",
+          "title": "材料條碼"
+        },
+        "material_product_id": {
+          "type": "string",
+          "title": "材料ID"
+        },
+        "material_level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "status": {
+          "$ref": "#/definitions/codeMaterialStatus",
+          "title": "材料狀態"
+        },
+        "owned_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "管理廠"
+        },
+        "owned_department_id": {
+          "type": "string",
+          "title": "管理部門"
+        },
+        "start_date": {
+          "type": "string",
+          "title": "起始日"
+        },
+        "end_date": {
+          "type": "string",
+          "title": "終止日"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesMaterialList"
+          },
+          "title": "材料清單"
+        }
+      },
+      "title": "材料操作請求 (for OPI)"
+    },
+    "mesMaterialTransactionList": {
+      "type": "object",
+      "properties": {
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType"
+        },
+        "material_product_id": {
+          "type": "string"
+        },
+        "material_level": {
+          "type": "string"
+        },
+        "current_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "current_department_id": {
+          "type": "string"
+        },
+        "next_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "next_department_id": {
+          "type": "string"
+        },
+        "remaining_qty": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "mesMaterialTransactionListOperatingReply": {
+      "type": "object",
+      "properties": {
+        "MaterialTransactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MaterialTransactionListOperatingReplyMaterialTransaction"
+          }
+        },
+        "err": {
+          "$ref": "#/definitions/errorMaterialTransactionOperating"
+        }
+      },
+      "title": "TODO @target 應該跟DM整合 commons/src/proto/dm/mes/mtx_list.proto"
+    },
+    "mesMaterialTransactionListOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "tx_id": {
+          "type": "string",
+          "title": "轉移編號 (廠+移出部門+單據日期+三碼流水號)"
+        },
+        "tx_type": {
+          "$ref": "#/definitions/codeTransactionType",
+          "title": "1-\u003e生產 (same factory) 2-\u003e調撥 (diff factory) 3-\u003e代工 4-\u003e報廢 5-\u003e買賣 6-\u003e研發"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesMaterialTransactionListOperatingRequestMaterial"
+          },
+          "title": "材料"
+        },
+        "current_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "移出廠"
+        },
+        "current_department_id": {
+          "type": "string",
+          "title": "移出單位代號"
+        },
+        "next_factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "移入廠"
+        },
+        "next_department_id": {
+          "type": "string",
+          "title": "移入單位代號"
+        },
+        "codd": {
+          "type": "string",
+          "title": "內外購"
+        },
+        "confirm_by": {
+          "type": "string",
+          "title": "確認人"
+        },
+        "status": {
+          "$ref": "#/definitions/codeTransactionStatus",
+          "title": "移轉狀態"
+        },
+        "comments": {
+          "type": "string",
+          "title": "註解"
+        },
+        "insert_by": {
+          "type": "string",
+          "title": "建檔人"
+        },
+        "only_today": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Compare Date"
+        }
+      }
+    },
+    "mesMaterialTransactionListOperatingRequestMaterial": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "材料 Lot ID, 標示卡編號"
+        },
+        "type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "材料類別"
+        },
+        "product_id": {
+          "type": "string",
+          "title": "材料 ID ,材料,半製品,成品編號"
+        },
+        "level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float",
+          "title": "移轉數量"
+        },
+        "unit": {
+          "type": "string",
+          "title": "計量單位\nTODO this should be a enum"
+        }
+      }
+    },
+    "mesMoveBasicInfo": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "作業機台號"
+        },
+        "work_date": {
+          "type": "string",
+          "title": "工作日"
+        },
+        "shift": {
+          "type": "string",
+          "title": "班別"
+        },
+        "move_weight": {
+          "type": "number",
+          "format": "float",
+          "title": "投入產出量"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        },
+        "sheet_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "投入產出首數"
+        },
+        "material_lot_id": {
+          "type": "string",
+          "title": "標示卡條碼"
+        },
+        "material_product_id": {
+          "type": "string",
+          "title": "產品代號"
+        },
+        "material_level": {
+          "type": "string",
+          "title": "產品代號"
+        },
+        "carrier_id": {
+          "type": "string",
+          "title": "載具ID"
+        }
+      },
+      "title": "投料收料基本資訊"
+    },
+    "mesMoveEndReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorMoveEnd",
+          "title": "錯誤代碼"
+        }
+      },
+      "title": "投料/收料結束回應"
+    },
+    "mesMoveEndRequest": {
+      "type": "object",
+      "properties": {
+        "action_mode": {
+          "$ref": "#/definitions/mescodeMode",
+          "title": "請求類別\nI = 投料 , O = 收料"
+        },
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "process_name": {
+          "type": "string",
+          "title": "途程名稱"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        }
+      },
+      "title": "投料/收料結束請求\n發出請求以改變工單狀態"
+    },
+    "mesMoveInReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorMoveIn",
+          "title": "錯誤代碼"
+        }
+      },
+      "title": "投料回應"
+    },
+    "mesMoveInRequest": {
+      "type": "object",
+      "properties": {
+        "basic_info": {
+          "$ref": "#/definitions/mesMoveBasicInfo",
+          "title": "投料收料基本資訊"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesMoveInRequestMaterial"
+          },
+          "title": "投入材料集合"
+        }
+      },
+      "title": "投料請求\nsheetCount 預設值為1\nmoveWeight 不給時則依BOM計算\nmaterialLotId 除成型工程外其餘工程不須給值"
+    },
+    "mesMoveInRequestMaterial": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "材料標示卡條碼"
+        },
+        "use_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "投入量 : 密煉製程計量單位為kg, 精度小數三位, 其他製程待訂定"
+        },
+        "product_id": {
+          "type": "string",
+          "title": "材料 ID"
+        },
+        "level": {
+          "type": "string",
+          "title": "材料等級"
+        },
+        "realWeight": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "是否為真實重量"
+        }
+      },
+      "title": "標示卡資訊"
+    },
+    "mesMoveOutReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorMoveOut",
+          "title": "錯誤代碼"
+        }
+      },
+      "title": "收料回應"
+    },
+    "mesMoveOutRequest": {
+      "type": "object",
+      "properties": {
+        "basic_info": {
+          "$ref": "#/definitions/mesMoveBasicInfo",
+          "title": "收料基本資訊"
+        }
+      },
+      "title": "收料請求"
+    },
+    "mesMtxPdaReply": {
+      "type": "object",
+      "properties": {
+        "transaction_lists": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesMaterialTransactionList"
+          }
+        },
+        "err": {
+          "$ref": "#/definitions/errorMtxPda"
+        }
+      }
+    },
+    "mesMtxPdaRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "material_lot_id": {
+          "type": "string"
+        },
+        "transaction_lists": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesMaterialTransactionList"
+          }
+        },
+        "update_by": {
+          "type": "string"
+        }
+      }
+    },
+    "mesQueryWorkOrderNewReply": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/errorWorkOrderOperating",
+          "title": "錯誤訊息"
+        },
+        "unreservedList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesWorkOrderInfo"
+          },
+          "title": "未派工/工單清單"
+        },
+        "reservedList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesWorkOrderInfo"
+          },
+          "title": "已派工工單清單"
+        }
+      },
+      "title": "查詢工單回應"
+    },
+    "mesQueryWorkOrderNewRequest": {
+      "type": "object",
+      "properties": {
+        "factoryId": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "廠別"
+        },
+        "departmentId": {
+          "type": "string",
+          "title": "部門代號"
+        },
+        "recipeId": {
+          "type": "string",
+          "title": "配方號"
+        },
+        "mainStation": {
+          "type": "string",
+          "title": "主機台"
+        },
+        "associateStation": {
+          "type": "string",
+          "title": "副機台"
+        },
+        "reservedWorkDate": {
+          "type": "string",
+          "title": "派工日期"
+        },
+        "reservedShift": {
+          "type": "integer",
+          "format": "int32",
+          "title": "派工班別"
+        }
+      },
+      "title": "查詢工單請求"
+    },
+    "mesRapidCheckOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorRapidCheckOperating",
+          "title": "錯誤代碼"
+        },
+        "sheets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RapidCheckOperatingReplySheet"
+          }
+        }
+      }
+    },
+    "mesRapidCheckOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel",
+          "title": "請求類別"
+        },
+        "action_mode": {
+          "$ref": "#/definitions/mescodeMode",
+          "title": "I = 進站 , O = 出站"
+        },
+        "lot_id": {
+          "type": "string",
+          "title": "搜尋用"
+        },
+        "sheet_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "update_by": {
+          "type": "string"
+        },
+        "measurement_items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RapidCheckOperatingRequestmeasurementItem"
+          }
+        }
+      }
+    },
+    "mesSetInitialProcessReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorSetInitialProcess"
+        }
+      },
+      "title": "設定工單初始途程回應"
+    },
+    "mesSetInitialProcessRequest": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "current_process_name": {
+          "type": "string",
+          "title": "起始作業階段"
+        },
+        "next_process_name": {
+          "type": "string",
+          "title": "下一階段(若無下一階就給起始)"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        }
+      },
+      "title": "設定工單初始途程請求"
+    },
+    "mesShippingInfo": {
+      "type": "object",
+      "properties": {
+        "tx_id": {
+          "type": "string"
+        },
+        "item_id": {
+          "type": "string"
+        },
+        "sequence_no": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "material_lot_id": {
+          "type": "string"
+        },
+        "material_product_id": {
+          "type": "string"
+        },
+        "material_level": {
+          "type": "string"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        },
+        "update_by": {
+          "type": "string"
+        },
+        "insert_at": {
+          "type": "string"
+        },
+        "insert_by": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/codeShippingStatus"
+        }
+      }
+    },
+    "mesTransactionListOperatingReply": {
+      "type": "object",
+      "properties": {
+        "transactionLists": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransactionListOperatingReplyTransactionList"
+          }
+        },
+        "err": {
+          "$ref": "#/definitions/errorTransactionOperating"
+        }
+      }
+    },
+    "mesTransactionListOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "tx_id": {
+          "type": "string"
+        },
+        "tx_type": {
+          "$ref": "#/definitions/codeTransactionType"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesTransactionListOperatingRequestMaterial"
+          }
+        },
+        "current_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "current_department_id": {
+          "type": "string"
+        },
+        "next_factory_id": {
+          "$ref": "#/definitions/rsFactoryID"
+        },
+        "next_department_id": {
+          "type": "string"
+        },
+        "codd": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/codeTransactionStatus"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "update_by": {
+          "type": "string"
+        },
+        "only_today": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "mesTransactionListOperatingRequestMaterial": {
+      "type": "object",
+      "properties": {
+        "item_id": {
+          "type": "string"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/codeTransactionStatus"
+        },
+        "qty": {
+          "type": "number",
+          "format": "float"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "mesUpdateWorkOrderNewReply": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/errorWorkOrderOperating",
+          "title": "錯誤訊息"
+        }
+      },
+      "title": "更新工單回應"
+    },
+    "mesUpdateWorkOrderNewRequest": {
+      "type": "object",
+      "properties": {
+        "addToReserved": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "是否派工"
+        },
+        "workOrders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesWorkOrderInfo"
+          },
+          "title": "工單資訊"
+        }
+      },
+      "title": "更新工單請求"
+    },
+    "mesWorkOrderInfo": {
+      "type": "object",
+      "properties": {
+        "workOrder": {
+          "type": "string",
+          "title": "工單編號"
+        },
+        "status": {
+          "$ref": "#/definitions/workorderStatus",
+          "title": "工單狀態"
+        },
+        "factoryId": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "廠別"
+        },
+        "departmentId": {
+          "type": "string",
+          "title": "怒門代號"
+        },
+        "productType": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "產品類別"
+        },
+        "recipeId": {
+          "type": "string",
+          "title": "配方編號"
+        },
+        "processName": {
+          "type": "string",
+          "title": "站名"
+        },
+        "reworkName": {
+          "type": "string",
+          "title": "重工"
+        },
+        "reservedWorkDate": {
+          "type": "string",
+          "title": "派工日期"
+        },
+        "reservedShift": {
+          "type": "integer",
+          "format": "int32",
+          "title": "派工班別"
+        },
+        "reservedShiftSequence": {
+          "type": "integer",
+          "format": "int32",
+          "title": "工單序號"
+        },
+        "mainStation": {
+          "type": "string",
+          "title": "主機台"
+        },
+        "associateStation": {
+          "type": "string",
+          "title": "副機台"
+        },
+        "planQty": {
+          "type": "string",
+          "title": "計畫量"
+        },
+        "planBatch": {
+          "type": "integer",
+          "format": "int32",
+          "title": "計畫首"
+        },
+        "inQty": {
+          "type": "string",
+          "title": "計畫量"
+        },
+        "inBatch": {
+          "type": "integer",
+          "format": "int32",
+          "title": "計畫首"
+        },
+        "outQty": {
+          "type": "string",
+          "title": "計畫量"
+        },
+        "outBatch": {
+          "type": "integer",
+          "format": "int32",
+          "title": "計畫首"
+        },
+        "unit": {
+          "type": "string",
+          "title": "計量單位"
+        },
+        "insertedAt": {
+          "type": "string",
+          "title": "建立日期"
+        },
+        "insertedBy": {
+          "type": "string",
+          "title": "建立人員"
+        },
+        "updatedAt": {
+          "type": "string",
+          "title": "更新日期"
+        },
+        "updatedBy": {
+          "type": "string",
+          "title": "更新人員"
+        },
+        "note": {
+          "type": "string",
+          "title": "備註"
+        }
+      },
+      "title": "工單資訊"
+    },
+    "mesWorkOrderOperatingPlcReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorWorkOrderOperating",
+          "title": "錯誤代碼"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesWorkOrderOperatingPlcReplyWorkOrder"
+          },
+          "title": "工單明細"
+        }
+      },
+      "title": "工單操作回應 (for PLC/MHI)"
+    },
+    "mesWorkOrderOperatingPlcReplyWorkOrder": {
+      "type": "object",
+      "properties": {
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "recipe_id": {
+          "type": "string",
+          "title": "配方ID"
+        },
+        "current_process_name": {
+          "type": "string",
+          "title": "中間製品目前階段"
+        },
+        "next_process_name": {
+          "type": "string",
+          "title": "中間製品排程階段"
+        },
+        "status": {
+          "$ref": "#/definitions/codeLotStatus",
+          "title": "狀態"
+        },
+        "shift_sequence": {
+          "type": "string",
+          "title": "排程序號"
+        },
+        "plan_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "計畫產量"
+        },
+        "move_in_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "已投料數量"
+        },
+        "move_out_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "已收料數量"
+        },
+        "plan_sheet_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "總首數"
+        },
+        "in_sheet_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "已投料首數"
+        },
+        "out_sheet_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "已收料首數"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mesGetMaterialWeightReplyMaterial"
+          },
+          "title": "材料清單"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protomesStep"
+          },
+          "title": "設備設定 (分步驟)"
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/rsTool"
+          },
+          "title": "檢核工具"
+        }
+      },
+      "title": "工單明細"
+    },
+    "mesWorkOrderOperatingPlcRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel",
+          "title": "操作類別「R」搜尋工單"
+        },
+        "action_mode": {
+          "$ref": "#/definitions/mescodeMode",
+          "title": "請求類別\nI = 投料 , O = 收料"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "機台號"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "需求筆數"
+        }
+      },
+      "title": "工單操作請求 : 目前只有查詢功能"
+    },
+    "mesWorkOrderOperatingReply": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/errorWorkOrderOperating",
+          "title": "錯誤代碼"
+        },
+        "reserved_orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protomesWorkOrder"
+          },
+          "title": "已排產工單明細"
+        },
+        "unreserved_orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protomesWorkOrder"
+          },
+          "title": "未排產工單明細"
+        }
+      },
+      "title": "工單操作回應 for UI"
+    },
+    "mesWorkOrderOperatingRequest": {
+      "type": "object",
+      "properties": {
+        "action_type": {
+          "$ref": "#/definitions/codeFunctionModel"
+        },
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "equipment_id": {
+          "type": "string",
+          "title": "機台號"
+        },
+        "work_date": {
+          "type": "string",
+          "title": "工作日"
+        },
+        "shift": {
+          "type": "string",
+          "title": "班別"
+        },
+        "department_id": {
+          "type": "string",
+          "title": "作業組別"
+        },
+        "reserved_flag": {
+          "type": "string",
+          "title": "是否只查詢已排程工單"
+        },
+        "product_id": {
+          "type": "string",
+          "title": "產品代號-用於建立工單畫面，使用產品代號做條件搜尋"
+        },
+        "start_date": {
+          "type": "string",
+          "title": "起始日期-用於建立工單畫面，使用產品代號做條件搜尋"
+        },
+        "end_date": {
+          "type": "string",
+          "title": "結束日期-用於建立工單畫面，使用產品代號做條件搜尋"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "產品類型"
+        },
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "廠別"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protomesWorkOrder"
+          },
+          "title": "工單陣列-工單操作條件"
+        },
+        "get_prep": {
+          "$ref": "#/definitions/WorkOrderOperatingRequestGetPrepOrders",
+          "title": "備料條件"
+        }
+      },
+      "title": "工單操作請求 for UI"
+    },
+    "mescodeMode": {
+      "type": "string",
+      "enum": [
+        "MODE_UNSPECIFIED",
+        "IN",
+        "OUT",
+        "SKIP"
+      ],
+      "default": "MODE_UNSPECIFIED",
+      "description": "- MODE_UNSPECIFIED: 進出站未定義\n - IN: 進站\n - OUT: 出站\n - SKIP: 跳站",
+      "title": "進出站flag"
+    },
+    "protomesStep": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "步驟ID"
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Stepcontrol"
+          },
+          "title": "步驟控制設定"
+        }
+      },
+      "title": "步驟"
+    },
+    "protomesWorkOrder": {
+      "type": "object",
+      "properties": {
+        "factory_id": {
+          "$ref": "#/definitions/rsFactoryID",
+          "title": "廠別"
+        },
+        "lot_id": {
+          "type": "string",
+          "title": "工單號"
+        },
+        "recipe_id": {
+          "type": "string",
+          "title": "配方識別碼"
+        },
+        "reserved_equipment_id": {
+          "type": "string",
+          "title": "排程機台"
+        },
+        "product_id": {
+          "type": "string",
+          "title": "中間製品識別碼"
+        },
+        "stage_status": {
+          "$ref": "#/definitions/rsStageStatus",
+          "title": "配方生產別"
+        },
+        "major_version": {
+          "type": "string",
+          "title": "中間製品生產版本"
+        },
+        "current_process_name": {
+          "type": "string",
+          "title": "中間製品目前階段"
+        },
+        "next_process_name": {
+          "type": "string",
+          "title": "中間製品排程階段"
+        },
+        "status": {
+          "$ref": "#/definitions/codeLotStatus",
+          "title": "工單狀態"
+        },
+        "reserved_date": {
+          "type": "string",
+          "title": "排程日期"
+        },
+        "reserved_shift": {
+          "type": "string",
+          "title": "排程班別"
+        },
+        "department_id": {
+          "type": "string",
+          "title": "作業組別"
+        },
+        "shift_seq": {
+          "type": "string",
+          "title": "排程序號"
+        },
+        "move_in_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "已投料數量"
+        },
+        "move_out_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "已收料數量"
+        },
+        "plan_opt_qty": {
+          "type": "number",
+          "format": "float",
+          "title": "計畫產量"
+        },
+        "plan_sheet_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "總首數"
+        },
+        "in_sheet_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "已投料首數"
+        },
+        "out_sheet_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "已收料首數"
+        },
+        "update_at": {
+          "type": "string",
+          "title": "修改日期"
+        },
+        "update_by": {
+          "type": "string",
+          "title": "操作者"
+        },
+        "insert_at": {
+          "type": "string",
+          "title": "建立日期"
+        },
+        "insert_by": {
+          "type": "string",
+          "title": "建立者"
+        },
+        "run_flag": {
+          "type": "string",
+          "title": "工單是否須作業「Y」可排程，「N」不作業"
+        },
+        "product_type": {
+          "$ref": "#/definitions/dmrsProductType",
+          "title": "產品類別"
+        },
+        "recipe_equipment_id": {
+          "type": "string",
+          "title": "下站機台ID"
+        }
+      },
+      "title": "工單明細"
+    },
+    "rsFactoryID": {
+      "type": "string",
+      "enum": [
+        "FACTORY_UNSPECIFIED",
+        "KY",
+        "KU",
+        "KS",
+        "KC",
+        "KT",
+        "KJ",
+        "KV",
+        "KV2",
+        "KI"
+      ],
+      "default": "FACTORY_UNSPECIFIED",
+      "title": "工廠列舉。"
+    },
+    "rsProcessType": {
+      "type": "string",
+      "enum": [
+        "PROCESS_TYPE_UNSPECIFIED",
+        "PROCESS",
+        "MEASUREMENT",
+        "INSPECTION"
+      ],
+      "default": "PROCESS_TYPE_UNSPECIFIED",
+      "title": "工序類別"
+    },
+    "rsStageStatus": {
+      "type": "string",
+      "enum": [
+        "STAGE_STATUS_UNSPECIFIED",
+        "TEMPORARY",
+        "PRODUCTION",
+        "TRIAL_RUN",
+        "EXPERIMENTAL",
+        "DEPRECATED"
+      ],
+      "default": "STAGE_STATUS_UNSPECIFIED"
+    },
+    "rsTool": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "$ref": "#/definitions/rsToolRole"
+        },
+        "id": {
+          "type": "string"
+        },
+        "check_flag": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "工具不須檢核時為false"
+        }
+      },
+      "title": "工器具、載具。"
+    },
+    "rsToolRole": {
+      "type": "string",
+      "enum": [
+        "TOOL_ROLE_UNSPECIFIED",
+        "MOLD",
+        "CART",
+        "RING",
+        "BUILDING_DRUM",
+        "PAPER"
+      ],
+      "default": "TOOL_ROLE_UNSPECIFIED",
+      "description": "- MOLD: 模具,口金 ...\n如：加硫用模具, 三角膠、胎面膠內外口金\n - CART: 台車, 載具 ...\n如：棧板、工字輪、生胎車\n - RING: 環形工具\n如：胎唇充氣環\n - BUILDING_DRUM: 筒, 鼓工具\n如: 成型桶\n - PAPER: 紙張\n如： 基準、核對卡",
+      "title": "工具類型"
+    },
+    "rscontainerType": {
+      "type": "string",
+      "enum": [
+        "CONTAINER_TYPE_UNSPECIFIED",
+        "_233T",
+        "CC",
+        "CLAY",
+        "N220",
+        "N330",
+        "N339",
+        "N550",
+        "N660",
+        "RECYCLE",
+        "N234",
+        "N326",
+        "P150",
+        "V500",
+        "H1",
+        "TOP_LAYER",
+        "MIDDLE_LAYER",
+        "BOTTOM_LAYER",
+        "ADDITION_LAYER",
+        "FIRST_INNER_LINER",
+        "FIRST_CARCASS_PLY",
+        "SECOND_CARCASS_PLY",
+        "THIRD_CARCASS_PLY",
+        "BEAD_FILLER_PRE_ASSEMBLY",
+        "FIRST_SQUEEZE",
+        "FIRST_SIDEWALL",
+        "FIRST_STEEL_BELT",
+        "SECOND_STEEL_BELT",
+        "THIRD_STEEL_BELT",
+        "FOURTH_STEEL_BELT",
+        "FIRST_CAP_PLY",
+        "SECOND_CAP_PLY",
+        "FIRST_TREAD",
+        "GREEN_TIRE",
+        "MATERIAL_PLY",
+        "CURED_RUBBER",
+        "CALENDARED_PLY",
+        "EDGE_GUM",
+        "BEAD",
+        "BEAD_WIRE",
+        "CONVEYOR"
+      ],
+      "default": "CONTAINER_TYPE_UNSPECIFIED",
+      "description": "- CONTAINER_TYPE_UNSPECIFIED: 未指定\n - _233T: 密煉用粉劑 - 建大統一名稱 (預留1~19)\n - RECYCLE: 集塵回收粉\n - P150: 密煉用油體 - 建大統一名稱 (預留20~29)\n - TOP_LAYER: 押出用 (預留30~39)\n - FIRST_INNER_LINER: 一次成型\n內面膠\n - FIRST_CARCASS_PLY: 1P\n - SECOND_CARCASS_PLY: 2P\n - THIRD_CARCASS_PLY: 3P\n - BEAD_FILLER_PRE_ASSEMBLY: 胎圈(鋼絲圈+三角膠)\n - FIRST_SQUEEZE: 墊膠膠片(中心膠)\n - FIRST_SIDEWALL: 胎邊膠 (NPT BASE膠用SIDEWALL)\n - FIRST_STEEL_BELT: 二次成型\n1B\n - SECOND_STEEL_BELT: 2B\n - THIRD_STEEL_BELT: 3B\n - FOURTH_STEEL_BELT: 4B\n - FIRST_CAP_PLY: 尼龍束帶\n - FIRST_TREAD: 胎面膠\n - GREEN_TIRE: 生胎\n - MATERIAL_PLY: 備料用\n簾布(蓋膠用)\n - CURED_RUBBER: 已促膠(中心膠,胎圈組合,蓋膠簾布使用)\n - CALENDARED_PLY: 蓋膠簾布(裁紗簾布,尼龍束帶,鋼絲環帶使用)\n - EDGE_GUM: 環帶邊膠(鋼絲環帶貼附邊膠使用)\n - BEAD: 鋼絲圈(胎圈組合用)\n - BEAD_WIRE: 鋼絲(鋼絲圈用)\n - CONVEYOR: 流水線(非資料維護內容，為避免佔用實際工廠會用到的值，設定999)",
+      "title": "桶槽類型 (密煉為裝載物品類型、押出為流道位置)"
+    },
+    "workorderStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "ACTIVE",
+        "CLOSING",
+        "CLOSED",
+        "SKIPPED"
+      ],
+      "default": "PENDING"
+    }
+  }
+}

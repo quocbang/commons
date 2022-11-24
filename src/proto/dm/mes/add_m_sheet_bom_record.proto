@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message AddMsheetbomRecordRequest {
+  // 配方號
+  string sheet_id = 1;
+  //工單號
+  string lot_id = 2;
+  //途程名稱
+  string process_name = 9;
+  //生產機台ID
+  string eqpt_id = 3;
+  //班別
+  string work_shift = 5;
+  //工作日期
+  string work_at = 6;
+  //作業員
+  string work_by = 7;
+  //投入材料集合
+  repeated MoveInMaterial move_ins = 8;
+}
+
+message MoveInMaterial {
+  // Spec編號
+  string recepe_id = 1;
+  //投料順序
+  string seq_no = 2;
+  //材料標示卡條碼
+  string mtrl_lot_id = 3;
+  //材料 ID
+  string mtrl_product_id = 4;
+  //材料等級
+  string mtrl_level = 5;
+  //投入量
+  float  use_qty = 6;
+  //計量單位
+  string unit = 7;
+  //是否為真實重量
+  bool realWeight = 8;
+}
+
+message AddMsheetbomRecordReply {
+  MoveInErrorCode err = 1;
+}
+
+enum MoveInErrorCode {
+  // 投料成功
+  MOVE_IN_SUCCESS = 0;
+}

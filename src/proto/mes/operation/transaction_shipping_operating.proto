@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+
+message MTxShipListOperatingRequest {
+    code.FunctionModel action_type   =  1;
+    string  tx_id                    =  2; //轉移編號 (廠+移出部門+單據日期+三碼流水號)
+    string  item_id                  =  3; //項次編號
+    int32   sequence_no              =  4;
+    //材料 Lot ID, 標示卡編號
+    string  material_lot_id          =  5;
+    //材料 ID ,材料,半製品,成品編號
+    string  material_product_id      =  6;
+    //材料等級
+    string  material_level           =  7;
+    //移轉數量
+    float   qty                      =  8;
+    //計量單位
+    string  unit                     =  9;
+    //更新人
+    string  update_by                = 10;
+    //Compare Date
+    bool    only_today               = 11;
+    code.ShippingStatus status       = 12;
+}
+
+message MTxShipListOperatingReply {
+    repeated ShippingInfo shippingList    = 1;
+    code.error.MtxShipListOperating  err  = 2;
+}
+message ShippingInfo {
+    string  tx_id                =  1;//轉移編號 (廠+移出部門+單據日期+三碼流水號)
+    string  item_id              =  2;//項次編號
+    int32   sequence_no          =  3;
+    string  material_lot_id      =  4;//材料 Lot ID, 標示卡編號
+    string  material_product_id  =  5;//材料 ID ,材料,半製品,成品編號
+    string  material_level       =  6;//材料等級
+    float   qty                  =  7;//移轉數量
+    string  unit                 =  8;//計量單位
+    string  update_at            =  9;//更新日期
+    string  update_by            = 10;//更新人
+    string  insert_at            = 11;//建檔日期
+    string  insert_by            = 12;//建檔人
+    code.ShippingStatus  status  = 13;
+}

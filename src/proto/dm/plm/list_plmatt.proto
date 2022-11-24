@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto.dm.plm;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/plm";
+
+import "proto/dm/plm/plmatt.proto";
+
+message ListPlmattRequest{
+    int32 plmmasno = 1;     //對應Plmmas.no欄位
+    int32 seq = 2;          //項次
+    string status = 3;      //狀態
+}
+
+message ListPlmattReply{
+    repeated Plmatt datas = 1;
+}

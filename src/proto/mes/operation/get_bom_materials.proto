@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/dm/rs/enums.proto";
+
+// 查詢
+message GetBomRequest {
+  proto.dm.rs.FactoryID factory_id = 1;
+  string equipment_id              = 2;
+  string recipe_id                 = 3;
+  // 途程名稱
+  string process_name              = 4;
+  string recipe_equipment_id       = 5;
+}
+message GetBomReply {
+
+  message BomDetail {
+    string material_product_id    = 1;
+    string level                  = 2;
+    float  qty                    = 3;
+    float  error_margin           = 4;
+    string specified_recipe_id    = 5;
+    string alternative_materials  = 6;
+  }
+
+  repeated BomDetail bom_details = 1;
+}
+

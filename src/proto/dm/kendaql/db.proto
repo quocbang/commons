@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto.dm.kendaql;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/kendaql";
+
+message Database {
+  enum Id {
+    DATABASE_ID_UNSPECIFIED = 0;
+    ERP                     = 1;
+    WERP                    = 2;
+    MES                     = 3;
+    WEB                     = 4;
+  }
+
+  Id id = 1;
+}

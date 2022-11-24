@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+//收料輸入內容
+message UpdateStorageIdRequest {
+  //材料標示卡條碼
+  string mtrl_lot_id = 1;
+  //儲位ID
+  string storage_id = 2;
+}
+
+message UpdateStorageIdReply {}

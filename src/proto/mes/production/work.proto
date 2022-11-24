@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/error/enums.proto";
+import "proto/mes/production/common.proto";
+import "proto/mes/code/enums.proto";
+
+// 投料請求
+// sheetCount 預設值為1
+// moveWeight 不給時則依BOM計算
+// materialLotId 除成型工程外其餘工程不須給值
+message MoveInRequest{
+    //投料收料基本資訊
+    MoveBasicInfo basic_info                 = 1 ;
+    //投入材料集合
+    repeated Material materials = 2;
+    // 標示卡資訊
+    message Material{
+        //材料標示卡條碼
+        string lot_id                       = 1;
+        //投入量 : 密煉製程計量單位為kg, 精度小數三位, 其他製程待訂定
+        float  use_qty                      = 2;
+        //材料 ID
+        string product_id                   = 3;
+        //材料等級
+        string level                        = 4;
+        //是否為真實重量
+        bool realWeight                     = 5;
+    }
+
+}
+
+//投料回應
+message MoveInReply{
+    // 錯誤代碼
+    code.error.MoveIn err = 1;
+}
+
+//收料請求
+message MoveOutRequest{
+    // 收料基本資訊
+    MoveBasicInfo basic_info = 1;
+}
+
+//收料回應
+message MoveOutReply{
+    // 錯誤代碼
+    code.error.MoveOut err = 1;
+}
+
+// 投料/收料結束請求
+// 發出請求以改變工單狀態
+message MoveEndRequest{
+    // 請求類別
+    // I = 投料 , O = 收料
+    code.Mode action_mode      = 1;
+    //工單號
+    string lot_id              = 2;
+    //途程名稱
+    string process_name        = 3;
+    //操作者
+    string update_by           = 4;
+}
+
+
+// 投料/收料結束回應
+message MoveEndReply{
+    // 錯誤代碼
+    code.error.MoveEnd err = 1 ;
+}
+
+

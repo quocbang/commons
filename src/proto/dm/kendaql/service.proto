@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto.dm.kendaql;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/kendaql";
+
+import "google/api/annotations.proto";
+
+import "proto/dm/kendaql/query.proto";
+import "proto/dm/kendaql/mutation.proto";
+
+service KendaQL {
+  rpc Query(QueryRequest) returns (QueryReply) {
+    option (google.api.http) = {
+      post : "/kendaql/query"
+      body : "*"
+    };
+  };
+
+  rpc Mutation(MutationRequest) returns (MutationReply) {
+    option (google.api.http) = {
+      post : "/kendaql/mutation"
+      body : "*"
+    };
+  };
+}

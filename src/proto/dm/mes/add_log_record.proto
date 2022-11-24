@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+import "google/protobuf/timestamp.proto";
+
+enum LogType {
+  NO_THIS_Log_Type = 0;
+  ERROR            = 1; // error record
+  MODIFY           = 2; // modify record
+}
+
+message AddLogRecordRequest {
+  LogType                   type         = 1;
+  string                    factory      = 2;
+  string                    product_cate = 3;
+  string                    product_id   = 4;
+  string                    mtrl_id      = 5;
+  string                    lot_id       = 6;
+  string                    eqpt_id      = 7;
+  string                    old_state    = 8;
+  string                    new_state    = 9;
+  string                    old_limdat   = 10;
+  string                    new_limdat   = 11;
+  int32                     over_day     = 12;
+  string                    reason       = 13;
+  string                    region       = 14;
+  string                    usrno        = 15;
+  google.protobuf.Timestamp intime       = 16;
+}
+
+message AddLogRecordReply {
+  int32 rows_affect = 1;
+}

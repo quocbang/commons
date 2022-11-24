@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package proto.dm.dui;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/dui";
+
+// QueryRequest is request of /dui/query
+message QueryRequest {
+    // ID of database (in data mananger's config)
+    string             database   = 1;
+    // view ID or table name
+    string             source     = 2;
+    // where conditions (join by AND operator)
+    repeated Condition conditions = 3;
+
+    // single where condition
+    message Condition {
+
+        // table field name and type
+        message Field {
+            string name = 1;
+            string type = 2;
+        }
+
+        // field of column expression
+        Field    field     = 1;
+        // operator of column expression
+        Operator operator  = 2;
+        // value of column expression
+        string   value     = 3;
+        // column expression ( used for BETWEEN and NOT BETWEEN operators )
+        string   optValue  = 4;
+    }
+
+    // generic and text related operators
+    enum Operator {
+        OPERATOR_UNSPECIFIED     =  0;
+        // =
+        EQUAL_TO                 =  1;
+        // !=
+        NOT_EQUAL_TO             =  2;
+        // like
+        LIKE                     =  3;
+        // not like
+        NOT_LIKE                 =  4;
+        // >
+        GREATER_THAN             =  5;
+        // >=
+        GREATER_THAN_OR_EQUAL_TO =  6;
+        // <
+        LESS_THAN                =  7;
+        // <=
+        LESS_THAN_OR_EQUAL_TO    =  8;
+        // between
+        BETWEEN                  =  9;
+        // not between
+        NOT_BETWEEN              = 10;
+    }
+}
+
+// QueryReply is reply of /dui/query
+message QueryReply {
+    // title of fields
+    repeated string titles = 1;
+    // result data rows
+    Rows            rows   = 2;
+
+    message Rows {
+        repeated Columns columns = 1;
+    }
+    message Columns {
+        repeated string data = 1;
+    }
+}

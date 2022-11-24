@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package proto.dm.inventory;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/inventory";
+
+import "google/protobuf/timestamp.proto";
+
+enum Status {
+  STATUS_UNSPECIFIED = 0;
+  PENDING            = 1;
+  QUALIFIED          = 2;
+  UNQUALIFIED        = 3;
+}
+
+enum Type {
+  TYPE_UNSPECIFIED = 0;
+  RAW_MATERIAL     = 1;
+  SEMI_FINISHED    = 2;
+  PRODUCT          = 3;
+}
+
+message Info {
+  string                    id                = 1;
+  double                    quantity          = 2;
+  string                    quality           = 3;
+  Status                    status            = 4;
+  google.protobuf.Timestamp manufactured_time = 5;
+}
+
+message Mutation {
+  string barcode      = 1;
+  string factory_id   = 2;
+  string warehouse_id = 3;
+  string storage_no   = 4;
+}

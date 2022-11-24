@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+import "proto/dm/rs/enums.proto";
+
+message MaterialTransactionListOperatingRequest {
+    message Material {
+        //材料 Lot ID, 標示卡編號
+        string lot_id      = 1;
+        //材料類別
+        proto.dm.rs.ProductType type         = 2;
+        //材料 ID ,材料,半製品,成品編號
+        string product_id  = 3;
+        //材料等級
+        string level       = 4;
+        //移轉數量
+        float qty          = 5;
+        //計量單位
+        // TODO this should be a enum
+        string unit        = 6;
+    }
+
+    code.FunctionModel action_type              = 1;
+    //轉移編號 (廠+移出部門+單據日期+三碼流水號)
+    string tx_id                                = 2;
+    //1->生產 (same factory) 2->調撥 (diff factory) 3->代工 4->報廢 5->買賣 6->研發
+    proto.mes.code.TransactionType tx_type    = 3;
+    // 材料
+    repeated Material materials                 = 4;
+    //移出廠
+    proto.dm.rs.FactoryID  current_factory_id   = 8;
+    //移出單位代號
+    string current_department_id                = 9;
+    //移入廠
+    proto.dm.rs.FactoryID  next_factory_id      = 10;
+    //移入單位代號
+    string next_department_id                   = 11;
+    //內外購
+    string codd                                 = 12;
+    //確認人
+    string confirm_by                           = 13;
+    //移轉狀態
+    code.TransactionStatus status               = 14;
+    //註解
+    string comments                             = 15;
+    //建檔人
+    string insert_by                            = 16;
+    //Compare Date
+    bool only_today                             = 17;
+
+}
+
+// TODO @target 應該跟DM整合 commons/src/proto/dm/mes/mtx_list.proto
+message MaterialTransactionListOperatingReply {
+    message MaterialTransaction {
+        //轉移編號 (廠+移出部門+單據日期+三碼流水號)
+        string tx_id                               = 1;
+        //1->生產 (same factory) 2->調撥 (diff factory) 3->代工 4->報廢 5->買賣 6->研發
+        proto.mes.code.TransactionType tx_type     = 2;
+        //材料 Lot ID, 標示卡編號
+        string material_lot_id                     = 3;
+        //材料類別
+        proto.dm.rs.ProductType product_type       = 4;
+        //材料 ID ,材料,半製品,成品編號
+        string material_product_id                 = 5;
+        //材料等級
+        string material_level                      = 6;
+        //移出廠
+        proto.dm.rs.FactoryID  current_factory_id  = 7;
+        //移出單位代號
+        string current_department_id               = 8;
+        //移入廠
+        proto.dm.rs.FactoryID  next_factory_id     = 9 ;
+        //移入單位代號
+        string next_department_id                  = 10;
+        //內外購
+        string codd                                = 11;
+        //移轉數量
+        float  qty                                 = 12;
+        //計量單位
+        string unit                                = 13;
+        //確認日期
+        string confirm_at                          = 14;
+        //確認人
+        string confirm_by                          = 15;
+        //移轉狀態
+        code.TransactionStatus status              = 16;
+        //註解
+        string comments                            = 17;
+        //更新日期
+        string update_at                           = 18;
+        //更新人
+        string update_by                           = 19;
+        //建檔日期
+        string insert_at                           = 20;
+        //建檔人
+        string insert_by                           = 21;
+    }
+    repeated MaterialTransaction MaterialTransactions = 1;
+    code.error.MaterialTransactionOperating err = 2;
+}

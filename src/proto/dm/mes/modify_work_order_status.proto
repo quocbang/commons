@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message UpdateWorkOrderStatusRequest {
+  string   user            = 1;
+  repeated UpdateLots lots = 2;
+  repeated AddBom boms     = 3;
+}
+
+message UpdateLots {
+  string lot_id          = 1;
+  string resv_eqpt_id    = 2;
+  string product_id      = 3;
+  int32  stage_status    = 4;
+  string major_version   = 5;
+  string cr_process_name = 6;
+  string nx_process_name = 7;
+  string lot_stat        = 8;
+  string resv_date       = 9;
+  string resv_shift      = 10;
+  string shift_seq       = 11;
+  float  move_in_qty     = 12;
+  float  move_out_qty    = 13;
+  float  plan_opt_qty    = 14;
+  int32  sht_cnt         = 15;
+  int32  in_sht_cnt      = 16;
+  int32  out_sht_cnt     = 17;
+  string run_flag        = 18;
+  string recipe_eqpt_id  = 19;
+}
+
+message AddBom {
+  // bom info
+}
+
+message UpdateWorkOrderStatusReply {}

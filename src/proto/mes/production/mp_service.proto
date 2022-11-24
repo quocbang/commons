@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+// 依生胎條碼取得MP配方ID請求
+message GetRecipeIDByBarcodeRequest {
+    // 生胎條碼
+    string barcode            = 1;
+    // 設備ID
+    string equipment_id       = 2;
+}
+
+// 依生胎條碼取得MP配方ID回應
+message GetRecipeIDByBarcodeReply {
+    // 配合表ID
+    string recipe_id          = 1;
+}
+
+// 取得MP配方明細請求
+message GetRecipeForMpRequest {
+    // 配合表ID
+    string recipe_id      =1;
+    // 設備ID
+    string equipment_id   =2;
+}
+
+// 取得MP配方明細回應
+message GetRecipeForMpReply {
+
+    // 參數
+    message Parameter {
+        // 參數ID
+        string id          =1;
+        // 參數描述
+        string description =2;
+        // 最大值
+        float  maximum     =3;
+        // 標準值
+        float  standard    =4;
+        // 最小值
+        float  minimum     =5;
+        // 計量單位
+        string unit        =6;
+    }
+
+    // 配方參數清單
+    repeated Parameter parameters = 1;
+}
+
+// 透過生胎條碼確認是否為不良品請求
+message IsRejectsRequest {
+    // 生胎條碼
+    string barcode =1;
+}
+
+// 透過生胎條碼確認是否為不良品回應
+message IsRejectsReply {
+    // 是否為不良品 true=不良
+    bool is_rejects =1;
+}
+
+
+

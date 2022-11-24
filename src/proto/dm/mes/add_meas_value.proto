@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+// 新增
+message AddMeasValueRequest {
+  string   user            = 1;
+  repeated MeasItem values = 2;
+}
+message AddMeasValueReply {}
+
+message MeasItem {
+  string eqpt_id   = 1;
+  string recipe_id = 2;
+  string sht_id    = 3;
+  string item      = 4;
+  string seqno     = 5;
+  string value     = 6;
+  string unit      = 7;
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message GetEqptDetailRequest {
+  string eqpt_id = 1;
+}
+
+message GetEqptDetailReply {
+  string prod_types = 1;
+  string bay_id     = 2;
+  float  volume     = 3;
+}

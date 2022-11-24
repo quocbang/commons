@@ -1,0 +1,13 @@
+#vscode debug file
+debug
+
+#vscode file
+.vscode/*
+
+#clang format setting
+.clang-format
+
+# idea ide settings
+.idea/*xml
+.idea/*iml
+.idea/

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message AddWorkOrderHeadRequest {
+  int32  fty_id       = 1;
+  string product_cate = 2;
+  string user         = 3;
+}
+
+message AddWorkOrderHeadReply {
+  repeated LotHead heads = 1;
+}
+
+message LotHead {
+  string lot_head = 1;
+  string seq_no   = 2;
+}

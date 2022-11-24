@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+
+// 設定工單初始途程請求
+message SetInitialProcessRequest{
+    // 工單號
+    string lot_id               = 1;
+    // 起始作業階段
+    string current_process_name = 2;
+    // 下一階段(若無下一階就給起始)
+    string next_process_name    = 3;
+    // 操作者
+    string update_by            = 4;
+}
+
+// 設定工單初始途程回應
+message SetInitialProcessReply{
+    code.error.SetInitialProcess err = 1;
+}
+
+

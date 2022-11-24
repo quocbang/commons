@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto.dm.prd;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/prd";
+
+message GetBatchQuantityRequest {
+  string subno  = 1;
+  string partno = 2;
+}
+
+message GetBatchQuantityReply {
+  float  batch_qty  = 1;
+  string batch_unit = 2;
+}

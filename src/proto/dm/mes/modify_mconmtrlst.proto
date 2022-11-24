@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+// Update Meqptconmtrlst Info
+message UpdateMconmtrlstRequest {
+  string container_id    = 1;
+  string mtrl_lot_id     = 2;
+  string new_mtrl_lot_id = 3;
+  string action_order    = 4;
+  string new_action_type = 5;
+  string update_by       = 6;
+  string update_at       = 7;
+}
+message UpdateMconmtrlstReply {}

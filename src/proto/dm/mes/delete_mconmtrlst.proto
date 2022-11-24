@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message DeleteMconmtrlstRequest {
+  string container_id = 1;
+  string mtrl_lot_id  = 2;
+  string update_by    = 3;
+  string action_order = 4;
+}
+message DeleteMconmtrlstReply {
+  string container_id = 1;
+  string mtrllot_id   = 2;
+  string action_type  = 3;
+  string update_by    = 4;
+  string update_at    = 5;
+}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/dm/rs/enums.proto";
+
+message ListProductIDsRequest {
+    proto.dm.rs.FactoryID factory_id     = 1;
+    proto.dm.rs.ProductType product_type = 2;
+    // 途程名稱
+    string process_name                  = 3;
+}
+
+message ListProductIDsReply {
+    message Products {
+        string recipe_id                = 1;
+        string product_id               = 2;
+        proto.dm.rs.StageStatus status  = 3;
+        string major                    = 4;
+        string minor                    = 5;
+        string level                    = 6;
+    }
+    repeated Products products = 1;
+}

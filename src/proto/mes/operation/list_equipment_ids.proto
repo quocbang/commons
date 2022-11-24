@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+import "proto/dm/rs/enums.proto";
+
+message ListEquipmentIDsRequest {
+    proto.dm.rs.FactoryID factory_id  = 1;
+    string department_id              = 2;
+}
+
+message ListEquipmentIDsReply {
+    message Equipments {
+        string id          = 1;
+        string description = 2;
+    }
+    repeated Equipments equipments = 1;
+}
+

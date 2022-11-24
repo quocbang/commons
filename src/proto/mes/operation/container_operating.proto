@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/container/enum_type.proto";
+
+message ContainerOperatingRequest{
+    code.FunctionModel action_type            = 1;
+    string container_id                       = 2;
+    proto.dm.rs.FactoryID owned_factory_id    = 3;
+    string owned_department_id                = 4;
+    code.ContainerStatus  status              = 5;
+    proto.dm.rs.container.Type container_type = 6;
+    string update_by                          = 7;
+}
+
+message ContainerOperatingReply{
+    code.error.ContainerIdOperating    err  = 1;
+    repeated ContainerInfo containerInfo    = 2;
+    message ContainerInfo{
+        string container_id                        = 1;
+        proto.dm.rs.FactoryID  owned_factory_id    = 2;
+        string owned_department_id                 = 3;
+        code.ContainerStatus  status               = 4;
+        proto.dm.rs.container.Type container_type  = 5;
+        string update_at                           = 6;
+        string update_by                           = 7;
+    }
+}

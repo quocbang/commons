@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+
+package proto.dm.rs.container;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs/container";
+
+// 桶槽類型 (密煉為裝載物品類型、押出為流道位置)
+enum Type {
+    // 未指定
+    CONTAINER_TYPE_UNSPECIFIED = 0;
+
+// 密煉用粉劑 - 建大統一名稱 (預留1~19)
+    _233T                      = 1;
+    CC                         = 2;
+    CLAY                       = 3;
+    reserved 4;
+    N220                       = 5;
+    N330                       = 6;
+    N339                       = 7;
+    N550                       = 8;
+    N660                       = 9;
+    // 集塵回收粉
+    RECYCLE                    = 10;
+    N234                       = 11;
+    N326                       = 12;
+    reserved 13 to 19;
+
+// 密煉用油體 - 建大統一名稱 (預留20~29)
+    P150                       = 20;
+    V500                       = 21;
+    H1                         = 22;
+    reserved 23 to 29;
+
+// 押出用 (預留30~39)
+    TOP_LAYER                  = 30;
+    MIDDLE_LAYER               = 31;
+    BOTTOM_LAYER               = 32;
+    ADDITION_LAYER             = 33;
+    reserved 34 to 39;
+
+// 一次成型
+    //內面膠
+    FIRST_INNER_LINER          = 40;
+    reserved 41 to 45;
+
+    //1P
+    FIRST_CARCASS_PLY          = 46;
+    //2P
+    SECOND_CARCASS_PLY         = 47;
+    //3P
+    THIRD_CARCASS_PLY          = 48;
+    reserved 49 to 50;
+
+    //胎圈(鋼絲圈+三角膠)
+    BEAD_FILLER_PRE_ASSEMBLY   = 51;
+    reserved 52 to 55;
+
+    //墊膠膠片(中心膠)
+    FIRST_SQUEEZE              = 56;
+    reserved 57 to 60;
+
+    //胎邊膠 (NPT BASE膠用SIDEWALL)
+    FIRST_SIDEWALL             = 61;
+    reserved 62 to 80;
+
+    // 二次成型
+    //1B
+    FIRST_STEEL_BELT           = 81;
+    //2B
+    SECOND_STEEL_BELT          = 82;
+    //3B
+    THIRD_STEEL_BELT           = 83;
+    //4B
+    FOURTH_STEEL_BELT          = 84;
+    reserved 85 to 90;
+
+    //尼龍束帶
+    FIRST_CAP_PLY              = 91;
+    SECOND_CAP_PLY             = 92;
+    reserved 93 to 95;
+
+    //胎面膠
+    FIRST_TREAD                = 96;
+    reserved 97 to 100;
+
+    //生胎
+    GREEN_TIRE                 = 101;
+    reserved 102 to 105;
+
+// 備料用
+    //簾布(蓋膠用)
+    MATERIAL_PLY               = 106;
+    reserved 107 to 110;
+
+    //已促膠(中心膠,胎圈組合,蓋膠簾布使用)
+    CURED_RUBBER               = 111;
+    reserved 112 to 115;
+
+    //蓋膠簾布(裁紗簾布,尼龍束帶,鋼絲環帶使用)
+    CALENDARED_PLY             = 116;
+    reserved 117 to 120;
+
+    //環帶邊膠(鋼絲環帶貼附邊膠使用)
+    EDGE_GUM                   = 121;
+    reserved 122 to 125;
+
+    //鋼絲圈(胎圈組合用)
+    BEAD                       = 126;
+    reserved 127 to 130;
+
+    //鋼絲(鋼絲圈用)
+    BEAD_WIRE                  = 131;
+
+    //流水線(非資料維護內容，為避免佔用實際工廠會用到的值，設定999)
+    CONVEYOR                   = 999;
+}

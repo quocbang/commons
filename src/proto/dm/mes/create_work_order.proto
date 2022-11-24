@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message AddWorkOrderRequest {
+  repeated orderList orders = 1;  
+}
+
+message orderList{
+  int32    fty_id            = 1;
+  string   lot_id            = 2;
+  string   recipe_id         = 3;
+  string   product_id        = 4;
+  string   major_version     = 5;
+  int32    stage_status      = 6;
+  float    plan_qty          = 7;
+  string   dept_id           = 8;
+  string   prod_type         = 9;
+  string   rwk_name          = 10;
+  string   cr_process_name   = 11;
+  string   nx_process_name   = 12;
+  int32    plan_sht_cnt      = 13;
+  string   insert_by         = 14;
+  string   run_flag          = 15;
+}
+
+message AddWorkOrderReply {
+  repeated Clot lots = 1;
+}
+
+message Clot {
+  string cr_process_name = 1;
+  string nx_process_name = 2;
+  float  plan_qty        = 3;
+}

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+import "proto/dm/rs/enums.proto";
+
+message EquipmentOperatingRequest {
+    code.FunctionModel action                = 1;
+    string equipment_id                      = 2;
+    proto.dm.rs.FactoryID  owned_factory_id  = 3;
+    string owned_department_id               = 4;
+    // TODO: remove this in feature
+    string bay_id                            = 5;
+    string description                       = 6;
+    string volume                            = 7;
+    // here are product type values split by `,`
+    string product_types                     = 8;
+    string update_by                         = 9;
+}
+message EquipmentOperatingReply {
+    code.error.EquipmentOperating err = 1;
+    repeated Equipment equipments     = 2;
+    message Equipment {
+        string id                                = 1;
+        proto.dm.rs.FactoryID owned_factory_id   = 2;
+        string owned_department_id               = 3;
+        // TODO: remove this in feature
+        string bay_id                            = 4;
+        string description                       = 5;
+        string volume                            = 6;
+        // here are product type values split by `,`
+        string product_types                     = 7;
+        string update_by                         = 8;
+        string update_at                         = 9;
+    }
+}

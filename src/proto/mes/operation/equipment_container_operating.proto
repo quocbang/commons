@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto.mes;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes";
+
+import "proto/mes/code/enums.proto";
+import "proto/mes/code/error/enums.proto";
+
+message EquipmentContainerOperatingRequest {
+    code.FunctionModel action_type    = 1;
+    string equipment_id               = 2;
+    repeated string container_ids     = 3;
+    string update_by                  = 4;
+}
+
+message EquipmentContainerOperatingReply {
+    code.error.EquipmentContainerOperating err       = 1;
+    repeated EquipmentContainer equipment_containers = 2;
+    message EquipmentContainer {
+        string equipment_id  = 1;
+        string container_id  = 2;
+        string update_by     = 3;
+        string update_at     = 4;
+    }
+}

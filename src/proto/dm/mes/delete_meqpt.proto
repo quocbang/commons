@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package proto.dm.mes;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/mes";
+
+message DeleteMeqptRequest {
+  string eqpt_id = 1;
+}
+
+message DeleteMeqptReply {}

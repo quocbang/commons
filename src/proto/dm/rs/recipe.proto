@@ -1,0 +1,240 @@
+syntax = "proto3";
+
+package proto.dm.rs;
+option go_package = "gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/dm/rs";
+
+import "proto/dm/rs/enums.proto";
+import "proto/dm/rs/container/enum_type.proto";
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+
+
+////////////////////////////////////////////////////////////////
+
+// 數值參數。
+message Param {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  enum Type {
+    PARAM_TYPE_UNSPECIFIED = 0; // no this type.
+    VALUE                  = 1; // value  (only central value)
+    MAX                    = 2; // <= max (only max value)
+    MIN                    = 3; // >= min (only min value)
+    RANGE                  = 4; // include min, max, central
+    ENUM                   = 5; // enum data
+    OTHERS                 = 6; //not in above
+  }
+  Type   type = 1 [ (gogoproto.moretags) = 'bson:\"type\"' ];
+  string unit = 2 [ (gogoproto.moretags) = 'bson:\"unit\"' ]; // PHR, Recycle Percentage, KG, mm, ...
+
+  message Constraint {
+    option (gogoproto.goproto_unrecognized) = false;
+    option (gogoproto.goproto_unkeyed)      = false;
+    option (gogoproto.goproto_sizecache)    = false;
+
+    float value = 1 [ (gogoproto.moretags) = 'bson:\"value\"' ];
+  }
+
+  message Enum {
+    option (gogoproto.goproto_unrecognized) = false;
+    option (gogoproto.goproto_unkeyed)      = false;
+    option (gogoproto.goproto_sizecache)    = false;
+
+    int32 value = 1 [ (gogoproto.moretags) = 'bson:\"value\"' ];
+  }
+  Constraint central      = 3 [ (gogoproto.moretags) = 'bson:\"central\"' ];     //中心值
+  Constraint min          = 4 [ (gogoproto.moretags) = 'bson:\"min\"' ];         //最小值
+  Constraint max          = 5 [ (gogoproto.moretags) = 'bson:\"max\"' ];         //最大值
+  Constraint error_margin = 6 [ (gogoproto.moretags) = 'bson:\"errorMargin\"' ]; //誤差範圍
+  Enum       enum         = 7 [ (gogoproto.moretags) = 'bson:\"enum\"' ];        //清單式參數設定值
+  string     others       = 8 [ (gogoproto.moretags) = 'bson:\"others\"' ];      //清單式參數設定值
+}
+
+
+// 原材料。  //TODO 20190320 成型材料上下貼、環帶/簾布貼覆的順序
+message Material {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  // Every Process's Output Could Be Next Porcess's Material
+  string type  = 1 [ (gogoproto.moretags) = 'bson:\"type\"' ];
+  string level = 2 [ (gogoproto.moretags) = 'bson:\"level\"' ]; // A、B
+  string name  = 3 [ (gogoproto.moretags) = 'bson:\"name\"' ];
+  // 掛載桶槽類型 CC、BCC、TOP、BOTTOM、P1、P2 ...etc
+  container.Type container_type = 4 [ (gogoproto.moretags) = 'bson:\"containerType\"' ];
+  Param         param          = 5 [ (gogoproto.moretags) = 'bson:\"param\"' ];
+  string        req_recipe_id  = 6 [ (gogoproto.moretags) = 'bson:\"reqRecipeID\"' ];
+}
+
+// 工器具、載具。
+message Tool {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+  ToolRole  role       = 1 [ (gogoproto.moretags) = 'bson:\"role\"' ];
+  string    id         = 2 [ (gogoproto.moretags) = 'bson:\"id\"' ];
+  // 工具不須檢核時為false
+  bool      check_flag = 3 [ (gogoproto.moretags) = 'bson:\"check_flag\"' ];
+}
+
+// 物性、量測或控制訊號可為數值參數+敘述，或其一。
+message Property {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  string name        = 1 [ (gogoproto.moretags) = 'bson:\"name\"' ];
+  Param  param       = 2 [ (gogoproto.moretags) = 'bson:\"param\"' ];
+  string description = 3 [ (gogoproto.moretags) = 'bson:\"description\"' ];
+}
+
+// 配合配方版本。
+message Version {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  enum FlowStatus { // 未生效、已生效、變更中、作廢、失效
+    FLOW_STATUS_UNSPECIFIED = 0;
+    EXECUTORY               = 1;
+    EFFECTIVE               = 2;
+    INCHANGE                = 3;
+    VOID                    = 4;
+    INVALID                 = 5;
+  }
+  StageStatus stage_status = 1 [ (gogoproto.moretags) = 'bson:\"stageStatus\"' ];
+  FlowStatus  flow_status  = 2 [ (gogoproto.moretags) = 'bson:\"flowStatus\"' ];
+  string      major        = 3 [ (gogoproto.moretags) = 'bson:\"major\"' ];
+  string      minor        = 4 [ (gogoproto.moretags) = 'bson:\"minor\"' ];
+
+  google.protobuf.Timestamp submitted_at = 5 [ (gogoproto.moretags) = 'bson:\"submittedAt\"' ]; // 申請日
+  string                    updated_by   = 6 [ (gogoproto.moretags) = 'bson:\"updatedBy\"' ];   // 維護人  UsrId
+  google.protobuf.Timestamp updated_at   = 7 [ (gogoproto.moretags) = 'bson:\"updatedAt\"' ];   // 維護日, 資料更新時同步更新維護人&維護日
+  google.protobuf.Timestamp released_at  = 8 [ (gogoproto.moretags) = 'bson:\"releasedAt\"' ];  // 發行日
+  string                    release_by   = 9 [ (gogoproto.moretags) = 'bson:\"releaseBy\"' ];   // 發行人
+  repeated string note                   = 10 [ (gogoproto.moretags) = 'bson:\"note\"' ];       // 所有人工註解 : 建議混練程序、膠料用途、申請原因
+}
+
+// 單一工序的定義。
+message Process {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  string      name = 1 [ (gogoproto.moretags) = 'bson:\"name\"' ];
+  ProcessType type = 2 [ (gogoproto.moretags) = 'bson:\"type\"' ];
+  message     Config {
+    option (gogoproto.goproto_unrecognized) = false;
+    option (gogoproto.goproto_unkeyed)      = false;
+    option (gogoproto.goproto_sizecache)    = false;
+
+    // 符合的機台及工具。
+    repeated string stations = 1 [ (gogoproto.moretags) = 'bson:\"stations\"' ];
+    repeated Tool tools      = 2 [ (gogoproto.moretags) = 'bson:\"tools\"' ];
+
+    // 分階段的材料、控制、f量測設定。
+    message Step {
+      option (gogoproto.goproto_unrecognized) = false;
+      option (gogoproto.goproto_unkeyed)      = false;
+      option (gogoproto.goproto_sizecache)    = false;
+
+      repeated Material materials    = 1 [ (gogoproto.moretags) = 'bson:\"materials\"' ];
+      repeated Property controls     = 2 [ (gogoproto.moretags) = 'bson:\"controls\"' ];     // 控制。
+      repeated Property measurements = 3 [ (gogoproto.moretags) = 'bson:\"measurements\"' ]; // 量測。
+    }
+    repeated Step steps = 4 [ (gogoproto.moretags) = 'bson:\"steps\"' ];
+  }
+  repeated Config configs = 3 [ (gogoproto.moretags) = 'bson:\"configs\"' ];
+}
+
+// 配合表: 多個單一工序及異常處理流程。
+message Recipe {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  string   id                = 1 [ (gogoproto.moretags) = 'bson:\"id\"' ];
+  string   product_type      = 2 [ (gogoproto.moretags) = 'bson:\"productType\"' ];
+  string   product_id        = 3 [ (gogoproto.moretags) = 'bson:\"productID\"' ];
+  repeated FactoryID factory = 4 [ (gogoproto.moretags) = 'bson:\"factory\"' ];
+  Version            version = 5 [ (gogoproto.moretags) = 'bson:\"version\"' ];
+
+  // 來源配方。
+  string parent_spec_id = 6 [ (gogoproto.moretags) = 'bson:\"parentSpecID\"' ];
+
+  // 配合的工序。e.g., 素煉、加促、…
+  repeated Process processes = 7 [ (gogoproto.moretags) = 'bson:\"processes\"' ];
+
+  // 部份檢驗或異常處理流程。
+  message OptionalFlow {
+    option (gogoproto.goproto_unrecognized) = false;
+    option (gogoproto.goproto_unkeyed)      = false;
+    option (gogoproto.goproto_sizecache)    = false;
+
+    string      name               = 1 [ (gogoproto.moretags) = 'bson:\"name\"' ];
+    string      after_process_name = 2 [ (gogoproto.moretags) = 'bson:\"afterProcessName\"' ]; // 此流程發生於指定工序之後。
+    ProcessType after_process_type = 3 [ (gogoproto.moretags) = 'bson:\"afterProcessType\"' ]; // 此流程發生於指定工序之後。
+    int32       max_repetitions    = 4 [ (gogoproto.moretags) = 'bson:\"maxRepetitions\"' ];
+    repeated Process processes     = 5 [ (gogoproto.moretags) = 'bson:\"processes\"' ];
+  }
+  repeated OptionalFlow optional_flows = 8 [ (gogoproto.moretags) = 'bson:\"optionalFlows\"' ];
+}
+
+// 配方表。
+message Spec {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  string   id                = 1 [ (gogoproto.moretags) = 'bson:\"id\"' ];
+  string   product_type      = 2 [ (gogoproto.moretags) = 'bson:\"productType\"' ];
+  string   product_id        = 3 [ (gogoproto.moretags) = 'bson:\"productID\"' ];
+  repeated FactoryID factory = 4 [ (gogoproto.moretags) = 'bson:\"factory\"' ];
+  Version            version = 5 [ (gogoproto.moretags) = 'bson:\"version\"' ];
+
+  string parent_spec_id = 6 [ (gogoproto.moretags) = 'bson:\"parentSpecID\"' ]; // 修改自其它配方。若無則留空白。
+
+  repeated Material materials  = 7 [ (gogoproto.moretags) = 'bson:\"materials\"' ];
+  repeated Tool tools          = 8 [ (gogoproto.moretags) = 'bson:\"tools\"' ];
+  repeated Property properties = 9 [ (gogoproto.moretags) = 'bson:\"properties\"' ]; // 物性。
+}
+
+//微調配方表
+message TrimSpec {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  repeated FactoryID factory    = 1 [(gogoproto.moretags) = 'bson:\"factory\"' ];
+  string id                     = 2 [(gogoproto.moretags) = 'bson:\"id\"' ];  //配合表編號
+  string product_id             = 3 [(gogoproto.moretags) = 'bson:\"productID\"' ];
+  string product_type           = 4 [(gogoproto.moretags) = 'bson:\"productType\"' ];
+  Version ref_spec_version      = 5 [(gogoproto.moretags) = 'bson:\"refSpecVersion\"' ];
+  repeated Material materials   = 6 [(gogoproto.moretags) = 'bson:\"materials\"' ];
+}
+
+//最新發行版本
+message ArouteActive {
+  option (gogoproto.goproto_unrecognized) = false;
+  option (gogoproto.goproto_unkeyed)      = false;
+  option (gogoproto.goproto_sizecache)    = false;
+
+  enum Mode { //月結版本、最新發行版本
+    MODE_UNSPECIFIED = 0;
+    MONTHLY          = 1;
+    ACTIVELY         = 2;
+  }
+
+  repeated FactoryID        factory      = 1 [ (gogoproto.moretags) = 'bson:\"factory\"' ];
+  string                    id           = 2 [ (gogoproto.moretags) = 'bson:\"id\"' ];
+  Mode                      mode         = 3 [ (gogoproto.moretags) = 'bson:\"mode\"' ];
+  string                    product_type = 4 [ (gogoproto.moretags) = 'bson:\"productType\"' ];
+  string                    process_name = 5 [ (gogoproto.moretags) = 'bson:\"processName\"' ];
+  StageStatus               stage_status = 6 [ (gogoproto.moretags) = 'bson:\"stageStatus\"' ];
+  google.protobuf.Timestamp update_at    = 7 [ (gogoproto.moretags) = 'bson:\"updateAt\"' ];
+  string                    update_by    = 8 [ (gogoproto.moretags) = 'bson:\"updateBy\"' ];
+}
+

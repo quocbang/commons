@@ -1,0 +1,313 @@
+syntax = "proto3";
+
+package proto.mes.v2;
+option go_package="gitlab.kenda.com.tw/kenda/commons/v2/proto/golang/mes/v2";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "proto/mes/v2/api/api.proto";
+import "proto/mes/v2/api/inspection.proto";
+
+// 呼叫 MES API 時, 請傳入以下 metadata:
+//  - User-Id:  帳號/工號
+//  - Prg-No:   呼叫端程式代號
+//  - Prg-Type: 呼叫端程式類別
+//  - Station:  操作機台
+//  - Site:     操作工位(操作人員登入用, 不同於材料用的工位)
+//  - Timezone: 時區, 依server部屬廠別固定時區, 依據 IANA Time Zone database, ex: Asia/Taipei.
+//  - ResourceFactoryID: 廠別, 決定材料庫所在廠別, 僅供 ResourceBind 端點使用.
+service API {
+    // 工單操作
+    //
+    // 工單操作包含以下功能:
+    //  - 變更工單狀態(工單狀態請參考 ./workorder/workorder.proto enum Status),
+    //    包含以下變更方式:
+    //     - 跳過工單: 將 skipWorkOrders 內所有工單狀態變更為 SKIPPED. 將工單狀態從
+    //                PENDING -> SKIPPED, 其他狀態不可執行此操作.
+    //     - 投料結束工單: closeWorkOrder=指定結束工單, 工單狀態必須為 ACTIVE,
+    //                    同時所有的首數(batch)狀態為 BATCH_PREPARING / BATCH_CLOSING / BATCH_CLOSED /
+    //                    BATCH_CANCELLED (首數狀態請參考 ./workorder/workorder.proto enum BatchStatus)
+    //                    任一種狀態, 系統將變更工單狀態為 CLOSING, 否則不可執行操作並將錯誤回饋到
+    //                    WorkOrderReply.error.
+    //                    系統一併會把全部首數狀態 = BATCH_PREPARING 更新成 BATCH_CANCELLED 代表該首數已被取消.
+    //       您亦可透過指定 closeMode=ACTION_FORCE 進行強制執行, 程式同樣回饋錯誤警示並變更工單狀態.
+    //       若工單狀態非上述允許的狀態, 則不可執行此操作, 即使指定 closeMode=ACTION_FORCE 也無法變更狀態.
+    //     - 收料結束工單: finishWorkOrder=指定結束工單, 不檢查首數狀態.
+    //     - 執行工單: 依據 startWorkOrder 執行指定工單. 將工單狀態從 PENDING -> ACTIVE, 其他狀態不可執行此操作.
+    //  - 查詢工單資料: 依據 loadWorkOrders 查詢工單資料, 詳細操作請參考 ./workorder/workorder.proto
+    //                message WorkOrderRequest.LoadWorkOrders. 其查詢結果為 workOrders.
+    //     - 查詢工單(todosWithDetails): 表示取得工單需含該作業流程所需用到配方以及機台參數.
+    //  - 變更首數狀態: 透過指定 batchAction 變更指定工單的首數狀態.
+    //
+    // 若一個請求包含上述所有功能, 系統執行順序為 [變更首數狀態] -> [變更工單狀態] -> [查詢工單資料].
+    //
+    // 取得TODO工單回傳資訊:
+    //  - id: 工單號
+    //  - process: 生產作業階段
+    //  - batches.count: 目標生產總批次
+    //  - batches size分三種類型表示(只會出現一種), 分別用來表示 batches.count 對應關係:
+    //     - unitQuantity: 為 true 的話, 表示為單位數量, 如: 成型每次生產一條生胎
+    //     - fixedQuantity: 每次批次產出數量為固定數值, 依研發單位制定
+    //     - perBatchQuantities: 每次批次產出數量不同, 派工決定該批次產出數量
+    //  - status: 工單狀態, 請參考 ./workorder/workorder.proto enum Status
+    //  - fedBatch: 已經投入材料的批次
+    //  - collectedBatch: 已收取成品的批次
+    //  - recipe: details格式為[key]value的型式, 如下說明:
+    //     - groupedResources : 材料
+    //        - STEP-${n}-MATERIALS : 表示各階段所需使用的材料, ${n}為大於0整數
+    //           - requirements : 材料清單
+    //        - TOOLS : 表示作業所需使用的製工具清單
+    //           - requirements : 工具清單
+    //     - groupedParams : 機台參數
+    //        - STEP-${n}-CONTROL : 表示各階段機台設定參數, ${n}為大於0整數
+    //           - params : 參數清單
+    //        - STEP-${n}-MEASUREMENT : 表示各階段機台量測參數, ${n}為大於0整數
+    //           - params : 參數清單
+    //
+    // 下列為回傳錯誤清單:
+    //  - Error_ERROR_BAD_REQUEST
+    //  - Error_ERROR_BATCH_NOT_FOUND (找不到工單作業批次)
+    //  - Error_ERROR_WORKORDER_BAD_BATCH (錯誤的作業批次)
+    //  - Error_ERROR_WORKORDER_NOT_FOUND (找不到工單)
+    //  - Error_ERROR_WORKORDER_BAD_STATUS (工單狀態錯誤不允許進行操作)
+    rpc WorkOrder (api.WorkOrderRequest) returns (api.WorkOrderReply) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/workorder"
+            body : "*"
+        };
+    };
+
+    // 作業員登入出機台工位
+    //
+    // 指定 in 的值表示為登入或登出. 登入: in=true; 登出: in=false.
+    // 欲登入出的作業員身分指定於 metadata 的 User-Id, 而登入出的機台工位則分別依據 metadata 的
+    //  Station 和 Site.
+    //
+    // 登入時必需指定:
+    //  - workDate: 工作日, unix nano格式.
+    //  - group: 工作群組, 將影響生產批號(詳細請參考 rpc Collect).
+    //
+    // 登出時僅需指定: in=false.
+    //
+    // 如果 onlyValidation 指定為 true, 表示檢查該工號是否為在職.
+    //
+    // 下列為回傳錯誤清單:
+    //  - Error_ERROR_BAD_REQUEST
+    //  - Error_ERROR_USER_NOT_FOUND_OR_BAD_PASSWORD (使用者已離職或密碼錯誤)
+    //  - Error_ERROR_US_MISMATCH (作業員與機台登入人員不符, 無法登出)
+    //  - Error_ERROR_US_SIGN_ON_FORBIDDEN (上一位使用者沒登出, 無法登入)
+    rpc Operator (api.OperatorRequest) returns (api.OperatorReply) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/sign"
+            body : "*"
+        };
+    };
+
+    // 條碼掛載
+    //
+    // Check & Bind Material(目前不含工具掛載)
+    // 材料檢查, 掛載包含以下操作模式(依據 check.actionMode 決定):
+    //  - ACTION_AUTO: 材料檢查(參考下面材料檢查), 材料檢查成功後, 則進行材料綁定(參考下面材料掛載).
+    //  - ACTION_FORCE: 材料檢查(參考下面材料檢查), 不論材料檢查結果, 皆進行材料綁定(參考下面材料掛載).
+    //  - ACTION_PRECHECK: 僅材料檢查(參考下面材料檢查), 若有給工單號則會檢查材料是否足夠配方需求.
+    //
+    // 工單檢查:
+    //  - 如有指定生產工單(check.workOrder), 檢查工單狀態是否可以進行綁定材料(Status_ACTIVE/Status_PENDING 狀態才能進行掛載).
+    //  - 如有指定生產批次(check.batch), 檢查該作業批次是否可以進行綁定材料(BatchStatus_BATCH_PREPARING/BatchStatus_BATCH_STARTED 狀態才能進行掛載).
+    //  - 指定工單會檢查配方表是否存在.
+    //  - 未來binds.workOrder, binds.batch 會棄用, 統一從check取得相關資訊.
+    //
+    // 材料檢查:
+    //  - 檢查指定條碼(binds.resource.ID)是否可以使用(庫存數,到期日,狀態等),
+    //    如果是force mode下, 如果材料條碼不存在也會允許可以掛載, 但必須指定實際秤重量(binds.resource.quantity不得為空).
+    //  - 有指定工單並取得配方表會檢查材料是否符合(各材料滿足配方所需數量).
+    //
+    // 材料掛載:
+    //  - binds.type: 指定材料綁定的方式 參考 BindType enum.
+    //  - 將 binds.resource 綁定至對應的 site,
+    //    site unique/index/resource 未來會拿掉, 可統一先設置 unique=true.
+    //  - 綁定指定數量(實際秤重): binds.quantityGrouped == true 來決定是否將材料進行群組(將料號一樣/可替代的材料統一秤重),
+    //    如數量為0會檢查前面是否有相同料號的材料有指定數量, 則視為材料群組, 系統將計算各別綁定的數量.
+    //    例如: 材料 a 能使用材料 b 替代, 請求中的 binds.resources 指定兩張條碼({resource.id = a, quantity = 40}
+    //    和 {resource.id = b, quantity = 0})綁定於 LINE site, 在 a 材料庫存為10的情況, 系統可能將材料 a 綁定10,
+    //    材料 b 綁定30.
+    //    在未使用材料群組情況指定綁定數量為0時, 系統不會綁定材料並回傳相應錯誤, 若使用強制執行(ACTION_FORCE)
+    //    進行操作, 系統會將數量為0的材料綁定至指定的 site.
+    //
+    // 材料卸載(如: pop, clear): binds.resources 可以為空.
+    //
+    // 回傳:
+    //  - 有給條碼(binds.resource.ID)的情況, 必會回傳指定條碼對應的材料資訊(results.info).
+    //  - 如材料有錯誤會紀錄在相對應results.ID底下, 其於沒有對應條碼的錯誤會是機台或者工單錯誤等.
+    //
+    // 下列為回傳錯誤清單:
+    //  - Error_ERROR_BAD_REQUEST
+    //  - ERROR_WORKORDER_NOT_FOUND (找不到指定的工單)
+    //  - ERROR_WORKORDER_BAD_BATCH (該工單作業批次狀態無法進行掛載)
+    //  - ERROR_BATCH_NOT_FOUND (找不到指定的作業批次)
+    //  - ERROR_US_MISMATCH (操作人員與機台登入人員不符)
+    //  - ERROR_SR_SITE_NOT_FOUND (找不到指定操作工位)
+    //  - ERROR_SW_MISMATCH (操作機台與派工單不符)
+    //  - ERROR_RW_RESOURCE_MISSING (部份所需的材料未齊全)
+    //  - ERROR_RESOURCE_NOT_FOUND (材料條碼不存在)
+    //  - ERROR_RESOURCE_EXPIRED (材料過期)
+    //  - ERROR_RESOURCE_ON_HOLD (材料狀態不能使用)
+    //  - ERROR_RW_QUANTITY_BELOW_MIN (材料用量低於最低限制用量)
+    //  - ERROR_RW_QUANTITY_ABOVE_MAX (材料用量高於最高限制用量)
+    //  - ERROR_RW_QUANTITY_SHORTAGE (材料庫存不足))
+    //  - ERROR_RW_BAD_GRADE (材料等級不符)
+    //  - ERROR_RW_RESOURCE_UNEXPECTED (材料與配方不符)
+    rpc ResourceBind (api.ResourceBindRequest) returns (api.ResourceBindReply) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/resource/bind"
+            body : "*"
+        };
+    };
+
+    // 投料
+    //
+    // 投料功能須指定投料的工單(check.workOrder)
+    //
+    // 系統將依據 feeds 指定將從哪個材料工位(feeds.site) 或 投入指定某材料(feeds.resource)進行投料,
+    // site.unique/index/resource 未來只會剩下index.
+    // 投料必為依工位或投入指定材料條碼其中一個
+    //
+    // 材料檢查:
+    //  - 檢查指定工位投入的材料是否可以使用,是否過期,庫存量等, 結果紀錄至 ResourceFeedReply.results.
+    //
+    // 生產紀錄:
+    //  - 依據 feeds.quantity 數量進行生產紀錄, 如沒有給重量(feeds.quantity==null)則當作掛載的材料全部投入.
+    //  - 一般執行(ACTION_AUTO)下重量給0時, 將不會紀錄生產資訊, 並回傳錯誤訊息.
+    //  - 強制執行(ACTION_FORCE)下重量給0時, 強制投料, 並且紀錄數量為0的生產紀錄, 並回傳錯誤訊息.
+    //
+    // feeds.cumulative/byCollectInfo 功能未來將不支援.
+    // closeBatch == true, 該次投料成功後, 該首數將不能再次投料(視為結束投料).
+    // doNotStartBatch == true, 表示實際投料但並未開始生產, 系統會紀錄投料資訊但不變更首數狀態. (未來將棄用)
+    //
+    // 下列為回傳錯誤清單:
+    //  - Error_ERROR_BAD_REQUEST
+    //  - ERROR_RESOURCE_NOT_FOUND (材料條碼不存在)
+    //  - ERROR_RESOURCE_EXPIRED (材料過期)
+    //  - ERROR_RESOURCE_ON_HOLD (材料狀態不能使用)
+    //  - ERROR_WORKORDER_NOT_FOUND (找不到指定的工單)
+    //  - ERROR_WORKORDER_BAD_BATCH (該工單作業批次狀態無法進行掛載)
+    //  - ERROR_BATCH_NOT_FOUND (找不到指定的作業批次)
+    //  - ERROR_US_MISMATCH (操作人員與機台登入人員不符)
+    //  - ERROR_SR_SITE_NOT_FOUND (找不到指定操作工位)
+    //  - ERROR_SW_MISMATCH (操作機台與派工單不符)
+    //  - ERROR_RW_QUANTITY_BELOW_MIN (材料用量低於配合表最低用量)
+    //  - ERROR_RW_QUANTITY_ABOVE_MAX (材料用量高於配合表最高用量)
+    //  - ERROR_RW_QUANTITY_SHORTAGE (材料庫存不足))
+    //  - ERROR_RW_BAD_GRADE (材料等級不符)
+    //  - ERROR_RW_RESOURCE_UNEXPECTED (材料與配方不符)
+    //  - ERROR_RW_RESOURCE_MISSING (部份所需的材料未齊全)
+    rpc ResourceFeed (api.ResourceFeedRequest) returns (api.ResourceFeedReply){
+        option (google.api.http) = {
+            post : "/mes/api/v2/resource/feed"
+            body : "*"
+        };
+    };
+
+    // 收料
+    //
+    // 收料功能將會進行收料以及產出紀錄. 您必須指定 workOrder, collectBatch, quantity 告訴系統欲收料的工單號碼, 收料量
+    // 相當於幾個首數(預設為1), 收料量.
+    // 部份工程不提供工單要可以進行收料, 則需指定 product 資訊(id, type, unit)
+    // ps: 不提供工單進行投收料的工程不得指定 Feed.AccordingRecipe.
+    //
+    // 您可透過 resource 指定這批產出的製品/成品紀錄至指定的標示卡條碼, 若無指定, 系統將自動產生一組標示卡條碼, 可從
+    // CollectReply.resource 得知其標示卡號碼. 當您未指定標示卡條碼時, 您必須透過 carrier 指定其標示卡條碼應放置於哪一
+    // 載具.
+    // 部份工程沒有使用載具或是沒有規劃相關流程, 但有指定收料條碼(resource.ID), 則 carrier 可以不傳.
+    //
+    // 系統依據 actionMode 分成兩種執行模式: 一般執行(ACTION_AUTO)和強制執行(ACTION_FORCE), 預設為一般執行. 當處理請求
+    // 時遇到系統認定為不正常操作(例如: 該首數狀態不可收料, 收料量大於投料量等)時, 會回饋錯誤到 CollectReply.error.
+    // 您亦可透過強制執行(actionMode=ACTION_FORCE), 系統仍回饋錯誤並執行收料及產出紀錄, 依情況恐怕發生資料不齊全或無法
+    // 預期狀況, 例如標示卡不存在的話, 將導致後段工程仍舊無法使用該條碼, 即使收料請求已被系統接受並執行.
+    //
+    // 若您想知道該批製品/成品更進一步資訊, 可透過 labelFields 指定需要知道的資訊, 目前支援:
+    //  - product_type: 製品/成品類別, 例如: 天然橡膠, 合成橡膠, 鋼絲圈...等.
+    //  - process_name: 製品生產流程代號
+    //  - collect_quantity: 收取數
+    //  - station: 機台號碼
+    //  - manufacture_date: 製造日期時間
+    //  - expiry: 製品/成品過期日期時間
+    //  - operator: 收料人員
+    //  - batch: 工單號碼+collectBatch
+    //  - lot: 標示卡號碼
+    //  - lot_number: 生產批號, 格式: 1碼工作群組+2碼機台編號+"-"+2碼月份+2碼日期, 例如: 工作群組=5, 機台編號=3,
+    //                日期=2021-02-03, 其生產批號為: 503-0203.
+    // 以上資訊可從 CollectReply.labelFields 獲得.
+    //
+    // 若您僅需要查詢收料紀錄, 可指定 onlyQueryLabels=true, 並給予以下資訊:
+    //  - 工單編號(workOrder)
+    //  - 收料序號(sequence)
+    //  - 查詢欄位(labelFields)
+    // 系統亦依據 metadata 的操作機台和當前登入人員, 篩選對應的收料紀錄(依據工單編號+生產批號+收料序號).
+    // 若存在收料記錄, 依據 labelFields 回傳資料; 若不存在則回傳錯誤.
+    //
+    // 包含投料功能:
+    //  - Feed.feeds 參考 resourceFeed 指定投入材料 or 從 site 投入指定材料
+    //  - Feed.AccordingRecipe 決定是否依照配合表重量扣重, 不指定的話 feeds 投入材料必填重量
+    //
+    // 下列為回傳錯誤清單:
+    //  - Error_ERROR_BAD_REQUEST
+    //  - ERROR_RESOURCE_NOT_FOUND (材料條碼不存在)
+    //  - ERROR_RESOURCE_EXISTED (收料標示卡已存在)
+    //  - ERROR_WORKORDER_NOT_FOUND (找不到指定的工單)
+    //  - ERROR_WORKORDER_BAD_BATCH (該工單作業批次狀態無法進行掛載)
+    //  - ERROR_CARRIER_NOT_FOUND (找不到指定收取容器條碼)
+    //  - ERROR_CARRIER_IN_USE (收料容器已被使用)
+    //  - ERROR_BATCH_NOT_READY (該作業批次還不能收料)
+    //  - ERROR_RW_QUANTITY_ABOVE_MAX (收取數量大於投料量, 超出允許收料範圍)
+    //  - ERROR_WORKORDER_BAD_STATUS (工單狀態錯誤不允許進行操作)
+    //  - ERROR_RECORD_EXISTED (收料紀錄已經存在)
+    //  - ERROR_RECORD_NOT_FOUND (找不到收料紀錄)
+    rpc Collect (api.CollectRequest) returns (api.CollectReply) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/resource/collect"
+            body : "*"
+        };
+    };
+
+    // 寫入檢測數據
+    rpc RecordInspectResults (api.RecordInspectResultsRequest) returns (api.RecordInspectResultsReply) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/record-inspect-results"
+            body : "*"
+        };
+    }
+
+    // 查詢基準
+    rpc Recipe (api.RecipeRequest) returns (api.RecipeReply) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/recipe"
+            body : "*"
+        };
+    }
+
+    // 紀錄包裝秤重
+    rpc RecordPacking (api.RecordPackingRequest) returns (api.RecordPackingReply) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/record-packing"
+            body : "*"
+        };
+    }
+
+    // 條碼查詢
+    rpc ListResources (api.ListResourcesRequest) returns (api.ListResourcesReply) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/resource"
+            body : "*"
+        };
+    }
+
+    // 參數上傳
+    rpc UploadProductionParameters(stream api.UploadProductionParametersRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post : "/mes/api/v2/blob/upload"
+            body : "*"
+        };
+    }
+}
